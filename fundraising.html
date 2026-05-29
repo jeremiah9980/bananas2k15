@@ -17,9 +17,9 @@
 
     /* Donation card */
     .donation-card {
-      background: var(--color-background-primary);
-      border: 0.5px solid var(--color-border-tertiary);
-      border-radius: var(--border-radius-lg);
+      background: var(--white);
+      border: 1px solid var(--g4);
+      border-radius: 10px;
       overflow: hidden;
       position: sticky;
       top: 72px;
@@ -34,7 +34,7 @@
     /* Progress */
     .progress-track {
       height: 8px;
-      background: var(--color-border-tertiary);
+      background: var(--g4);
       border-radius: 4px;
       overflow: hidden;
       margin-bottom: 8px;
@@ -50,10 +50,10 @@
       display: flex;
       justify-content: space-between;
       font-size: 12px;
-      color: var(--color-text-tertiary);
+      color: var(--g3);
       margin-bottom: 20px;
     }
-    .progress-meta strong { color: var(--color-text-primary); }
+    .progress-meta strong { color: var(--ink); }
 
     /* Amount grid */
     .amt-grid {
@@ -63,14 +63,14 @@
       margin-bottom: 12px;
     }
     .amt-btn {
-      border: 0.5px solid var(--color-border-secondary);
-      background: var(--color-background-secondary);
-      border-radius: var(--border-radius-md);
+      border: 1px solid var(--g4);
+      background: var(--g5);
+      border-radius: 8px;
       padding: 9px 4px;
       font-family: var(--font-sans);
       font-size: 14px;
       font-weight: 500;
-      color: var(--color-text-primary);
+      color: var(--ink);
       cursor: pointer;
       text-align: center;
       transition: border-color .12s, background .12s;
@@ -79,31 +79,31 @@
       display: block;
       font-size: 10px;
       font-weight: 400;
-      color: var(--color-text-tertiary);
+      color: var(--g3);
       margin-top: 1px;
     }
     .amt-btn:hover { border-color: var(--yellow); }
     .amt-btn.active {
       border: 2px solid var(--yellow);
       background: rgba(245,196,0,.07);
-      color: var(--color-text-primary);
+      color: var(--ink);
     }
 
     .custom-wrap { position: relative; margin-bottom: 12px; }
     .custom-wrap span {
       position: absolute; left: 12px; top: 50%;
       transform: translateY(-50%);
-      font-size: 14px; color: var(--color-text-tertiary);
+      font-size: 14px; color: var(--g3);
     }
     .custom-wrap input {
       width: 100%;
-      border: 0.5px solid var(--color-border-secondary);
-      border-radius: var(--border-radius-md);
+      border: 1px solid var(--g4);
+      border-radius: 8px;
       padding: 10px 12px 10px 26px;
       font-family: var(--font-sans);
       font-size: 14px;
-      color: var(--color-text-primary);
-      background: var(--color-background-primary);
+      color: var(--ink);
+      background: var(--white);
       outline: none;
     }
     .custom-wrap input:focus { border-color: var(--yellow); }
@@ -111,9 +111,9 @@
     .donate-btn {
       width: 100%;
       background: var(--yellow);
-      color: var(--navy);
+      color: var(--blue);
       border: none;
-      border-radius: var(--border-radius-md);
+      border-radius: 8px;
       padding: 13px;
       font-family: var(--font-sans);
       font-size: 14px;
@@ -125,7 +125,7 @@
 
     .card-note {
       font-size: 11px;
-      color: var(--color-text-tertiary);
+      color: var(--g3);
       text-align: center;
       margin-top: 10px;
       line-height: 1.6;
@@ -134,11 +134,11 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: var(--color-background-secondary);
-      border-radius: var(--border-radius-md);
+      background: var(--g5);
+      border-radius: 8px;
       padding: 10px 12px;
       font-size: 13px;
-      color: var(--color-text-secondary);
+      color: var(--g1);
       margin-top: 10px;
     }
     .venmo-badge {
@@ -158,14 +158,14 @@
       align-items: center;
       gap: 12px;
       padding: 9px 0;
-      border-bottom: 0.5px solid var(--color-border-tertiary);
+      border-bottom: 1px solid var(--g4);
     }
     .alloc-row:last-child { border-bottom: none; }
     .alloc-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
-    .alloc-name { font-size: 13px; color: var(--color-text-secondary); flex: 1; }
-    .alloc-bar-bg { width: 100px; height: 5px; background: var(--color-border-tertiary); border-radius: 3px; overflow: hidden; flex-shrink: 0; }
+    .alloc-name { font-size: 13px; color: var(--g1); flex: 1; }
+    .alloc-bar-bg { width: 100px; height: 5px; background: var(--g4); border-radius: 3px; overflow: hidden; flex-shrink: 0; }
     .alloc-fill { height: 100%; border-radius: 3px; }
-    .alloc-pct { font-size: 12px; font-weight: 500; color: var(--color-text-primary); min-width: 32px; text-align: right; }
+    .alloc-pct { font-size: 12px; font-weight: 500; color: var(--ink); min-width: 32px; text-align: right; }
 
     /* Sponsor tier pills */
     .tier-row {
@@ -173,7 +173,7 @@
       align-items: center;
       gap: 14px;
       padding: 14px 0;
-      border-bottom: 0.5px solid var(--color-border-tertiary);
+      border-bottom: 1px solid var(--g4);
     }
     .tier-row:last-child { border-bottom: none; }
     .tier-price {
@@ -184,15 +184,15 @@
       flex-shrink: 0;
     }
     .tier-info { flex: 1; }
-    .tier-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
-    .tier-desc { font-size: 12px; color: var(--color-text-tertiary); margin-top: 1px; }
+    .tier-name { font-size: 13px; font-weight: 500; color: var(--ink); }
+    .tier-desc { font-size: 12px; color: var(--g3); margin-top: 1px; }
 
     /* Campaign timeline items */
     .timeline-item {
       display: flex;
       gap: 14px;
       padding: 12px 0;
-      border-bottom: 0.5px solid var(--color-border-tertiary);
+      border-bottom: 1px solid var(--g4);
     }
     .timeline-item:last-child { border-bottom: none; }
     .timeline-month {
@@ -205,8 +205,8 @@
       min-width: 36px;
       padding-top: 2px;
     }
-    .timeline-name { font-size: 13px; color: var(--color-text-primary); font-weight: 500; }
-    .timeline-target { font-size: 12px; color: var(--color-text-tertiary); margin-top: 2px; }
+    .timeline-name { font-size: 13px; color: var(--ink); font-weight: 500; }
+    .timeline-target { font-size: 12px; color: var(--g3); margin-top: 2px; }
 
     @media (max-width: 760px) {
       .give-grid { grid-template-columns: 1fr; }
@@ -282,7 +282,7 @@
               <span class="alloc-pct">10%</span>
             </div>
           </div>
-          <p style="font-size:12px;color:var(--color-text-tertiary);margin-top:8px;">
+          <p style="font-size:12px;color:var(--g3);margin-top:8px;">
             Allocation approved by the Board of Directors at the January meeting each season. Adjustments require a Category I board vote.
           </p>
         </div>
@@ -382,7 +382,7 @@
             </div>
           </div>
           <div style="margin-top:14px;">
-            <a href="docs/Bananas2K15_Sponsorship_Package.docx" style="display:inline-flex;align-items:center;gap:8px;background:var(--yellow);color:var(--navy);font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;padding:10px 18px;border-radius:4px;text-decoration:none;" download>
+            <a href="docs/Bananas2K15_Sponsorship_Package.docx" style="display:inline-flex;align-items:center;gap:8px;background:var(--yellow);color:var(--blue);font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;padding:10px 18px;border-radius:4px;text-decoration:none;" download>
               <i class="ti ti-download"></i> Download Full Sponsorship Package
             </a>
             <a href="contact.html" style="display:inline-flex;align-items:center;gap:8px;color:var(--yellow);font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;padding:10px 18px;text-decoration:none;margin-left:4px;">
@@ -439,20 +439,20 @@
               Processed via Venmo or check.<br>Acknowledged within 48 hours.
             </p>
 
-            <div style="border-top:0.5px solid var(--color-border-tertiary);margin:14px 0 12px;"></div>
+            <div style="border-top:1px solid var(--g4);margin:14px 0 12px;"></div>
 
-            <div style="font-size:11px;font-weight:500;color:var(--color-text-tertiary);margin-bottom:8px;">Other ways to give</div>
+            <div style="font-size:11px;font-weight:500;color:var(--g3);margin-bottom:8px;">Other ways to give</div>
             <div class="venmo-row">
               <span class="venmo-badge">Venmo</span>
-              <span style="font-weight:500;color:var(--color-text-primary);">@Bananas2K15</span>
-              <span style="margin-left:auto;font-size:10px;color:var(--color-text-tertiary);">Note: "2025 Booster"</span>
+              <span style="font-weight:500;color:var(--ink);">@Bananas2K15</span>
+              <span style="margin-left:auto;font-size:10px;color:var(--g3);">Note: "2025 Booster"</span>
             </div>
 
-            <div style="border-top:0.5px solid var(--color-border-tertiary);margin:14px 0 12px;"></div>
+            <div style="border-top:1px solid var(--g4);margin:14px 0 12px;"></div>
 
             <!-- Impact at your level -->
-            <div style="font-size:11px;font-weight:500;color:var(--color-text-tertiary);margin-bottom:8px;">What your gift covers</div>
-            <div id="impact-msg" style="font-size:13px;color:var(--color-text-secondary);line-height:1.6;background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px;">
+            <div style="font-size:11px;font-weight:500;color:var(--g3);margin-bottom:8px;">What your gift covers</div>
+            <div id="impact-msg" style="font-size:13px;color:var(--g1);line-height:1.6;background:var(--g5);border-radius:8px;padding:10px 12px;">
               A $50 gift offsets approximately one month of dues for a player on the roster.
             </div>
           </div>
@@ -460,21 +460,21 @@
 
         <!-- Quick org credibility below card -->
         <div class="card mt-16">
-          <div style="font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--color-text-tertiary);margin-bottom:12px;">Why give to this org</div>
+          <div style="font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--g3);margin-bottom:12px;">Why give to this org</div>
           <div style="display:flex;flex-direction:column;gap:8px;">
-            <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--color-text-secondary);">
+            <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--g1);">
               <i class="ti ti-building" style="color:var(--yellow);font-size:14px;flex-shrink:0;margin-top:1px;" aria-hidden="true"></i>
               Formal Board of Directors with documented bylaws
             </div>
-            <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--color-text-secondary);">
+            <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--g1);">
               <i class="ti ti-chart-bar" style="color:var(--yellow);font-size:14px;flex-shrink:0;margin-top:1px;" aria-hidden="true"></i>
               Quarterly impact reports to all $50+ donors
             </div>
-            <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--color-text-secondary);">
+            <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--g1);">
               <i class="ti ti-lock" style="color:var(--yellow);font-size:14px;flex-shrink:0;margin-top:1px;" aria-hidden="true"></i>
               Published allocation model — you know where every dollar goes
             </div>
-            <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--color-text-secondary);">
+            <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--g1);">
               <i class="ti ti-check" style="color:var(--yellow);font-size:14px;flex-shrink:0;margin-top:1px;" aria-hidden="true"></i>
               No roster pressure — family participation is always voluntary
             </div>
@@ -497,7 +497,7 @@
     <a href="docs.html">Documents</a>
     <a href="contact.html">Contact</a>
   </div>
-  <p>Georgetown, Texas &bull; 10U Select Softball &bull; 2025</p>
+  <p>Georgetown, Texas &bull; 12U Select Softball &bull; 2025</p>
   <p style="margin-top:6px;">Fundraising questions: Jesica Cargill (operations) &bull; Sponsorships: Jeremiah Cargill (strategy)</p>
 </footer>
 

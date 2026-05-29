@@ -1,156 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact & Tryouts — Bananas 2K15</title>
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
-</head>
-<body>
-<script src="assets/js/nav.js"></script>
+#!/bin/bash
+# ─────────────────────────────────────────────────────────────
+# deploy.sh — Push Bananas 2K15 site to GitHub
+# Usage: bash deploy.sh
+# ─────────────────────────────────────────────────────────────
 
-<section class="hero">
-  <div class="hero-inner">
-    <div class="hero-kicker">Get Involved</div>
-    <h1>Contact & Tryouts</h1>
-    <div class="hero-rule"></div>
-    <p class="hero-tagline">Interested in playing, coaching, or sponsoring? Every inquiry goes to the right person — not the coach's phone.</p>
-  </div>
-</section>
+REPO="https://github.com/jeremiah9980/bananas2k15.git"
+BRANCH="main"
 
-<div class="gold-strip" style="margin:0;">
-  <p>2025 Roster Open &nbsp;&bull;&nbsp; 10U Select &nbsp;&bull;&nbsp; Georgetown, TX &nbsp;&bull;&nbsp; Reach Out to Learn More</p>
-</div>
+echo "🍌 Bananas 2K15 — deploying to GitHub Pages"
+echo ""
 
-<div class="page">
+# Init if needed
+if [ ! -d ".git" ]; then
+  git init
+  git remote add origin "$REPO"
+  echo "✓ Initialized git repo"
+else
+  echo "✓ Git repo already initialized"
+fi
 
-  <div class="section">
-    <div class="section-label">Contact the right person</div>
-    <h2>Who to Reach</h2>
-    <div class="section-rule"></div>
-    <div class="card-grid card-grid-2">
+# Ensure GitHub Pages is served from root of main branch
+# (no /docs subfolder needed — all files are in root)
 
-      <div class="card card-gold">
-        <div class="avatar av-gold">JC</div>
-        <span class="badge badge-gold">Roster &amp; Operations</span>
-        <h3 style="margin-top:4px;">Jesica Cargill</h3>
-        <p class="card-role">Co-Director — Operations &amp; Finance</p>
-        <ul style="list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:8px;">
-          <li style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--gray2);">
-            <i class="ti ti-baseball" style="color:var(--yellow);"></i> Player tryouts &amp; roster inquiries
-          </li>
-          <li style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--gray2);">
-            <i class="ti ti-cash" style="color:var(--yellow);"></i> Dues &amp; financial questions
-          </li>
-          <li style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--gray2);">
-            <i class="ti ti-calendar" style="color:var(--yellow);"></i> Scheduling &amp; tournament info
-          </li>
-          <li style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--gray2);">
-            <i class="ti ti-message" style="color:var(--yellow);"></i> General family questions
-          </li>
-        </ul>
-      </div>
+git add -A
+git commit -m "Deploy Bananas 2K15 site and documents — $(date '+%Y-%m-%d %H:%M')"
 
-      <div class="card card-gold">
-        <div class="avatar av-gold">JC</div>
-        <span class="badge badge-gold">Partnerships &amp; Brand</span>
-        <h3 style="margin-top:4px;">Jeremiah Cargill</h3>
-        <p class="card-role">Co-Director — Strategy &amp; Brand</p>
-        <ul style="list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:8px;">
-          <li style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--gray2);">
-            <i class="ti ti-handshake" style="color:var(--yellow);"></i> Sponsorships &amp; partnerships
-          </li>
-          <li style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--gray2);">
-            <i class="ti ti-users" style="color:var(--yellow);"></i> Coaching staff &amp; Board inquiries
-          </li>
-          <li style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--gray2);">
-            <i class="ti ti-brand-instagram" style="color:var(--yellow);"></i> Media &amp; brand requests
-          </li>
-          <li style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--gray2);">
-            <i class="ti ti-device-laptop" style="color:var(--yellow);"></i> Website &amp; tech questions
-          </li>
-        </ul>
-      </div>
+git branch -M "$BRANCH"
+git push -u origin "$BRANCH" --force
 
-    </div>
-
-    <div class="callout mt-24">
-      <p><strong>Note:</strong> Co-Head Coaches Brian Rogers &amp; Bob is not the organizational contact. Coaching inquiries (tryout feedback, development questions) are handled at the field during or after practice. All org inquiries go through the Co-Directors.</p>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-label">Join the team</div>
-    <h2>Tryouts & Roster</h2>
-    <div class="section-rule"></div>
-    <p>Bananas 2K15 competes in the 10U select division. Tryouts are coordinated by the Co-Directors and evaluated exclusively by Co-Head Coaches Brian Rogers &amp; Bob. Families are encouraged to reach out early — roster spots are limited and the tryout process is selective.</p>
-    <div class="card-grid card-grid-3 mt-24">
-      <div class="card" style="text-align:center;">
-        <div style="font-family:var(--display);font-size:30px;font-weight:900;color:var(--yellow);">10U</div>
-        <div style="font-size:13px;color:var(--gray2);margin-top:6px;">Age Division</div>
-        <div style="font-size:12px;color:var(--gray3);margin-top:4px;">Born 2015</div>
-      </div>
-      <div class="card" style="text-align:center;">
-        <div style="font-size:22px;color:var(--yellow);margin-bottom:6px;"><i class="ti ti-map-pin"></i></div>
-        <div style="font-size:13px;color:var(--ink);font-weight:600;">Georgetown, Texas</div>
-        <div style="font-size:12px;color:var(--gray3);margin-top:4px;">Home base</div>
-      </div>
-      <div class="card" style="text-align:center;">
-        <div style="font-size:22px;color:var(--yellow);margin-bottom:6px;"><i class="ti ti-calendar"></i></div>
-        <div style="font-size:13px;color:var(--ink);font-weight:600;">Contact for Dates</div>
-        <div style="font-size:12px;color:var(--gray3);margin-top:4px;">2025 tryout schedule</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-label">Coach with us</div>
-    <h2>Coaching Opportunities</h2>
-    <div class="section-rule"></div>
-    <p>Bananas 2K15 is actively recruiting assistant coaches. If you have a strong technical background in softball and want to be part of a professionally run program where you coach and nothing else, we want to talk.</p>
-    <div class="card-grid card-grid-2 mt-24">
-      <div class="card card-teal">
-        <h3 style="color:#0F766E;">What We Offer</h3>
-        <ul style="list-style:none;margin-top:10px;display:flex;flex-direction:column;gap:6px;">
-          <li style="font-size:13px;color:var(--gray2);">→ Zero administrative burden</li>
-          <li style="font-size:13px;color:var(--gray2);">→ Defined position group ownership</li>
-          <li style="font-size:13px;color:var(--gray2);">→ Tournament entry fees covered</li>
-          <li style="font-size:13px;color:var(--gray2);">→ Staff gear included</li>
-          <li style="font-size:13px;color:var(--gray2);">→ Path to Board seat if desired</li>
-        </ul>
-      </div>
-      <div class="card card-teal">
-        <h3 style="color:#0F766E;">What We're Looking For</h3>
-        <ul style="list-style:none;margin-top:10px;display:flex;flex-direction:column;gap:6px;">
-          <li style="font-size:13px;color:var(--gray2);">→ Strong technical foundation</li>
-          <li style="font-size:13px;color:var(--gray2);">→ Comfortable owning a position group</li>
-          <li style="font-size:13px;color:var(--gray2);">→ Builds trust with kids</li>
-          <li style="font-size:13px;color:var(--gray2);">→ Consistent practice energy</li>
-          <li style="font-size:13px;color:var(--gray2);">→ Collaborative, not solo</li>
-        </ul>
-      </div>
-    </div>
-    <p class="mt-24">Contact Jeremiah Cargill to start the conversation. If you know a coach who'd be a great fit, send them this link.</p>
-  </div>
-
-  <div class="section">
-    <div class="section-label">Support the program</div>
-    <h2>Sponsorship</h2>
-    <div class="section-rule"></div>
-    <p>Bananas 2K15 offers sponsorship opportunities for local businesses and brands who want to support competitive youth softball in Central Texas. Sponsors receive brand visibility at tournaments, on team gear, and through the organization's digital presence.</p>
-    <p>Contact <strong>Jeremiah Cargill</strong> for sponsorship tiers, pricing, and opportunities.</p>
-  </div>
-
-</div>
-
-<footer>
-  <div class="footer-brand">🍌 Bananas 2K15</div>
-  <div class="footer-links">
-    <a href="index.html">Home</a><a href="about.html">About</a><a href="board.html">Board</a><a href="coaching.html">Coaching</a><a href="bylaws.html">Bylaws</a><a href="docs.html">Documents</a>
-  </div>
-  <p>Georgetown, Texas &bull; 10U Select Softball &bull; 2025</p>
-  <p style="margin-top:6px;">Roster inquiries: Jesica Cargill &nbsp;&bull;&nbsp; Sponsorships &amp; coaching: Jeremiah Cargill</p>
-</footer>
-</body>
-</html>
+echo ""
+echo "✓ Pushed to GitHub"
+echo ""
+echo "Live at: https://jeremiah9980.github.io/bananas2k15/"
+echo ""
+echo "If GitHub Pages isn't enabled yet:"
+echo "  1. Go to github.com/jeremiah9980/bananas2k15"
+echo "  2. Settings → Pages"
+echo "  3. Source: Deploy from branch → main → / (root)"
+echo "  4. Save — site goes live in ~60 seconds"
