@@ -1,1 +1,11 @@
-Unnamed repository; edit this file 'description' to name the repository.
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[user]
+	email = jeremiah@bananas2k15.org
+	name = Jeremiah Cargill
+[remote "origin"]
+	url = https://github.com/jeremiah9980/bananas2k15.git
+	fetch = +refs/heads/*:refs/remotes/origin/*

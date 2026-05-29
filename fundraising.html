@@ -3,109 +3,550 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Documents — Bananas 2K15</title>
+  <title>Support Us — Bananas 2K15</title>
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <style>
+    /* ── Page-specific additions ── */
+    .give-grid {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* Donation card */
+    .donation-card {
+      background: var(--color-background-primary);
+      border: 0.5px solid var(--color-border-tertiary);
+      border-radius: var(--border-radius-lg);
+      overflow: hidden;
+      position: sticky;
+      top: 72px;
+    }
+    .donation-card-header {
+      background: var(--white);
+      padding: 20px 24px 18px;
+      border: 2px solid var(--yellow);
+    }
+    .donation-card-body { padding: 20px 24px; }
+
+    /* Progress */
+    .progress-track {
+      height: 8px;
+      background: var(--color-border-tertiary);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--yellow);
+      border-radius: 4px;
+      width: 42%;
+      transition: width 1.2s ease;
+    }
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--color-text-tertiary);
+      margin-bottom: 20px;
+    }
+    .progress-meta strong { color: var(--color-text-primary); }
+
+    /* Amount grid */
+    .amt-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .amt-btn {
+      border: 0.5px solid var(--color-border-secondary);
+      background: var(--color-background-secondary);
+      border-radius: var(--border-radius-md);
+      padding: 9px 4px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      cursor: pointer;
+      text-align: center;
+      transition: border-color .12s, background .12s;
+    }
+    .amt-btn small {
+      display: block;
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--color-text-tertiary);
+      margin-top: 1px;
+    }
+    .amt-btn:hover { border-color: var(--yellow); }
+    .amt-btn.active {
+      border: 2px solid var(--yellow);
+      background: rgba(245,196,0,.07);
+      color: var(--color-text-primary);
+    }
+
+    .custom-wrap { position: relative; margin-bottom: 12px; }
+    .custom-wrap span {
+      position: absolute; left: 12px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px; color: var(--color-text-tertiary);
+    }
+    .custom-wrap input {
+      width: 100%;
+      border: 0.5px solid var(--color-border-secondary);
+      border-radius: var(--border-radius-md);
+      padding: 10px 12px 10px 26px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: var(--color-text-primary);
+      background: var(--color-background-primary);
+      outline: none;
+    }
+    .custom-wrap input:focus { border-color: var(--yellow); }
+
+    .donate-btn {
+      width: 100%;
+      background: var(--yellow);
+      color: var(--navy);
+      border: none;
+      border-radius: var(--border-radius-md);
+      padding: 13px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity .12s;
+    }
+    .donate-btn:hover { opacity: .9; }
+
+    .card-note {
+      font-size: 11px;
+      color: var(--color-text-tertiary);
+      text-align: center;
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+    .venmo-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--color-background-secondary);
+      border-radius: var(--border-radius-md);
+      padding: 10px 12px;
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      margin-top: 10px;
+    }
+    .venmo-badge {
+      background: #3D95CE;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+    }
+
+    /* Allocation bars */
+    .alloc-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 0;
+      border-bottom: 0.5px solid var(--color-border-tertiary);
+    }
+    .alloc-row:last-child { border-bottom: none; }
+    .alloc-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+    .alloc-name { font-size: 13px; color: var(--color-text-secondary); flex: 1; }
+    .alloc-bar-bg { width: 100px; height: 5px; background: var(--color-border-tertiary); border-radius: 3px; overflow: hidden; flex-shrink: 0; }
+    .alloc-fill { height: 100%; border-radius: 3px; }
+    .alloc-pct { font-size: 12px; font-weight: 500; color: var(--color-text-primary); min-width: 32px; text-align: right; }
+
+    /* Sponsor tier pills */
+    .tier-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 0.5px solid var(--color-border-tertiary);
+    }
+    .tier-row:last-child { border-bottom: none; }
+    .tier-price {
+      font-family: var(--display);
+      font-size: 20px;
+      font-weight: 800;
+      min-width: 64px;
+      flex-shrink: 0;
+    }
+    .tier-info { flex: 1; }
+    .tier-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+    .tier-desc { font-size: 12px; color: var(--color-text-tertiary); margin-top: 1px; }
+
+    /* Campaign timeline items */
+    .timeline-item {
+      display: flex;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 0.5px solid var(--color-border-tertiary);
+    }
+    .timeline-item:last-child { border-bottom: none; }
+    .timeline-month {
+      font-family: var(--display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--yellow);
+      min-width: 36px;
+      padding-top: 2px;
+    }
+    .timeline-name { font-size: 13px; color: var(--color-text-primary); font-weight: 500; }
+    .timeline-target { font-size: 12px; color: var(--color-text-tertiary); margin-top: 2px; }
+
+    @media (max-width: 760px) {
+      .give-grid { grid-template-columns: 1fr; }
+      .donation-card { position: static; }
+    }
+  </style>
 </head>
 <body>
 <script src="assets/js/nav.js"></script>
 
+<!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-kicker">Official Documents</div>
-    <h1>Documents</h1>
+    <div class="hero-kicker">Support the program</div>
+    <h1>Support Us</h1>
     <div class="hero-rule"></div>
-    <p class="hero-tagline">Official Bananas 2K15 organizational documents available for download. All documents are produced and maintained by the Co-Directors.</p>
+    <p class="hero-tagline">
+      Your dollars lower what families pay, fund tournament travel, and help us build a program Georgetown athletes can compete in for years to come.
+    </p>
   </div>
 </section>
 
+<div class="gold-strip" style="margin:0;">
+  <p>2025 Booster Campaign Active &nbsp;&bull;&nbsp; Goal: $1,000 &nbsp;&bull;&nbsp; 42% Raised &nbsp;&bull;&nbsp; Every Dollar Goes to Athletes</p>
+</div>
+
+<!-- MAIN CONTENT -->
 <div class="page">
-
   <div class="section">
-    <div class="section-label">Official documents</div>
-    <h2>Download Center</h2>
-    <div class="section-rule"></div>
+    <div class="give-grid">
 
-    <div style="display:flex;flex-direction:column;gap:12px;">
+      <!-- LEFT COLUMN -->
+      <div>
+        <div class="section-label">Why give</div>
+        <h2>What Your Support Does</h2>
+        <div class="section-rule"></div>
+        <p>
+          Most select softball programs are funded entirely by family dues — which means the only kids who compete are the ones whose families can absorb the full cost. We don't think talent and household income should be the same variable.
+        </p>
+        <p>
+          <strong>Fundraising at Bananas 2K15 has one primary goal: reduce what families pay.</strong> Every dollar raised against our season target offsets dues, funds tournament travel, and keeps the org stable so we're here next season and the season after that.
+        </p>
+        <p>
+          This isn't a general fund. We publish our allocation model at the start of every season and report against it quarterly. You know exactly where your money goes.
+        </p>
 
-      <a href="docs/Bananas2K15_Bylaws_and_Voting_Structure.docx" class="doc-item" download>
-        <div class="doc-icon"><i class="ti ti-scale"></i></div>
-        <div class="doc-info">
-          <div class="doc-name">Bylaws & Voting Structure</div>
-          <div class="doc-desc">Full governing document — 11 Articles covering board composition, voting categories, financial authority, and the Coach Firewall policy. Adopted 2025.</div>
+        <!-- Allocation -->
+        <div class="mt-32">
+          <div class="section-label">How the money is allocated</div>
+          <div class="card" style="margin-top:12px;">
+            <div class="alloc-row">
+              <div class="alloc-dot" style="background:#F5C400;"></div>
+              <span class="alloc-name">Dues offset — reduce what families pay</span>
+              <div class="alloc-bar-bg"><div class="alloc-fill" style="width:40%;background:#F5C400;"></div></div>
+              <span class="alloc-pct">40%</span>
+            </div>
+            <div class="alloc-row">
+              <div class="alloc-dot" style="background:#378ADD;"></div>
+              <span class="alloc-name">Tournament entry fees & travel</span>
+              <div class="alloc-bar-bg"><div class="alloc-fill" style="width:30%;background:#378ADD;"></div></div>
+              <span class="alloc-pct">30%</span>
+            </div>
+            <div class="alloc-row">
+              <div class="alloc-dot" style="background:#1D9E75;"></div>
+              <span class="alloc-name">Org reserve fund</span>
+              <div class="alloc-bar-bg"><div class="alloc-fill" style="width:20%;background:#1D9E75;"></div></div>
+              <span class="alloc-pct">20%</span>
+            </div>
+            <div class="alloc-row">
+              <div class="alloc-dot" style="background:#7F77DD;"></div>
+              <span class="alloc-name">Equipment, uniforms & gear</span>
+              <div class="alloc-bar-bg"><div class="alloc-fill" style="width:10%;background:#7F77DD;"></div></div>
+              <span class="alloc-pct">10%</span>
+            </div>
+          </div>
+          <p style="font-size:12px;color:var(--color-text-tertiary);margin-top:8px;">
+            Allocation approved by the Board of Directors at the January meeting each season. Adjustments require a Category I board vote.
+          </p>
         </div>
-        <i class="ti ti-download doc-dl"></i>
-      </a>
 
-      <a href="docs/Bananas2K15_Board_Welcome_Packet_Cara.docx" class="doc-item" download>
-        <div class="doc-icon"><i class="ti ti-users"></i></div>
-        <div class="doc-info">
-          <div class="doc-name">Board Member Welcome Packet</div>
-          <div class="doc-desc">Onboarding document for new Board Members — roles, responsibilities, calendar, communications, and the coach recruitment guide. Includes signature page.</div>
+        <!-- Campaign Timeline -->
+        <div class="mt-32">
+          <div class="section-label">2025 fundraising calendar</div>
+          <h2 style="font-size:24px;">Active Campaigns</h2>
+          <div class="section-rule"></div>
+          <div class="card">
+            <div class="timeline-item">
+              <span class="timeline-month">Jan</span>
+              <div>
+                <div class="timeline-name">Annual booster launch</div>
+                <div class="timeline-target">Family, alumni & extended network — $600 goal</div>
+              </div>
+              <span class="badge badge-gold" style="flex-shrink:0;">Active</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-month">Feb</span>
+              <div>
+                <div class="timeline-name">Pre-season merch drop</div>
+                <div class="timeline-target">Tees, hoodies, bags — $500 goal</div>
+              </div>
+              <span class="badge badge-gray" style="flex-shrink:0;">Upcoming</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-month">Feb</span>
+              <div>
+                <div class="timeline-name">Crowdfunding campaign</div>
+                <div class="timeline-target">"Help us get to nationals" — $800 goal</div>
+              </div>
+              <span class="badge badge-gray" style="flex-shrink:0;">Upcoming</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-month">Apr</span>
+              <div>
+                <div class="timeline-name">Season kickoff cookout</div>
+                <div class="timeline-target">Community field event, ticket sales — $400 goal</div>
+              </div>
+              <span class="badge badge-gray" style="flex-shrink:0;">Upcoming</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-month">Jun</span>
+              <div>
+                <div class="timeline-name">Skills clinic day</div>
+                <div class="timeline-target">Open to community, paid entry — $500 goal</div>
+              </div>
+              <span class="badge badge-gray" style="flex-shrink:0;">Upcoming</span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-month">Sep</span>
+              <div>
+                <div class="timeline-name">End-of-season banquet</div>
+                <div class="timeline-target">Ticket sales + silent auction — $500 goal</div>
+              </div>
+              <span class="badge badge-gray" style="flex-shrink:0;">Upcoming</span>
+            </div>
+          </div>
         </div>
-        <i class="ti ti-download doc-dl"></i>
-      </a>
 
-      <a href="docs/Bananas2K15_Coach_Recruitment_Pitch_Bob.docx" class="doc-item" download>
-        <div class="doc-icon"><i class="ti ti-baseball"></i></div>
-        <div class="doc-info">
-          <div class="doc-name">Coaching Staff Recruitment Pitch</div>
-          <div class="doc-desc">Formal recruitment pitch document for prospective assistant coaches. Covers org structure, head coach profile, role definition, and next steps. Includes objection guide.</div>
+        <!-- Sponsorship summary -->
+        <div class="mt-32">
+          <div class="section-label">Business partners</div>
+          <h2 style="font-size:24px;">Sponsorship Tiers</h2>
+          <div class="section-rule"></div>
+          <p>Local and corporate sponsors are the single largest revenue driver for the organization. Four tiers available — jersey logo placement, social features, digital presence, and more.</p>
+          <div class="card mt-16">
+            <div class="tier-row">
+              <span class="tier-price" style="color:#F5C400;">$1,500</span>
+              <div class="tier-info">
+                <div class="tier-name">Gold — Presenting Partner</div>
+                <div class="tier-desc">Jersey logo, bags, helmets, monthly social features, family welcome packet</div>
+              </div>
+              <span class="badge badge-gold" style="flex-shrink:0;">Top tier</span>
+            </div>
+            <div class="tier-row">
+              <span class="tier-price" style="color:var(--g2);">$750</span>
+              <div class="tier-info">
+                <div class="tier-name">Silver — Supporting Partner</div>
+                <div class="tier-desc">Jersey back panel, banner, bi-monthly social, family comms</div>
+              </div>
+            </div>
+            <div class="tier-row">
+              <span class="tier-price" style="color:#92400E;">$350</span>
+              <div class="tier-info">
+                <div class="tier-name">Bronze — Community Partner</div>
+                <div class="tier-desc">Website listing, seasonal social feature, banner placement</div>
+              </div>
+            </div>
+            <div class="tier-row">
+              <span class="tier-price" style="color:#1D9E75;">$200</span>
+              <div class="tier-info">
+                <div class="tier-name">Field — Event Sponsor</div>
+                <div class="tier-desc">Own a single tournament or fundraiser event</div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:14px;">
+            <a href="docs/Bananas2K15_Sponsorship_Package.docx" style="display:inline-flex;align-items:center;gap:8px;background:var(--yellow);color:var(--navy);font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;padding:10px 18px;border-radius:4px;text-decoration:none;" download>
+              <i class="ti ti-download"></i> Download Full Sponsorship Package
+            </a>
+            <a href="contact.html" style="display:inline-flex;align-items:center;gap:8px;color:var(--yellow);font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;padding:10px 18px;text-decoration:none;margin-left:4px;">
+              Contact Jeremiah <i class="ti ti-arrow-right" style="font-size:13px;"></i>
+            </a>
+          </div>
         </div>
-        <i class="ti ti-download doc-dl"></i>
-      </a>
+
+        <!-- Governance note -->
+        <div class="callout mt-32">
+          <p><strong>Governance transparency:</strong> All sponsorship agreements over $500 are approved by a Category II board vote. All fundraising revenue is held in the operational account managed by Co-Director Jesica Cargill. The Fundraising Coordinator raises it, Operations holds it, the Board authorizes major commitments. Quarterly impact reports are distributed to all Board Members and donors who give $50 or more.</p>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN — DONATION CARD -->
+      <div>
+        <div class="donation-card">
+          <div class="donation-card-header">
+            <span style="font-family:var(--display);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--yellow);">2025 Booster Campaign</span>
+            <div style="font-family:var(--display);font-size:22px;font-weight:900;color:#fff;margin-top:4px;text-transform:uppercase;letter-spacing:0.5px;">Make a Gift</div>
+            <div style="font-size:12px;color:var(--g2);margin-top:2px;">Every dollar offsets what families pay this season</div>
+          </div>
+          <div class="donation-card-body">
+
+            <!-- Progress -->
+            <div class="progress-track">
+              <div class="progress-fill" id="pbar"></div>
+            </div>
+            <div class="progress-meta">
+              <span><strong>$420</strong> raised</span>
+              <span>Goal: <strong>$1,000</strong></span>
+            </div>
+
+            <!-- Amounts -->
+            <div class="amt-grid">
+              <button class="amt-btn" data-amount="25" onclick="selectAmt(this)">$25<small>Entry level</small></button>
+              <button class="amt-btn active" data-amount="50" onclick="selectAmt(this)">$50<small>Most common</small></button>
+              <button class="amt-btn" data-amount="100" onclick="selectAmt(this)">$100<small>Game changer</small></button>
+              <button class="amt-btn" data-amount="250" onclick="selectAmt(this)">$250<small>Season backer</small></button>
+              <button class="amt-btn" data-amount="500" onclick="selectAmt(this)">$500<small>Title supporter</small></button>
+              <button class="amt-btn" data-amount="0" onclick="selectAmt(this)">Other<small>Custom</small></button>
+            </div>
+
+            <div class="custom-wrap" id="custom-wrap" style="display:none;">
+              <span>$</span>
+              <input id="custom-amt" type="number" placeholder="Enter amount" min="1">
+            </div>
+
+            <button class="donate-btn" onclick="handleDonate()">
+              Donate — <span id="btn-amt">$50</span>
+            </button>
+
+            <p class="card-note">
+              Processed via Venmo or check.<br>Acknowledged within 48 hours.
+            </p>
+
+            <div style="border-top:0.5px solid var(--color-border-tertiary);margin:14px 0 12px;"></div>
+
+            <div style="font-size:11px;font-weight:500;color:var(--color-text-tertiary);margin-bottom:8px;">Other ways to give</div>
+            <div class="venmo-row">
+              <span class="venmo-badge">Venmo</span>
+              <span style="font-weight:500;color:var(--color-text-primary);">@Bananas2K15</span>
+              <span style="margin-left:auto;font-size:10px;color:var(--color-text-tertiary);">Note: "2025 Booster"</span>
+            </div>
+
+            <div style="border-top:0.5px solid var(--color-border-tertiary);margin:14px 0 12px;"></div>
+
+            <!-- Impact at your level -->
+            <div style="font-size:11px;font-weight:500;color:var(--color-text-tertiary);margin-bottom:8px;">What your gift covers</div>
+            <div id="impact-msg" style="font-size:13px;color:var(--color-text-secondary);line-height:1.6;background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px;">
+              A $50 gift offsets approximately one month of dues for a player on the roster.
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick org credibility below card -->
+        <div class="card mt-16">
+          <div style="font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--color-text-tertiary);margin-bottom:12px;">Why give to this org</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--color-text-secondary);">
+              <i class="ti ti-building" style="color:var(--yellow);font-size:14px;flex-shrink:0;margin-top:1px;" aria-hidden="true"></i>
+              Formal Board of Directors with documented bylaws
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--color-text-secondary);">
+              <i class="ti ti-chart-bar" style="color:var(--yellow);font-size:14px;flex-shrink:0;margin-top:1px;" aria-hidden="true"></i>
+              Quarterly impact reports to all $50+ donors
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--color-text-secondary);">
+              <i class="ti ti-lock" style="color:var(--yellow);font-size:14px;flex-shrink:0;margin-top:1px;" aria-hidden="true"></i>
+              Published allocation model — you know where every dollar goes
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--color-text-secondary);">
+              <i class="ti ti-check" style="color:var(--yellow);font-size:14px;flex-shrink:0;margin-top:1px;" aria-hidden="true"></i>
+              No roster pressure — family participation is always voluntary
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>
-
-  <div class="section">
-    <div class="section-label">Coming soon</div>
-    <h2>In Progress</h2>
-    <div class="section-rule"></div>
-    <div style="display:flex;flex-direction:column;gap:10px;">
-      <div class="doc-item" style="opacity:.5;cursor:default;">
-        <div class="doc-icon" style="border-color:rgba(107,114,128,.3);background:transparent;"><i class="ti ti-clock" style="color:var(--gray3);"></i></div>
-        <div class="doc-info">
-          <div class="doc-name" style="color:var(--gray2);">Parent Expectations & Code of Conduct</div>
-          <div class="doc-desc">Communication policy, expectations for families, and conduct standards.</div>
-        </div>
-        <span style="font-size:11px;font-family:var(--display);color:var(--gray3);letter-spacing:1px;text-transform:uppercase;flex-shrink:0;">Draft</span>
-      </div>
-      <div class="doc-item" style="opacity:.5;cursor:default;">
-        <div class="doc-icon" style="border-color:rgba(107,114,128,.3);background:transparent;"><i class="ti ti-clock" style="color:var(--gray3);"></i></div>
-        <div class="doc-info">
-          <div class="doc-name" style="color:var(--gray2);">Tryout & Player Selection Policy</div>
-          <div class="doc-desc">Tryout format, evaluation criteria, and roster decision process.</div>
-        </div>
-        <span style="font-size:11px;font-family:var(--display);color:var(--gray3);letter-spacing:1px;text-transform:uppercase;flex-shrink:0;">Draft</span>
-      </div>
-      <div class="doc-item" style="opacity:.5;cursor:default;">
-        <div class="doc-icon" style="border-color:rgba(107,114,128,.3);background:transparent;"><i class="ti ti-clock" style="color:var(--gray3);"></i></div>
-        <div class="doc-info">
-          <div class="doc-name" style="color:var(--gray2);">Season Dues & Budget Breakdown</div>
-          <div class="doc-desc">Line-item financial breakdown of dues, tournament fees, and organizational costs.</div>
-        </div>
-        <span style="font-size:11px;font-family:var(--display);color:var(--gray3);letter-spacing:1px;text-transform:uppercase;flex-shrink:0;">Pending</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-label">Document policy</div>
-    <h2>About These Documents</h2>
-    <div class="section-rule"></div>
-    <p>All official documents are prepared and maintained by Co-Director Jeremiah Cargill and reviewed by the Board. Documents marked <strong>Confidential</strong> are for internal distribution and should not be shared externally without Co-Director approval.</p>
-    <p>The Bylaws are the governing authority. In any conflict between other documents and the Bylaws, the Bylaws control. Questions about any document should be directed to the Co-Directors.</p>
-  </div>
-
 </div>
 
 <footer>
   <div class="footer-brand">🍌 Bananas 2K15</div>
   <div class="footer-links">
-    <a href="index.html">Home</a><a href="about.html">About</a><a href="board.html">Board</a><a href="coaching.html">Coaching</a><a href="bylaws.html">Bylaws</a><a href="contact.html">Contact</a>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="board.html">Board</a>
+    <a href="coaching.html">Coaching</a>
+    <a href="bylaws.html">Bylaws</a>
+    <a href="docs.html">Documents</a>
+    <a href="contact.html">Contact</a>
   </div>
   <p>Georgetown, Texas &bull; 10U Select Softball &bull; 2025</p>
+  <p style="margin-top:6px;">Fundraising questions: Jesica Cargill (operations) &bull; Sponsorships: Jeremiah Cargill (strategy)</p>
 </footer>
+
+<script>
+let selectedAmt = 50;
+
+const impacts = {
+  25:  'A $25 gift covers part of a single tournament entry fee for one player.',
+  50:  'A $50 gift offsets approximately one month of dues for a player on the roster.',
+  100: 'A $100 gift covers a player\'s full gear contribution for the season.',
+  250: 'A $250 gift funds travel for one player to a regional tournament.',
+  500: 'A $500 gift funds two players\' full season dues offset — a real impact.',
+};
+
+function selectAmt(btn) {
+  document.querySelectorAll('.amt-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const amt = parseInt(btn.dataset.amount);
+  const wrap = document.getElementById('custom-wrap');
+  if (amt === 0) {
+    wrap.style.display = 'block';
+    document.getElementById('btn-amt').textContent = 'your amount';
+    document.getElementById('impact-msg').textContent = 'Enter your amount above to see the impact of your gift.';
+    selectedAmt = 0;
+  } else {
+    wrap.style.display = 'none';
+    selectedAmt = amt;
+    document.getElementById('btn-amt').textContent = '$' + amt;
+    document.getElementById('impact-msg').textContent = impacts[amt] || 'Every dollar goes directly to the athletes and org stability.';
+  }
+}
+
+document.getElementById('custom-amt').addEventListener('input', function() {
+  const v = parseInt(this.value) || 0;
+  document.getElementById('btn-amt').textContent = v > 0 ? '$' + v : 'your amount';
+  selectedAmt = v;
+  document.getElementById('impact-msg').textContent = v >= 250
+    ? 'A gift of $' + v + ' is a genuine season-shaping contribution. Thank you.'
+    : v > 0
+    ? 'A $' + v + ' gift makes a real difference for the athletes on this roster.'
+    : 'Enter your amount above to see the impact of your gift.';
+});
+
+function handleDonate() {
+  const amt = selectedAmt || parseInt(document.getElementById('custom-amt').value) || 0;
+  if (!amt) { alert('Please select or enter an amount.'); return; }
+  alert('Thank you!\n\nTo complete your $' + amt + ' gift:\n\nVenmo: @Bananas2K15\nNote: "2025 Booster"\n\nOr contact Jesica Cargill directly.\n\nYou\'ll hear back within 48 hours.');
+}
+</script>
+
 </body>
 </html>
