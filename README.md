@@ -1,48 +1,26 @@
-# Bananas 2K15 — Select Softball Organization
+# Push to GitHub
 
-Official website and document repository for **Bananas 2K15 Select Softball Organization**, Georgetown, Texas.
-
-## Live Site
-
-Hosted via GitHub Pages: `https://jeremiah9980.github.io/bananas2k15/`
-
-## Site Pages
-
-| Page | URL | Description |
-|------|-----|-------------|
-| Home | `/index.html` | Overview, pillars, org structure, site navigation |
-| About | `/about.html` | Mission, values, history, and org tier diagram |
-| Board | `/board.html` | Board of Directors seats, roles, voting summary |
-| Coaching | `/coaching.html` | Brian Rogers, coaching philosophy, firewall policy |
-| Bylaws | `/bylaws.html` | Full voting reference table, Article summaries |
-| Documents | `/docs.html` | Download center for official org documents |
-| Contact | `/contact.html` | Tryouts, coaching opportunities, sponsorship |
-
-## Official Documents (`/docs/`)
-
-| Document | Description |
-|----------|-------------|
-| `Bananas2K15_Bylaws_and_Voting_Structure.docx` | Full 11-Article governing bylaws |
-| `Bananas2K15_Board_Welcome_Packet_Cara.docx` | Board member onboarding packet |
-| `Bananas2K15_Coach_Recruitment_Pitch_Bob.docx` | Coaching staff recruitment pitch |
-
-## Leadership
-
-- **Co-Director (Operations):** Jesica Cargill
-- **Co-Director (Strategy):** Jeremiah Cargill
-- **Head Coach:** Brian Rogers
-- **Board Member:** Cara
-
-## Tech Stack
-
-Plain HTML/CSS — no build step, no framework. GitHub Pages serves directly from `main`.
-
-## Deployment
+## One command (from inside the bananas2k15 folder):
 
 ```bash
-git add .
-git commit -m "update"
-git push origin main
+git push -u origin main
 ```
 
-GitHub Pages auto-deploys from the `main` branch root.
+## If the repo doesn't exist yet, create it first:
+1. Go to github.com/jeremiah9980
+2. New repository → name: `bananas2k15` → Public → Create (no README)
+3. Then run: `git push -u origin main`
+
+## Enable GitHub Pages after pushing:
+1. github.com/jeremiah9980/bananas2k15 → Settings → Pages
+2. Source: Deploy from branch → main → / (root) → Save
+3. Live at: https://jeremiah9980.github.io/bananas2k15/
+
+## Commit summary:
+- 19 files committed
+- Full org site (8 pages) + 4 documents
+- Real brand images (logo + team banner)
+- Co-head coach model (Brian & Bob)
+- Bob/Cara structure documented
+- Family-first policy in bylaws + coaching page
+- Fundraising page with donation card
