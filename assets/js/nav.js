@@ -2,7 +2,10 @@
 const NAV_HTML = `
 <nav>
   <div class="nav-inner">
-    <a class="nav-brand" href="/bananas2k15/index.html">🍌 Bananas 2K15 <span>SELECT SOFTBALL</span></a>
+    <a class="nav-brand" href="/bananas2k15/index.html">
+      <img src="/bananas2k15/assets/logo.jpg" alt="Bananas 2K15 logo">
+      Bananas 2K15 <span>SELECT SOFTBALL</span>
+    </a>
     <div class="nav-links">
       <a href="/bananas2k15/index.html">Home</a>
       <a href="/bananas2k15/about.html">About</a>
