@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financial Transparency — Bananas 2K15</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <style>
+    /* ── Page-specific styles ── */
+
+    /* Decree banner */
+    .decree-banner {
+      background: var(--blue);
+      border: 3px solid var(--yellow);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-top: 32px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .decree-seal {
+      font-size: 40px;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .decree-text h3 {
+      font-family: var(--display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 6px;
+    }
+    .decree-text p {
+      font-size: 14px;
+      color: rgba(255,255,255,.85);
+      line-height: 1.75;
+      margin-bottom: 0;
+      max-width: none;
+    }
+    .decree-text strong { color: var(--yellow); font-weight: 600; }
+
+    /* Money flow diagram */
+    .flow-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 4px;
+    }
+    .flow-source {
+      background: var(--blue);
+      border-radius: 10px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .flow-source-icon {
+      width: 36px; height: 36px;
+      background: rgba(245,196,0,.2);
+      border: 1.5px solid var(--yellow);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--yellow);
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .flow-source-name {
+      font-family: var(--display);
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .flow-source-desc { font-size: 12px; color: rgba(255,255,255,.55); margin-top: 2px; }
+    .flow-source-amt {
+      margin-left: auto;
+      font-family: var(--display);
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--yellow);
+      white-space: nowrap;
+    }
+    .flow-arrow {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 24px;
+      color: var(--g4);
+      font-size: 18px;
+    }
+    .flow-pool {
+      background: var(--yellow);
+      border-radius: 10px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .flow-pool-label {
+      font-family: var(--display);
+      font-size: 17px;
+      font-weight: 900;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .flow-pool-sub { font-size: 12px; color: rgba(26,86,176,.7); margin-top: 2px; }
+    .flow-pool-total {
+      margin-left: auto;
+      font-family: var(--display);
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--blue);
+    }
+
+    /* Allocation breakdown */
+    .alloc-card {
+      background: var(--white);
+      border: 1px solid var(--g4);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .alloc-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--g4);
+    }
+    .alloc-color-bar {
+      width: 5px;
+      height: 36px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .alloc-header-name {
+      font-family: var(--display);
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--ink);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .alloc-header-pct {
+      margin-left: auto;
+      font-family: var(--display);
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--ink);
+    }
+    .alloc-header-amt {
+      font-size: 12px;
+      color: var(--g2);
+      text-align: right;
+      margin-left: 12px;
+    }
+    .alloc-body { padding: 14px 18px; }
+    .alloc-body p { font-size: 13px; color: var(--g1); line-height: 1.65; margin-bottom: 8px; }
+    .alloc-body p:last-child { margin-bottom: 0; }
+    .alloc-line-items { list-style: none; margin-top: 10px; display: flex; flex-direction: column; gap: 5px; }
+    .alloc-line-items li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      padding: 5px 0;
+      border-bottom: 1px dashed var(--g4);
+      color: var(--g1);
+    }
+    .alloc-line-items li:last-child { border-bottom: none; }
+    .alloc-line-items li span:last-child { font-weight: 500; color: var(--ink); }
+
+    /* Dues waiver table */
+    .waiver-table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 4px; }
+    .waiver-table th {
+      background: var(--blue);
+      color: var(--yellow);
+      font-family: var(--display);
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 10px 14px;
+      border: 1px solid var(--blue2);
+      text-align: left;
+      font-size: 12px;
+    }
+    .waiver-table td {
+      padding: 10px 14px;
+      border: 1px solid var(--g4);
+      color: var(--g1);
+      vertical-align: top;
+    }
+    .waiver-table tr:nth-child(odd) td { background: var(--g5); }
+    .waiver-table tr:nth-child(even) td { background: var(--white); }
+    .waiver-chk { color: #1D9E75; font-size: 18px; font-weight: 700; }
+    .waiver-x   { color: #B91C1C; font-size: 18px; }
+    .waiver-partial { font-size: 12px; color: var(--g2); font-style: italic; }
+
+    /* Tournament cost table */
+    .cost-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .cost-table th {
+      background: var(--blue);
+      color: var(--yellow);
+      font-family: var(--display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 9px 12px;
+      border: 1px solid var(--blue2);
+      text-align: left;
+    }
+    .cost-table td {
+      padding: 8px 12px;
+      border: 1px solid var(--g4);
+      color: var(--g1);
+    }
+    .cost-table tr:nth-child(odd) td  { background: var(--g5); }
+    .cost-table tr:nth-child(even) td { background: var(--white); }
+    .cost-table .total-row td {
+      background: var(--yellow-m) !important;
+      font-weight: 600;
+      color: var(--ink);
+      border-top: 2px solid var(--yellow);
+    }
+    .cost-covered { color: #1D9E75; font-weight: 500; font-size: 12px; }
+    .cost-family  { color: var(--blue2); font-weight: 500; font-size: 12px; }
+
+    /* Accountability timeline */
+    .accountability-list { display: flex; flex-direction: column; gap: 0; margin-top: 4px; }
+    .acc-item {
+      display: flex;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--g4);
+    }
+    .acc-item:last-child { border-bottom: none; }
+    .acc-dot-col { display: flex; flex-direction: column; align-items: center; padding-top: 3px; }
+    .acc-dot {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--yellow-m);
+      border: 2px solid var(--yellow);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--display);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--blue);
+      flex-shrink: 0;
+    }
+    .acc-line { width: 2px; flex: 1; background: var(--g4); margin-top: 4px; }
+    .acc-content { flex: 1; }
+    .acc-month {
+      font-family: var(--display);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 2px;
+    }
+    .acc-title { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
+    .acc-desc { font-size: 13px; color: var(--g2); line-height: 1.55; }
+
+    /* Signature block */
+    .sig-block {
+      background: var(--white);
+      border: 1px solid var(--g4);
+      border-top: 4px solid var(--yellow);
+      border-radius: 0 0 10px 10px;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .sig-line-wrap { display: flex; flex-direction: column; gap: 6px; }
+    .sig-line { border-bottom: 1.5px solid var(--ink); padding-bottom: 4px; margin-bottom: 4px; height: 36px; }
+    .sig-label { font-size: 12px; color: var(--g2); }
+
+    @media (max-width: 640px) {
+      .decree-banner { flex-direction: column; gap: 12px; }
+      .sig-block { grid-template-columns: 1fr; }
+      .flow-source-amt, .flow-pool-total { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+<script src="assets/js/nav.js"></script>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-kicker">Full Transparency</div>
+    <h1>Financial Decree</h1>
+    <div class="hero-rule"></div>
+    <p class="hero-tagline">Every dollar that enters this organization is accounted for. Where it comes from, where it goes, and who every waiver applies to — all of it, right here.</p>
+  </div>
+</section>
+
+<div class="gold-strip">
+  <p>Adopted by the Bananas 2K15 Board of Directors &nbsp;&bull;&nbsp; 2025 Season &nbsp;&bull;&nbsp; Revised Annually Each January</p>
+</div>
+
+<div class="page">
+
+  <!-- DECREE STATEMENT -->
+  <div class="section">
+    <div class="section-label">The commitment</div>
+    <h2>The Financial Decree</h2>
+    <div class="section-rule"></div>
+
+    <div class="decree-banner">
+      <div class="decree-seal">📋</div>
+      <div class="decree-text">
+        <h3>Official Bananas 2K15 Financial Policy — Board Adopted 2025</h3>
+        <p>
+          Bananas 2K15 is committed to complete financial transparency with every family in this program.
+          Every dollar collected — through dues, fundraising, sponsorships, or events — is tracked, allocated
+          according to a board-approved model, and reported to the full Board quarterly.
+          <strong>No money moves without accountability. No family is left guessing where their investment went.</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MONEY IN -->
+  <div class="section">
+    <div class="section-label">Where money comes from</div>
+    <h2>Revenue Sources</h2>
+    <div class="section-rule"></div>
+
+    <div class="flow-wrap">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div class="flow-source">
+          <div class="flow-source-icon"><i class="ti ti-users" aria-hidden="true"></i></div>
+          <div>
+            <div class="flow-source-name">Player Dues</div>
+            <div class="flow-source-desc">Per-player seasonal fee</div>
+          </div>
+          <div class="flow-source-amt">Primary</div>
+        </div>
+        <div class="flow-source">
+          <div class="flow-source-icon"><i class="ti ti-handshake" aria-hidden="true"></i></div>
+          <div>
+            <div class="flow-source-name">Sponsorships</div>
+            <div class="flow-source-desc">Local business & corporate</div>
+          </div>
+          <div class="flow-source-amt">$3,500 goal</div>
+        </div>
+        <div class="flow-source">
+          <div class="flow-source-icon"><i class="ti ti-shirt" aria-hidden="true"></i></div>
+          <div>
+            <div class="flow-source-name">Merchandise</div>
+            <div class="flow-source-desc">Gear, tees, fan items</div>
+          </div>
+          <div class="flow-source-amt">$1,400 goal</div>
+        </div>
+        <div class="flow-source">
+          <div class="flow-source-icon"><i class="ti ti-calendar-event" aria-hidden="true"></i></div>
+          <div>
+            <div class="flow-source-name">Fundraiser Events</div>
+            <div class="flow-source-desc">Cookout, clinic, banquet</div>
+          </div>
+          <div class="flow-source-amt">$2,100 goal</div>
+        </div>
+        <div class="flow-source">
+          <div class="flow-source-icon"><i class="ti ti-device-laptop" aria-hidden="true"></i></div>
+          <div>
+            <div class="flow-source-name">Crowdfunding</div>
+            <div class="flow-source-desc">Online campaign drives</div>
+          </div>
+          <div class="flow-source-amt">$1,800 goal</div>
+        </div>
+        <div class="flow-source">
+          <div class="flow-source-icon"><i class="ti ti-heart" aria-hidden="true"></i></div>
+          <div>
+            <div class="flow-source-name">Booster Donations</div>
+            <div class="flow-source-desc">Family, alumni, community</div>
+          </div>
+          <div class="flow-source-amt">$1,000 goal</div>
+        </div>
+      </div>
+
+      <div class="flow-arrow"><i class="ti ti-arrow-down" aria-hidden="true"></i></div>
+
+      <div class="flow-pool">
+        <div style="font-size:28px;" aria-hidden="true">🏦</div>
+        <div>
+          <div class="flow-pool-label">Org Operating Account</div>
+          <div class="flow-pool-sub">Held &amp; managed by Jesica Cargill, Co-Director of Operations</div>
+        </div>
+        <div class="flow-pool-total">All Revenue</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALLOCATION -->
+  <div class="section">
+    <div class="section-label">Where money goes</div>
+    <h2>Fund Allocation</h2>
+    <div class="section-rule"></div>
+    <p>Every dollar collected — dues, fundraising, sponsorships, all of it — is allocated according to this board-approved model. Percentages are applied to the <strong>total seasonal pool</strong>, not individual revenue streams. The Board reviews and votes to confirm or adjust this model at the January meeting each year.</p>
+
+    <div class="card-grid card-grid-2 mt-24">
+
+      <!-- DUES OFFSET -->
+      <div class="alloc-card">
+        <div class="alloc-header">
+          <div class="alloc-color-bar" style="background:var(--yellow);"></div>
+          <div>
+            <div class="alloc-header-name">Dues Offset</div>
+            <div style="font-size:11px;color:var(--g3);margin-top:1px;">Reduce what families pay</div>
+          </div>
+          <div>
+            <div class="alloc-header-pct">40%</div>
+            <div class="alloc-header-amt">~$3,920 / season</div>
+          </div>
+        </div>
+        <div class="alloc-body">
+          <p>The single largest allocation. Every fundraising dollar raised reduces the per-player dues families owe. The more we raise, the less families pay — it's that simple. This number is recalculated at the start of each season based on actual funds raised.</p>
+          <ul class="alloc-line-items">
+            <li><span>Applies to</span><span>All enrolled paying players</span></li>
+            <li><span>Calculated</span><span>Pro-rated per season</span></li>
+            <li><span>Applied by</span><span>Jesica Cargill</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TOURNAMENT & TRAVEL -->
+      <div class="alloc-card">
+        <div class="alloc-header">
+          <div class="alloc-color-bar" style="background:#378ADD;"></div>
+          <div>
+            <div class="alloc-header-name">Tournament &amp; Travel</div>
+            <div style="font-size:11px;color:var(--g3);margin-top:1px;">Entry fees, hotels, logistics</div>
+          </div>
+          <div>
+            <div class="alloc-header-pct">30%</div>
+            <div class="alloc-header-amt">~$2,940 / season</div>
+          </div>
+        </div>
+        <div class="alloc-body">
+          <p>Covers tournament entry fees and org-level travel costs. See the full tournament cost breakdown below for exactly how these dollars are spent and what families are still responsible for.</p>
+          <ul class="alloc-line-items">
+            <li><span>Tournament entry fees</span><span>Org paid</span></li>
+            <li><span>Hotel block coordination</span><span>Org negotiated</span></li>
+            <li><span>Individual room cost</span><span>Family responsibility</span></li>
+            <li><span>Meals</span><span>Family responsibility</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ORG RESERVE -->
+      <div class="alloc-card">
+        <div class="alloc-header">
+          <div class="alloc-color-bar" style="background:#1D9E75;"></div>
+          <div>
+            <div class="alloc-header-name">Org Reserve</div>
+            <div style="font-size:11px;color:var(--g3);margin-top:1px;">Emergency &amp; stability fund</div>
+          </div>
+          <div>
+            <div class="alloc-header-pct">20%</div>
+            <div class="alloc-header-amt">~$1,960 / season</div>
+          </div>
+        </div>
+        <div class="alloc-body">
+          <p>A financial cushion that keeps the program stable season to season. If a tournament gets rained out, a vendor overcharges, or something unexpected hits — this covers it. Unused reserve rolls forward to the next season.</p>
+          <ul class="alloc-line-items">
+            <li><span>Emergency coverage</span><span>Yes</span></li>
+            <li><span>Rollover policy</span><span>Carries to next season</span></li>
+            <li><span>Board access</span><span>Requires Category II vote</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- EQUIPMENT & GEAR -->
+      <div class="alloc-card">
+        <div class="alloc-header">
+          <div class="alloc-color-bar" style="background:#7F77DD;"></div>
+          <div>
+            <div class="alloc-header-name">Equipment &amp; Gear</div>
+            <div style="font-size:11px;color:var(--g3);margin-top:1px;">Org-owned assets</div>
+          </div>
+          <div>
+            <div class="alloc-header-pct">10%</div>
+            <div class="alloc-header-amt">~$980 / season</div>
+          </div>
+        </div>
+        <div class="alloc-body">
+          <p>Covers org-owned equipment — batting tees, practice balls, catcher's gear, dugout supplies, banners, and team-level gear. Personal player equipment (gloves, bats, cleats) is a family expense.</p>
+          <ul class="alloc-line-items">
+            <li><span>Org equipment</span><span>Covered</span></li>
+            <li><span>Player personal gear</span><span>Family responsibility</span></li>
+            <li><span>Uniforms</span><span>Covered (initial season)</span></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- VISUAL BAR -->
+    <div class="card mt-24" style="padding:20px 24px;">
+      <div style="font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:14px;">Allocation at a glance — per $100 raised</div>
+      <div style="display:flex;height:28px;border-radius:6px;overflow:hidden;gap:2px;">
+        <div style="width:40%;background:var(--yellow);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:12px;font-weight:800;color:var(--blue);">40% Dues</div>
+        <div style="width:30%;background:#378ADD;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:12px;font-weight:800;color:var(--white);">30% Travel</div>
+        <div style="width:20%;background:#1D9E75;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:12px;font-weight:800;color:var(--white);">20% Reserve</div>
+        <div style="width:10%;background:#7F77DD;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:11px;font-weight:800;color:var(--white);">10%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DUES WAIVER POLICY -->
+  <div class="section">
+    <div class="section-label">Staff dues waiver</div>
+    <h2>Who Plays Free</h2>
+    <div class="section-rule"></div>
+
+    <div class="callout">
+      <p><strong>Official Policy — Board Adopted 2025:</strong> Children of designated coaching staff and the Team Mom play free. This is a formal perk of service to the organization, documented in the bylaws, and capped at 5 positions. It is not negotiable on a case-by-case basis and does not extend beyond the positions listed below.</p>
+    </div>
+
+    <div style="overflow-x:auto;margin-top:24px;">
+      <table class="waiver-table">
+        <thead>
+          <tr>
+            <th style="width:30%;">Role</th>
+            <th style="width:20%;">Current</th>
+            <th style="width:20%;">Dues Waived</th>
+            <th style="width:30%;">Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Co-Head Coach 1</strong></td>
+            <td>Brian Rogers</td>
+            <td class="waiver-chk">✓ Full waiver</td>
+            <td>One child per coach. Board Member.</td>
+          </tr>
+          <tr>
+            <td><strong>Co-Head Coach 2</strong></td>
+            <td>Bob</td>
+            <td class="waiver-chk">✓ Full waiver</td>
+            <td>One child per coach. Cara (wife) on Board.</td>
+          </tr>
+          <tr>
+            <td><strong>Assistant Coach 1</strong></td>
+            <td>TBD</td>
+            <td class="waiver-chk">✓ Full waiver</td>
+            <td>One child. Selected by co-head coaches.</td>
+          </tr>
+          <tr>
+            <td><strong>Assistant Coach 2</strong></td>
+            <td>TBD</td>
+            <td class="waiver-chk">✓ Full waiver</td>
+            <td>One child. Selected by co-head coaches.</td>
+          </tr>
+          <tr>
+            <td><strong>Team Mom</strong></td>
+            <td>TBD</td>
+            <td class="waiver-chk">✓ Full waiver</td>
+            <td>One child. Appointed by Co-Directors.</td>
+          </tr>
+          <tr>
+            <td><strong>Fundraising Coordinator</strong></td>
+            <td>TBD</td>
+            <td class="waiver-x">✗ Not included</td>
+            <td>Non-field role. No waiver.</td>
+          </tr>
+          <tr>
+            <td><strong>Scorekeeper</strong></td>
+            <td>TBD</td>
+            <td class="waiver-x">✗ Not included</td>
+            <td class="waiver-partial">Partial discount considered case-by-case at Co-Director discretion.</td>
+          </tr>
+          <tr>
+            <td><strong>Travel Coordinator</strong></td>
+            <td>TBD</td>
+            <td class="waiver-x">✗ Not included</td>
+            <td class="waiver-partial">Partial discount considered case-by-case at Co-Director discretion.</td>
+          </tr>
+          <tr>
+            <td><strong>All other families</strong></td>
+            <td>—</td>
+            <td class="waiver-x">✗ Standard dues</td>
+            <td>Offset by fundraising per allocation model.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="font-size:12px;color:var(--g3);margin-top:10px;">Waiver applies to one child per waivered staff member. Multiple children of the same staff member pay standard dues for additional children. Waiver does not apply to tournament-specific fees or personal travel costs.</p>
+  </div>
+
+  <!-- TOURNAMENT COST BREAKDOWN -->
+  <div class="section">
+    <div class="section-label">What tournaments actually cost</div>
+    <h2>Tournament Cost Breakdown</h2>
+    <div class="section-rule"></div>
+    <p>Every family deserves to know the full picture before committing to a tournament weekend. Below is a typical cost breakdown showing what the org covers and what families are responsible for. Actual figures are distributed before each tournament registration deadline.</p>
+
+    <div style="overflow-x:auto;margin-top:20px;">
+      <table class="cost-table">
+        <thead>
+          <tr>
+            <th style="width:35%;">Cost Item</th>
+            <th style="width:20%;">Typical Amount</th>
+            <th style="width:20%;">Paid By</th>
+            <th style="width:25%;">Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Local tournament -->
+          <tr><td colspan="4" style="background:var(--blue);color:var(--yellow);font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:7px 12px;">Local Tournament (1-day, in-area)</td></tr>
+          <tr>
+            <td>Tournament entry fee</td>
+            <td>$250 – $400</td>
+            <td class="cost-covered">Org</td>
+            <td>Paid from tournament & travel fund</td>
+          </tr>
+          <tr>
+            <td>Umpire fees</td>
+            <td>$80 – $150</td>
+            <td class="cost-covered">Org</td>
+            <td>Included in entry or paid separately</td>
+          </tr>
+          <tr>
+            <td>Gas / transportation</td>
+            <td>Personal</td>
+            <td class="cost-family">Family</td>
+            <td>Each family handles own travel</td>
+          </tr>
+          <tr>
+            <td>Meals</td>
+            <td>Personal</td>
+            <td class="cost-family">Family</td>
+            <td>Family expense</td>
+          </tr>
+          <tr class="total-row">
+            <td><strong>Family out-of-pocket</strong></td>
+            <td><strong>Gas + meals</strong></td>
+            <td colspan="2">Org covers entry &amp; umpires</td>
+          </tr>
+
+          <!-- Regional tournament -->
+          <tr><td colspan="4" style="background:var(--blue);color:var(--yellow);font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:7px 12px;">Regional Tournament (2-3 day, away)</td></tr>
+          <tr>
+            <td>Tournament entry fee</td>
+            <td>$400 – $700</td>
+            <td class="cost-covered">Org</td>
+            <td>Paid from tournament &amp; travel fund</td>
+          </tr>
+          <tr>
+            <td>Hotel block (negotiated rate)</td>
+            <td>$100 – $150/night</td>
+            <td class="cost-family">Family</td>
+            <td>Org negotiates block rate; family books &amp; pays</td>
+          </tr>
+          <tr>
+            <td>Transportation</td>
+            <td>Personal</td>
+            <td class="cost-family">Family</td>
+            <td>Each family handles own travel</td>
+          </tr>
+          <tr>
+            <td>Meals</td>
+            <td>Personal</td>
+            <td class="cost-family">Family</td>
+            <td>Family expense</td>
+          </tr>
+          <tr>
+            <td>Team hotel coordination</td>
+            <td>$0</td>
+            <td class="cost-covered">Org (Jesica)</td>
+            <td>Org negotiates block; families opt in</td>
+          </tr>
+          <tr class="total-row">
+            <td><strong>Family out-of-pocket</strong></td>
+            <td><strong>Hotel + travel + meals</strong></td>
+            <td colspan="2">Org covers entry; hotel negotiated on your behalf</td>
+          </tr>
+
+          <!-- National tournament -->
+          <tr><td colspan="4" style="background:var(--blue);color:var(--yellow);font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:7px 12px;">National Tournament (multi-day)</td></tr>
+          <tr>
+            <td>Tournament entry fee</td>
+            <td>$700 – $1,200</td>
+            <td class="cost-covered">Org (partial)</td>
+            <td>Org covers base entry; crowdfunding supplements</td>
+          </tr>
+          <tr>
+            <td>Hotel (org block rate)</td>
+            <td>$120 – $160/night</td>
+            <td class="cost-family">Family</td>
+            <td>Org negotiates; families book directly</td>
+          </tr>
+          <tr>
+            <td>Airfare / long distance drive</td>
+            <td>Varies</td>
+            <td class="cost-family">Family</td>
+            <td>Family responsibility</td>
+          </tr>
+          <tr>
+            <td>Meals</td>
+            <td>Personal</td>
+            <td class="cost-family">Family</td>
+            <td>Family expense</td>
+          </tr>
+          <tr class="total-row">
+            <td><strong>Family out-of-pocket</strong></td>
+            <td><strong>Hotel + travel + meals</strong></td>
+            <td colspan="2">Advance notice given — families opt in voluntarily</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout mt-24">
+      <p><strong>No family is surprised by a cost.</strong> Every tournament is communicated with full cost expectations at least 3 weeks before the registration deadline. Families opt in knowing exactly what they'll spend. No tournament is mandatory — the org will never penalize a player whose family can't make a specific trip.</p>
+    </div>
+  </div>
+
+  <!-- ACCOUNTABILITY CALENDAR -->
+  <div class="section">
+    <div class="section-label">Financial reporting cadence</div>
+    <h2>Accountability Calendar</h2>
+    <div class="section-rule"></div>
+    <p>The Co-Directors report financial status to the Board on a defined schedule. Board Members and families are never left in the dark about where the org stands financially.</p>
+
+    <div class="accountability-list mt-24">
+      <div class="acc-item">
+        <div class="acc-dot-col"><div class="acc-dot">JAN</div><div class="acc-line"></div></div>
+        <div class="acc-content">
+          <div class="acc-title">Annual Budget Presented to Board</div>
+          <div class="acc-desc">Jesica presents the full seasonal budget — dues structure, projected fundraising, allocation targets, and expected tournament costs. Board votes to approve (Category II — two-thirds majority required).</div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-dot-col"><div class="acc-dot">APR</div><div class="acc-line"></div></div>
+        <div class="acc-content">
+          <div class="acc-title">Q2 Board Report — Season Launch Review</div>
+          <div class="acc-desc">Dues collected vs. projected. Fundraising pipeline status. Any unbudgeted expenses to date. Families notified of any material changes to the tournament calendar or cost expectations.</div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-dot-col"><div class="acc-dot">JUL</div><div class="acc-line"></div></div>
+        <div class="acc-content">
+          <div class="acc-title">Q3 Board Report — Mid-Season Financial Review</div>
+          <div class="acc-desc">Full revenue vs. budget reconciliation. Reserve fund status. Tournament spend actuals vs. projected. Fundraising Coordinator reports pipeline and closed amounts.</div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-dot-col"><div class="acc-dot">OCT</div><div class="acc-line"></div></div>
+        <div class="acc-content">
+          <div class="acc-title">Q4 Board Report — Annual Financial Review</div>
+          <div class="acc-desc">Full year actuals. Reserve fund balance reported. Allocation model performance reviewed. Early planning figures for next season circulated to the Board.</div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-dot-col"><div class="acc-dot">DEC</div></div>
+        <div class="acc-content">
+          <div class="acc-title">Next-Season Budget Drafted &amp; Circulated</div>
+          <div class="acc-desc">Draft budget distributed to all Board Members. Families notified of dues structure for the upcoming season. No surprises going into January.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GOVERNANCE NOTE -->
+  <div class="section">
+    <div class="section-label">Financial governance</div>
+    <h2>How Financial Decisions Are Made</h2>
+    <div class="section-rule"></div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px;">
+      <div class="card card-gold">
+        <h3>Under $200</h3>
+        <p>Jesica Cargill approves unilaterally. Routine operational expenses — supplies, minor fees, incidentals.</p>
+      </div>
+      <div class="card card-gold">
+        <h3>$200 – $999</h3>
+        <p>Both Co-Directors must agree. No board vote required but both Jesica and Jeremiah must sign off.</p>
+      </div>
+      <div class="card card-blue">
+        <h3>$1,000 and above</h3>
+        <p>Requires a board vote — simple majority (Category I). Co-Directors propose, Board approves.</p>
+      </div>
+      <div class="card card-blue">
+        <h3>Over $2,500</h3>
+        <p>Requires a two-thirds supermajority board vote (Category II). Major expenditures only.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIGNATURE / ADOPTION BLOCK -->
+  <div class="section">
+    <div class="section-label">Adopted by the board</div>
+    <h2>Board Adoption</h2>
+    <div class="section-rule"></div>
+    <p>This financial policy has been reviewed and adopted by the Bananas 2K15 Board of Directors. It supersedes any prior informal arrangements and is binding on all org members, staff, and families for the 2025 season.</p>
+
+    <div style="background:var(--yellow);padding:10px 20px;border-radius:10px 10px 0 0;margin-top:20px;">
+      <div style="font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);">Bananas 2K15 — Financial Decree — 2025 Season</div>
+    </div>
+    <div class="sig-block">
+      <div class="sig-line-wrap"><div class="sig-line"></div><div class="sig-label">Jesica Cargill — Co-Director, Operations &amp; Finance</div></div>
+      <div class="sig-line-wrap"><div class="sig-line"></div><div class="sig-label">Jeremiah Cargill — Co-Director, Strategy &amp; Brand</div></div>
+      <div class="sig-line-wrap"><div class="sig-line"></div><div class="sig-label">Brian Rogers — Board Member, Co-Head Coach</div></div>
+      <div class="sig-line-wrap"><div class="sig-line"></div><div class="sig-label">Cara — Board Member, Community &amp; Coach Recruitment</div></div>
+      <div class="sig-line-wrap" style="grid-column:1/-1;"><div class="sig-line" style="width:50%;"></div><div class="sig-label">Date Adopted</div></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-brand">🍌 Bananas 2K15</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="board.html">Board</a>
+    <a href="coaching.html">Coaching</a>
+    <a href="bylaws.html">Bylaws</a>
+    <a href="docs.html">Documents</a>
+    <a href="fundraising.html">Support Us</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <p>Georgetown, Texas &bull; 12U Select Softball &bull; 2025</p>
+  <p style="margin-top:4px;">Financial questions: Jesica Cargill &bull; Co-Directors: Jesica &amp; Jeremiah Cargill</p>
+</footer>
+</body>
+</html>
