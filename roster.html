@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roster — Bananas 2K15</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <style>
+    /* ── Player card photo ── */
+    .player-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: center 15%;
+      border-radius: 8px;
+      border: 2px solid var(--g4);
+      margin-bottom: 14px;
+      display: block;
+    }
+    .player-photo-wrap {
+      position: relative;
+      margin-bottom: 14px;
+    }
+    .player-photo-wrap img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: center 15%;
+      border-radius: 8px;
+      border: 2px solid var(--g4);
+      display: block;
+    }
+    .player-photo-wrap .player-num {
+      position: absolute;
+      bottom: 8px; left: 8px;
+      font-family: var(--display);
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--yellow);
+      background: var(--blue);
+      border: 2px solid var(--yellow);
+      border-radius: 6px;
+      padding: 2px 10px;
+      line-height: 1.2;
+      letter-spacing: 1px;
+    }
+    .player-photo-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: 8px;
+      border: 2px dashed var(--g4);
+      background: var(--g5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      color: var(--g3);
+    }
+    .player-photo-placeholder i { font-size: 36px; }
+    .player-photo-placeholder span {
+      font-family: var(--display);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .player-card {
+      background: var(--white);
+      border: 1px solid var(--g4);
+      border-top: 4px solid var(--yellow);
+      border-radius: 10px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+    }
+    .player-card.tbd {
+      border-top-color: var(--g4);
+      opacity: 0.6;
+    }
+    .player-card:hover:not(.tbd) {
+      border-color: var(--yellow);
+      box-shadow: 0 0 0 3px rgba(245,196,0,.15);
+    }
+
+    .player-name {
+      font-family: var(--display);
+      font-size: 17px;
+      font-weight: 900;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .player-pos {
+      font-family: var(--display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--g2);
+      margin-bottom: 10px;
+    }
+    .player-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 14px;
+      flex: 1;
+    }
+    .ps-item {
+      background: var(--g5);
+      border-radius: 6px;
+      padding: 7px 10px;
+    }
+    .ps-val {
+      font-family: var(--display);
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--blue);
+      line-height: 1;
+    }
+    .ps-val.gold { color: #C8960A; }
+    .ps-lbl {
+      font-family: var(--display);
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--g3);
+      margin-top: 2px;
+    }
+
+    .player-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 14px;
+    }
+    .player-tag {
+      font-family: var(--display);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 20px;
+      background: var(--blue-l);
+      color: var(--blue);
+      border: 1px solid var(--blue-m);
+    }
+
+    .profile-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--yellow);
+      color: var(--blue);
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 9px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      margin-top: auto;
+      transition: background .12s;
+    }
+    .profile-link:hover { background: var(--yellow2); text-decoration: none; }
+    .profile-link.coming-soon {
+      background: var(--g5);
+      color: var(--g3);
+      pointer-events: none;
+      cursor: default;
+      border: 1px dashed var(--g4);
+    }
+
+    /* roster header with count */
+    .roster-count {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--blue-l);
+      border: 1px solid var(--blue-m);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-family: var(--display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 20px;
+    }
+    .roster-count .rc-filled { color: #0F766E; }
+    .roster-count .rc-total  { color: var(--g3); }
+
+    .card-grid-roster {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    @media (max-width: 640px) {
+      .card-grid-roster { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .ps-val { font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+<script src="assets/js/nav.js"></script>
+
+<!-- TEAM BANNER -->
+<img src="assets/team-banner.jpg" alt="Bananas 2K15 team photo" class="team-banner">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-kicker">Georgetown, Texas &bull; 12U Select Softball &bull; 2025 Season</div>
+    <h1>2025 Roster</h1>
+    <div class="hero-sub">Player Profiles &amp; Athlete Pages</div>
+    <div class="hero-rule"></div>
+    <p class="hero-tagline">Click any player card to view their full athlete profile — film, stats, and more.</p>
+  </div>
+</section>
+
+<!-- GOLD STRIP -->
+<div class="gold-strip">
+  <p>2025 Season &nbsp;&bull;&nbsp; 2 Profiles Active &nbsp;&bull;&nbsp; 9 Spots Coming Soon</p>
+</div>
+
+<div class="page">
+
+  <!-- ROSTER GRID -->
+  <div class="section">
+    <div class="section-label">2025 Season</div>
+    <h2>Player Roster</h2>
+    <div class="section-rule"></div>
+
+    <div class="roster-count">
+      <i class="ti ti-users"></i>
+      <span class="rc-filled">2 profiles live</span>
+      &nbsp;&mdash;&nbsp;
+      <span class="rc-total">11 total spots</span>
+    </div>
+
+    <div class="card-grid-roster">
+
+      <!-- ── #21 KASSIDY CARGILL ── -->
+      <div class="player-card">
+        <div class="player-photo-wrap">
+          <img src="kassidy-bananas-card.png" alt="Kassidy Cargill #21 — Bananas" />
+          <div class="player-num">#21</div>
+        </div>
+        <div class="player-name">Kassidy Cargill</div>
+        <div class="player-pos">3B &middot; SS &middot; C &middot; CF</div>
+        <div class="player-stats">
+          <div class="ps-item"><div class="ps-val gold">.449</div><div class="ps-lbl">Career AVG</div></div>
+          <div class="ps-item"><div class="ps-val">1.224</div><div class="ps-lbl">Career OPS</div></div>
+          <div class="ps-item"><div class="ps-val">74</div><div class="ps-lbl">Stolen Bases</div></div>
+          <div class="ps-item"><div class="ps-val gold">94.9%</div><div class="ps-lbl">SB Success</div></div>
+        </div>
+        <div class="player-tags">
+          <span class="player-tag">Team USA 10U</span>
+          <span class="player-tag">Impact Player</span>
+          <span class="player-tag">9 HR</span>
+        </div>
+        <a href="https://jeremiah9980.github.io/kass21/kass21-landing-v2.html" class="profile-link">
+          View Profile <i class="ti ti-arrow-right"></i>
+        </a>
+      </div>
+
+      <!-- ── #74 JOHNNY ROGERS ── -->
+      <div class="player-card">
+        <div class="player-photo-wrap">
+          <img src="johnny-bananas-card.png" alt="Johnny Rogers #74 — Bananas" style="object-position:center 20%;" />
+          <div class="player-num">#74</div>
+        </div>
+        <div class="player-name">Johnny Rogers</div>
+        <div class="player-pos">SS &middot; 2B &middot; CF</div>
+        <div class="player-stats">
+          <div class="ps-item"><div class="ps-val gold">1</div><div class="ps-lbl">Home Runs</div></div>
+          <div class="ps-item"><div class="ps-val">2</div><div class="ps-lbl">Triples</div></div>
+          <div class="ps-item"><div class="ps-val">15+</div><div class="ps-lbl">Stolen Bases</div></div>
+          <div class="ps-item"><div class="ps-val">22</div><div class="ps-lbl">Clips on Film</div></div>
+        </div>
+        <div class="player-tags">
+          <span class="player-tag">Contact Hitter</span>
+          <span class="player-tag">Speed</span>
+          <span class="player-tag">High IQ</span>
+        </div>
+        <a href="https://jeremiah9980.github.io/johnny74/johnny74-landing-v2.html" class="profile-link">
+          View Profile <i class="ti ti-arrow-right"></i>
+        </a>
+      </div>
+
+      <!-- ── SPOTS 3–11 (PLACEHOLDERS) ── -->
+      <div class="player-card tbd">
+        <div class="player-photo-placeholder"><i class="ti ti-user"></i><span>Spot 3</span></div>
+        <div class="player-name" style="color:var(--g3);">Player TBD</div>
+        <div class="player-pos">&mdash;</div>
+        <div class="player-stats">
+          <div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div>
+          <div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div>
+          <div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div>
+          <div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div>
+        </div>
+        <div class="player-tags"><span class="badge badge-open">Profile Coming Soon</span></div>
+        <span class="profile-link coming-soon">Coming Soon <i class="ti ti-clock"></i></span>
+      </div>
+
+      <div class="player-card tbd">
+        <div class="player-photo-placeholder"><i class="ti ti-user"></i><span>Spot 4</span></div>
+        <div class="player-name" style="color:var(--g3);">Player TBD</div>
+        <div class="player-pos">&mdash;</div>
+        <div class="player-stats">
+          <div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div>
+          <div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div>
+          <div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div>
+          <div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div>
+        </div>
+        <div class="player-tags"><span class="badge badge-open">Profile Coming Soon</span></div>
+        <span class="profile-link coming-soon">Coming Soon <i class="ti ti-clock"></i></span>
+      </div>
+
+      <div class="player-card tbd">
+        <div class="player-photo-placeholder"><i class="ti ti-user"></i><span>Spot 5</span></div>
+        <div class="player-name" style="color:var(--g3);">Player TBD</div>
+        <div class="player-pos">&mdash;</div>
+        <div class="player-stats"><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div></div>
+        <div class="player-tags"><span class="badge badge-open">Profile Coming Soon</span></div>
+        <span class="profile-link coming-soon">Coming Soon <i class="ti ti-clock"></i></span>
+      </div>
+
+      <div class="player-card tbd">
+        <div class="player-photo-placeholder"><i class="ti ti-user"></i><span>Spot 6</span></div>
+        <div class="player-name" style="color:var(--g3);">Player TBD</div>
+        <div class="player-pos">&mdash;</div>
+        <div class="player-stats"><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div></div>
+        <div class="player-tags"><span class="badge badge-open">Profile Coming Soon</span></div>
+        <span class="profile-link coming-soon">Coming Soon <i class="ti ti-clock"></i></span>
+      </div>
+
+      <div class="player-card tbd">
+        <div class="player-photo-placeholder"><i class="ti ti-user"></i><span>Spot 7</span></div>
+        <div class="player-name" style="color:var(--g3);">Player TBD</div>
+        <div class="player-pos">&mdash;</div>
+        <div class="player-stats"><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div></div>
+        <div class="player-tags"><span class="badge badge-open">Profile Coming Soon</span></div>
+        <span class="profile-link coming-soon">Coming Soon <i class="ti ti-clock"></i></span>
+      </div>
+
+      <div class="player-card tbd">
+        <div class="player-photo-placeholder"><i class="ti ti-user"></i><span>Spot 8</span></div>
+        <div class="player-name" style="color:var(--g3);">Player TBD</div>
+        <div class="player-pos">&mdash;</div>
+        <div class="player-stats"><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div></div>
+        <div class="player-tags"><span class="badge badge-open">Profile Coming Soon</span></div>
+        <span class="profile-link coming-soon">Coming Soon <i class="ti ti-clock"></i></span>
+      </div>
+
+      <div class="player-card tbd">
+        <div class="player-photo-placeholder"><i class="ti ti-user"></i><span>Spot 9</span></div>
+        <div class="player-name" style="color:var(--g3);">Player TBD</div>
+        <div class="player-pos">&mdash;</div>
+        <div class="player-stats"><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div></div>
+        <div class="player-tags"><span class="badge badge-open">Profile Coming Soon</span></div>
+        <span class="profile-link coming-soon">Coming Soon <i class="ti ti-clock"></i></span>
+      </div>
+
+      <div class="player-card tbd">
+        <div class="player-photo-placeholder"><i class="ti ti-user"></i><span>Spot 10</span></div>
+        <div class="player-name" style="color:var(--g3);">Player TBD</div>
+        <div class="player-pos">&mdash;</div>
+        <div class="player-stats"><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div></div>
+        <div class="player-tags"><span class="badge badge-open">Profile Coming Soon</span></div>
+        <span class="profile-link coming-soon">Coming Soon <i class="ti ti-clock"></i></span>
+      </div>
+
+      <div class="player-card tbd">
+        <div class="player-photo-placeholder"><i class="ti ti-user"></i><span>Spot 11</span></div>
+        <div class="player-name" style="color:var(--g3);">Player TBD</div>
+        <div class="player-pos">&mdash;</div>
+        <div class="player-stats"><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div><div class="ps-item"><div class="ps-val" style="color:var(--g3);">—</div><div class="ps-lbl">Stat</div></div></div>
+        <div class="player-tags"><span class="badge badge-open">Profile Coming Soon</span></div>
+        <span class="profile-link coming-soon">Coming Soon <i class="ti ti-clock"></i></span>
+      </div>
+
+    </div><!-- /card-grid-roster -->
+  </div><!-- /section -->
+
+  <!-- HOW TO ADD A PLAYER -->
+  <div class="section">
+    <div class="section-label">Coaches & Directors</div>
+    <h2>Adding Players</h2>
+    <div class="section-rule"></div>
+    <div class="callout">
+      <p>To activate a roster spot, provide the player's <strong>name, number, positions, team photo, and stats</strong> to the Co-Directors. Each activated card links to that player's dedicated athlete profile page — built and maintained separately by the player's family.</p>
+    </div>
+    <div class="card-grid card-grid-2" style="gap:12px; margin-top: 16px;">
+      <a href="contact.html" class="doc-item">
+        <div class="doc-icon"><i class="ti ti-user-plus"></i></div>
+        <div class="doc-info"><div class="doc-name">Add a Player</div><div class="doc-desc">Contact Co-Directors to activate a roster spot</div></div>
+        <i class="ti ti-arrow-right doc-dl"></i>
+      </a>
+      <a href="contact.html" class="doc-item">
+        <div class="doc-icon"><i class="ti ti-baseball"></i></div>
+        <div class="doc-info"><div class="doc-name">Tryouts &amp; Openings</div><div class="doc-desc">Current roster openings and tryout information</div></div>
+        <i class="ti ti-arrow-right doc-dl"></i>
+      </a>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">&#x1F34C; Bananas 2K15</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="board.html">Board</a>
+    <a href="coaching.html">Coaching</a>
+    <a href="roster.html">Roster</a>
+    <a href="bylaws.html">Bylaws</a>
+    <a href="policies.html">Policies</a>
+    <a href="docs.html">Documents</a>
+    <a href="finances.html">Finances</a>
+    <a href="fundraising.html">Support Us</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <p>Georgetown, Texas &bull; 12U Select Softball &bull; USSSA &bull; NSA &bull; NCS &bull; 2025</p>
+  <p>Co-Head Coaches: Brian Rogers &amp; Bob &nbsp;&bull;&nbsp; Co-Directors: Jesica &amp; Jeremiah Cargill</p>
+</footer>
+
+</body>
+</html>
