@@ -13,6 +13,7 @@ const NAV_HTML = `
       <a href="/bananas2k15/coaching.html">Coaching</a>
       <a href="/bananas2k15/bylaws.html">Bylaws</a>
       <a href="/bananas2k15/finances.html">Finances</a>
+      <a href="/bananas2k15/policies.html">Policies</a>
       <a href="/bananas2k15/docs.html">Documents</a>
       <a href="/bananas2k15/fundraising.html">Support Us</a>
       <a href="/bananas2k15/contact.html">Contact</a>

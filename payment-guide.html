@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Guide — Bananas 2K15</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <style>
+    /* Payment matrix table */
+    .pay-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 4px; }
+    .pay-table th {
+      background: var(--blue);
+      color: var(--yellow);
+      font-family: var(--display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 10px 14px;
+      border: 1px solid var(--blue2);
+      text-align: left;
+    }
+    .pay-table td {
+      padding: 11px 14px;
+      border: 1px solid var(--g4);
+      color: var(--g1);
+      vertical-align: middle;
+    }
+    .pay-table tr:nth-child(odd)  td { background: var(--g5); }
+    .pay-table tr:nth-child(even) td { background: var(--white); }
+    .pay-table .method { font-weight: 600; color: var(--ink); }
+    .fee-free { color: var(--green); font-weight: 600; }
+    .fee-cost { color: var(--amber); font-weight: 500; }
+    .badge-preferred {
+      font-family: var(--display);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: var(--green-bg, #E8F5EE);
+      color: var(--green);
+      border: 1px solid #9FE1CB;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-left: 6px;
+    }
+    .badge-soon {
+      font-family: var(--display);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: var(--blue-l);
+      color: var(--blue2);
+      border: 1px solid var(--blue-m);
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-left: 6px;
+    }
+
+    /* Payment icon grid */
+    .pay-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .pay-method-card {
+      background: var(--white);
+      border: 1px solid var(--g4);
+      border-radius: 10px;
+      padding: 14px 12px;
+      text-align: center;
+    }
+    .pay-method-emoji { font-size: 24px; display: block; margin-bottom: 6px; }
+    .pay-method-name { font-family: var(--display); font-size: 12px; font-weight: 700; color: var(--ink); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 3px; }
+    .pay-method-sub  { font-size: 11px; color: var(--g2); }
+
+    /* Steps */
+    .steps { display: flex; flex-direction: column; gap: 8px; }
+    .step-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--white);
+      border: 1px solid var(--g4);
+      border-radius: 8px;
+      padding: 12px 16px;
+    }
+    .step-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: var(--yellow);
+      font-family: var(--display);
+      font-size: 14px;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-body { flex: 1; }
+    .step-title { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+    .step-desc  { font-size: 12px; color: var(--g2); line-height: 1.55; }
+
+    /* Print button */
+    .print-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--blue);
+      color: var(--yellow);
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .print-btn:hover { opacity: .9; text-decoration: none; }
+
+    @media print {
+      nav, footer, .gold-strip, .hero, .print-btn { display: none !important; }
+      .page { padding: 0; }
+      .section { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+<script src="assets/js/nav.js"></script>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-kicker">Operations Reference</div>
+    <h1>Payment Guide</h1>
+    <div class="hero-rule"></div>
+    <p class="hero-tagline">Accepted payment methods, cash handling policy, and game-day payment procedures for all Bananas 2K15 staff, volunteers, and families.</p>
+  </div>
+</section>
+
+<div class="gold-strip">
+  <p>Print &amp; Laminate for Game Day &nbsp;&bull;&nbsp; Volunteer Reference &nbsp;&bull;&nbsp; Finance questions: Jesica Cargill</p>
+</div>
+
+<div class="page">
+
+  <!-- ACCEPTED METHODS GRID -->
+  <div class="section">
+    <div class="section-label">What we accept</div>
+    <h2>Accepted Payment Methods</h2>
+    <div class="section-rule"></div>
+
+    <div class="pay-grid">
+      <div class="pay-method-card">
+        <span class="pay-method-emoji">⚡</span>
+        <span class="pay-method-name">Zelle</span>
+        <span class="pay-method-sub">Zero fees — preferred</span>
+      </div>
+      <div class="pay-method-card">
+        <span class="pay-method-emoji">📝</span>
+        <span class="pay-method-name">Check</span>
+        <span class="pay-method-sub">Zero fees — always welcome</span>
+      </div>
+      <div class="pay-method-card">
+        <span class="pay-method-emoji">💵</span>
+        <span class="pay-method-name">Cash</span>
+        <span class="pay-method-sub">Zero fees — dual-custody required</span>
+      </div>
+      <div class="pay-method-card">
+        <span class="pay-method-emoji">🍌</span>
+        <span class="pay-method-name">Venmo</span>
+        <span class="pay-method-sub">@Bananas2K15</span>
+      </div>
+      <div class="pay-method-card" style="border-color:var(--g3);opacity:.75;">
+        <span class="pay-method-emoji">💳</span>
+        <span class="pay-method-name">Card</span>
+        <span class="pay-method-sub">Coming soon</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAYMENT MATRIX -->
+  <div class="section">
+    <div class="section-label">How to accept each method</div>
+    <h2>Payment Matrix</h2>
+    <div class="section-rule"></div>
+    <p>When a family asks how to pay — match it here. Always prioritize zero-fee methods to keep more money in the org.</p>
+
+    <div style="overflow-x:auto;margin-top:20px;">
+      <table class="pay-table">
+        <thead>
+          <tr>
+            <th style="width:22%;">Method</th>
+            <th style="width:46%;">How to Accept It</th>
+            <th style="width:16%;">Fee to Org</th>
+            <th style="width:16%;">Who Handles It</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="method">⚡ Zelle<span class="badge-preferred">Preferred</span></span></td>
+            <td>Direct to org bank account. Zero fees, instant transfer. Ask families to send to the org email or bank number on file.</td>
+            <td class="fee-free">$0.00</td>
+            <td>Jesica Cargill</td>
+          </tr>
+          <tr>
+            <td><span class="method">📝 Check<span class="badge-preferred">Free</span></span></td>
+            <td>Payable to <strong>"[Org Legal Name]"</strong> — hand to Jesica for mobile deposit. Do not leave checks unattended.</td>
+            <td class="fee-free">$0.00</td>
+            <td>Jesica Cargill</td>
+          </tr>
+          <tr>
+            <td><span class="method">💵 Cash<span class="badge-preferred">Free</span></span></td>
+            <td>Count with a second volunteer present. Log amount, both names, and purpose immediately. See cash handling policy below.</td>
+            <td class="fee-free">$0.00</td>
+            <td>Two people — always</td>
+          </tr>
+          <tr>
+            <td><span class="method">🍌 Venmo</span></td>
+            <td>Send to <strong>@Bananas2K15</strong>. Ask family to include purpose in the note field (e.g., "Spring dues — Player Name"). Personal-to-personal transactions only — not business Venmo.</td>
+            <td class="fee-free">$0.00</td>
+            <td>Jesica Cargill</td>
+          </tr>
+          <tr>
+            <td><span class="method">💳 Credit/Debit<span class="badge-soon">Coming Soon</span></span></td>
+            <td>Card reader coming once org account is fully established. Until then, redirect to Venmo, Zelle, or check.</td>
+            <td class="fee-cost">~2.7% + $0.05</td>
+            <td>TBD</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout mt-16">
+      <p><strong>Always include a note.</strong> Every Venmo or Zelle transfer must include the player name and payment purpose. "Spring dues — Kassidy Cargill" — not just a dollar amount. This is required for our accounting records and quarterly reports.</p>
+    </div>
+  </div>
+
+  <!-- DUES PAYMENTS -->
+  <div class="section">
+    <div class="section-label">For families</div>
+    <h2>Paying Your Dues</h2>
+    <div class="section-rule"></div>
+    <p>All dues payments go to Co-Director Jesica Cargill. Deposits collected at tryouts are applied to your season balance.</p>
+
+    <div class="steps mt-16">
+      <div class="step-row">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Confirm your balance</div>
+          <div class="step-desc">Season dues minus your founding deposit = your remaining balance. Jesica will confirm your exact balance before the season starts.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Choose your payment method</div>
+          <div class="step-desc">Zelle (preferred, zero fees), Venmo @Bananas2K15, or check payable to the org name. No cash for dues payments.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Include your player's name in the note</div>
+          <div class="step-desc">Example: "Spring 2025 dues — [Player Name]". This is required — unlabeled payments cause reconciliation issues.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Receive your receipt within 48 hours</div>
+          <div class="step-desc">Jesica will confirm receipt and send a written acknowledgment. Keep this for your records — it documents your tax-deductible donation to a 501(c)(3) organization.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-24" style="border-left:4px solid #1D9E75;background:#E8F5EE;">
+      <div style="font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#1D7A4E;margin-bottom:6px;">Financial Hardship</div>
+      <p style="font-size:13px;color:var(--g1);line-height:1.7;margin-bottom:0;">If your family is facing financial hardship, the org has a Player Assistance Policy. Applications are handled with complete confidentiality by the Board. No player should ever sit out because of cost. <a href="contact.html" style="color:var(--blue);">Reach out to Jesica or Jeremiah directly.</a></p>
+    </div>
+  </div>
+
+  <!-- CASH HANDLING POLICY -->
+  <div class="section">
+    <div class="section-label">For staff & volunteers</div>
+    <h2>Cash Handling Policy</h2>
+    <div class="section-rule"></div>
+    <p><strong>Strict dual-custody required for all physical cash at any org event.</strong> This protects you and the organization. No exceptions.</p>
+
+    <div class="steps mt-16">
+      <div class="step-row">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Count together — two people, one must be a board member or coach</div>
+          <div class="step-desc">Both people physically count the cash at the time of receipt or event close. Never count alone.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Log it immediately</div>
+          <div class="step-desc">Write exact amount, both witness names, and purpose. Example: "$120 gate fundraiser — Jesica Cargill &amp; Brian Rogers — 3/14/2025"</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Hand to Jesica — same day if possible</div>
+          <div class="step-desc">Jesica deposits via ATM or bank branch. Org cash is never held by any single person overnight unless documented and approved.</div>
+        </div>
+      </div>
+      <div class="step-row" style="border-color:#B91C1C;background:#FEF2F2;">
+        <div class="step-num" style="background:#B91C1C;">!</div>
+        <div class="step-body">
+          <div class="step-title" style="color:#B91C1C;">Never handle cash alone</div>
+          <div class="step-desc">Dual-custody protects both you and the Foundation's corporate veil. If you're the only person available, hold the cash sealed with both witness names written on the envelope and hand it to Jesica immediately.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT & PRINT -->
+  <div class="section">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+      <div>
+        <div class="section-label">Questions</div>
+        <div style="font-size:14px;color:var(--g1);">Finance &amp; payments: <strong style="color:var(--ink);">Jesica Cargill</strong> — Co-Director, Operations &amp; Finance</div>
+        <div style="font-size:14px;color:var(--g1);margin-top:4px;">All other: <a href="contact.html" style="color:var(--blue);">Contact page</a></div>
+      </div>
+      <button class="print-btn" onclick="window.print()">
+        <i class="ti ti-printer" aria-hidden="true"></i> Print this page
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-brand">🍌 Bananas 2K15</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="board.html">Board</a>
+    <a href="coaching.html">Coaching</a>
+    <a href="bylaws.html">Bylaws</a>
+    <a href="finances.html">Finances</a>
+    <a href="policies.html">Policies</a>
+    <a href="docs.html">Documents</a>
+    <a href="fundraising.html">Support Us</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <p>Georgetown, Texas &bull; 12U Select Softball &bull; 2025</p>
+  <p style="margin-top:4px;">Finance questions: Jesica Cargill, Co-Director Operations &amp; Finance</p>
+</footer>
+</body>
+</html>
