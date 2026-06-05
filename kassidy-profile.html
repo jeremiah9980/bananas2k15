@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kassidy Cargill — #21 · Bananas 2K15 Athlete Profile</title>
+  <meta name="description" content="#21 Kassidy Cargill — Hotshots 2K15, Georgetown TX. .449 AVG · 1.224 OPS · Team USA 10U 2026.">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GWGSGGMEQY"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GWGSGGMEQY');</script>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <style>
+    .player-gallery{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:8px;}
+    @media(max-width:680px){.player-gallery{grid-template-columns:1fr 1fr;}}
+    .gallery-img-wrap{border-radius:10px;overflow:hidden;border:1px solid var(--g4);background:var(--g5);}
+    .gallery-img-wrap:first-child{grid-row:span 2;}
+    @media(max-width:680px){.gallery-img-wrap:first-child{grid-row:span 1;}}
+    .gallery-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;}
+    .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+    @media(max-width:860px){.testi-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:560px){.testi-grid{grid-template-columns:1fr;}}
+    .testi-card{background:var(--white);border:1px solid var(--g4);border-radius:10px;padding:22px;display:flex;flex-direction:column;position:relative;}
+    .testi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:10px 10px 0 0;}
+    .testi-coach::before{background:var(--yellow);}
+    .testi-family::before{background:var(--blue);}
+    .testi-teammate::before{background:#E91E8C;}
+    .testi-role-badge{display:inline-block;font-family:var(--display);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:14px;align-self:flex-start;}
+    .testi-coach .testi-role-badge{background:var(--yellow-m);color:var(--blue2);border:1px solid var(--yellow);}
+    .testi-family .testi-role-badge{background:var(--blue-l);color:var(--blue2);}
+    .testi-teammate .testi-role-badge{background:#FCE4F3;color:#A8005C;border:1px solid #F0A0D0;}
+    .testi-quote{font-size:15px;font-style:italic;color:var(--g1);line-height:1.75;flex:1;margin-bottom:18px;border-left:3px solid var(--g4);padding-left:14px;}
+    .testi-coach .testi-quote{border-left-color:var(--yellow);}
+    .testi-family .testi-quote{border-left-color:var(--blue-m);}
+    .testi-teammate .testi-quote{border-left-color:#F0A0D0;}
+    .testi-author{display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:14px;border-top:1px solid var(--g4);}
+    .testi-name{font-size:14px;font-weight:600;color:var(--ink);}
+    .testi-title{font-size:12px;color:var(--g3);margin-top:2px;}
+    .player-stat-strip{background:var(--blue);padding:0;}
+    .pss-inner{max-width:1120px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(6,1fr);}
+    @media(max-width:860px){.pss-inner{grid-template-columns:repeat(3,1fr);}}
+    @media(max-width:480px){.pss-inner{grid-template-columns:repeat(2,1fr);}}
+    .pss-item{padding:14px 10px;border-right:1px solid rgba(255,255,255,0.1);text-align:center;}
+    .pss-item:last-child{border-right:none;}
+    .pss-val{font-family:var(--display);font-size:1.85rem;font-weight:900;color:var(--white);line-height:1;}
+    .pss-val.gold{color:var(--yellow);}
+    .pss-lbl{font-family:var(--display);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:3px;}
+    .stat-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--g4);border-radius:10px;margin-bottom:24px;}
+    .stat-table{width:100%;border-collapse:collapse;min-width:560px;font-size:14px;}
+    .stat-table thead tr{background:var(--blue);}
+    .stat-table th{font-family:var(--display);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.55);padding:12px 14px;text-align:left;white-space:nowrap;}
+    .stat-table th.r{text-align:right;}
+    .stat-table td{padding:13px 14px;border-bottom:1px solid var(--g4);color:var(--g1);white-space:nowrap;}
+    .stat-table tr:last-child td{border-bottom:none;}
+    .stat-table tr:nth-child(odd) td{background:var(--g5);}
+    .stat-table tr:nth-child(even) td{background:var(--white);}
+    .stat-table tr:hover td{background:var(--blue-l);}
+    .stat-table td.r{text-align:right;}
+    .stat-table td.s-season{font-weight:600;color:var(--ink);font-size:15px;}
+    .stat-table td.s-team{font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;}
+    .stat-table td.s-avg{font-weight:700;color:var(--ink);}
+    .stat-table td.s-ops{font-weight:700;color:#B91C1C;}
+    .stat-table tfoot td{background:var(--blue-l)!important;border-top:2px solid var(--blue-m);font-weight:700;color:var(--ink);padding:14px;}
+    .stat-table tfoot td.s-ops{color:#B91C1C;}
+    .t-bnns{color:#C8760A;}.t-htsh{color:var(--blue2);}
+    .adv-snap{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:1px;background:var(--g4);border:1px solid var(--g4);border-radius:10px;overflow:hidden;}
+    .adv-cell{background:var(--white);padding:14px 12px;text-align:center;}
+    .adv-lbl{font-family:var(--display);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--g3);margin-bottom:4px;}
+    .adv-num{font-family:var(--display);font-size:22px;font-weight:900;color:var(--ink);line-height:1;}
+    .adv-num.red{color:#B91C1C;}
+    .video-wall-section{background:#06101e;border-top:3px solid var(--yellow);padding:56px 0 64px;}
+    .vw-inner{max-width:1120px;margin:0 auto;padding:0 24px;}
+    .vw-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:28px;flex-wrap:wrap;}
+    .vw-label{font-family:var(--display);font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--yellow);margin-bottom:6px;}
+    .vw-title{font-family:var(--display);font-size:clamp(26px,5vw,40px);font-weight:900;color:var(--white);letter-spacing:1px;text-transform:uppercase;line-height:1;margin-bottom:6px;}
+    .vw-desc{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.6;max-width:500px;}
+    .vw-folder-link{display:inline-flex;align-items:center;gap:6px;font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.45);border:1px solid rgba(255,255,255,0.15);padding:8px 14px;border-radius:6px;min-height:38px;flex-shrink:0;transition:color 0.15s,border-color 0.15s;text-decoration:none;}
+    .vw-folder-link:hover{color:var(--white);border-color:rgba(255,255,255,0.4);}
+    .vw-tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;}
+    .vw-tab{font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:7px 14px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);background:transparent;color:rgba(255,255,255,0.45);cursor:pointer;min-height:36px;display:inline-flex;align-items:center;transition:all 0.12s;}
+    .vw-tab:hover{color:var(--white);border-color:rgba(255,255,255,0.3);}
+    .vw-tab.active{background:var(--yellow);color:var(--blue);border-color:var(--yellow);}
+    .vw-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+    @media(max-width:1000px){.vw-grid{grid-template-columns:repeat(3,1fr);}}
+    @media(max-width:660px){.vw-grid{grid-template-columns:repeat(2,1fr);}}
+    .vc{background:#0d1e38;border:1px solid rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;cursor:pointer;transition:border-color 0.12s,transform 0.1s;}
+    .vc:hover{border-color:rgba(245,196,0,0.4);transform:translateY(-2px);}
+    .vc.hidden{display:none;}
+    .vc-thumb{background:#081428;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;position:relative;}
+    .vc-play{width:38px;height:38px;background:rgba(185,28,28,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;padding-left:3px;transition:background 0.12s,transform 0.12s;}
+    .vc:hover .vc-play{background:#B91C1C;transform:scale(1.1);}
+    .vc-body{padding:8px 11px 11px;}
+    .vc-badge{display:inline-block;font-family:var(--display);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:2px 7px;border-radius:4px;margin-bottom:5px;}
+    .badge-hr{background:rgba(185,28,28,0.2);color:#FCA5A5;border:1px solid rgba(185,28,28,0.3);}
+    .badge-triple{background:rgba(6,95,70,0.2);color:#6EE7B7;border:1px solid rgba(6,95,70,0.3);}
+    .badge-double{background:rgba(26,86,176,0.2);color:#93C5FD;border:1px solid rgba(26,86,176,0.3);}
+    .vc-date{font-family:var(--display);font-size:14px;font-weight:700;color:var(--white);line-height:1.2;}
+    .vc-ctx{font-size:11px;color:rgba(255,255,255,0.35);margin-top:2px;}
+    .vm-overlay{display:none;position:fixed;inset:0;background:rgba(6,16,30,0.95);z-index:500;align-items:center;justify-content:center;padding:16px;}
+    .vm-overlay.open{display:flex;}
+    .vm-box{background:#0d1e38;border:1px solid rgba(255,255,255,0.12);border-radius:10px;overflow:hidden;width:100%;max-width:860px;max-height:90vh;display:flex;flex-direction:column;}
+    .vm-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.08);flex-shrink:0;gap:12px;}
+    .vm-badge{font-family:var(--display);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--yellow);margin-bottom:2px;}
+    .vm-title{font-family:var(--display);font-size:20px;font-weight:900;color:var(--white);letter-spacing:1px;line-height:1;}
+    .vm-sub{font-size:12px;color:rgba(255,255,255,0.4);margin-top:2px;}
+    .vm-close{background:rgba(255,255,255,0.08);border:none;color:rgba(255,255,255,0.55);width:34px;height:34px;min-width:34px;border-radius:50%;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:background 0.12s;}
+    .vm-close:hover{background:rgba(255,255,255,0.15);color:var(--white);}
+    .vm-player{position:relative;padding-bottom:56.25%;height:0;background:#000;flex:1;}
+    .vm-player iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+  </style>
+</head>
+<body>
+<script src="assets/js/nav.js"></script>
+<img src="assets/team-banner.jpg" alt="Bananas 2K15" class="team-banner">
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-kicker">Hotshots 2K15 &bull; Georgetown, TX &bull; 2025–26 Season</div>
+    <h1>#21 Kassidy Cargill</h1>
+    <div class="hero-sub">Impact Player &nbsp;&middot;&nbsp; 3B &nbsp;&middot;&nbsp; SS &nbsp;&middot;&nbsp; C &nbsp;&middot;&nbsp; CF</div>
+    <div class="hero-rule"></div>
+    <p class="hero-tagline">Versatile, gritty, and game-changing. Team USA 10U 2026. Seeking practice and tryout opportunities.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px;">
+      <a href="#film" class="btn-primary">Watch Film &nbsp;<i class="ti ti-player-play"></i></a>
+      <a href="#contact" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--yellow);font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;padding:11px 22px;border-radius:6px;border:2px solid rgba(255,255,255,.4);text-decoration:none;">Find Tryouts</a>
+    </div>
+  </div>
+</section>
+
+<div class="player-stat-strip">
+  <div class="pss-inner">
+    <div class="pss-item"><div class="pss-val gold">.449</div><div class="pss-lbl">Career AVG</div></div>
+    <div class="pss-item"><div class="pss-val">.520</div><div class="pss-lbl">Career OBP</div></div>
+    <div class="pss-item"><div class="pss-val">.704</div><div class="pss-lbl">Career SLG</div></div>
+    <div class="pss-item"><div class="pss-val gold">1.224</div><div class="pss-lbl">Career OPS</div></div>
+    <div class="pss-item"><div class="pss-val">74</div><div class="pss-lbl">Career SB</div></div>
+    <div class="pss-item"><div class="pss-val gold">94.87%</div><div class="pss-lbl">SB Success</div></div>
+  </div>
+</div>
+
+<div class="gold-strip">
+  <p>Spring 2026 Season &nbsp;&bull;&nbsp; Team USA 10U 2026 &nbsp;&bull;&nbsp; 18–6 Team Record &nbsp;&bull;&nbsp; Seeking Tryout Opportunities</p>
+</div>
+
+<div class="page">
+
+  <div class="section">
+    <div class="section-label">Kassidy</div>
+    <h2>#21 In Action</h2>
+    <div class="section-rule"></div>
+    <div class="player-gallery">
+      <div class="gallery-img-wrap">
+        <img src="kassidy-bananas-card.png" alt="Kassidy Cargill #21 — Bananas uniform" style="object-position:center 12%;" />
+      </div>
+      <div class="gallery-img-wrap">
+        <img src="https://jeremiah9980.github.io/kass21/usa-official-portrait-2026.jpeg" alt="Kassidy Cargill — Team USA 10U 2026 official portrait" style="object-position:center 10%;" />
+      </div>
+      <div class="gallery-img-wrap">
+        <img src="https://jeremiah9980.github.io/kass21/usa-action-celebration.png" alt="Kassidy Cargill — USA celebration, all out" />
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="character" style="background:var(--off-white);">
+    <div class="section-label">Who She Is</div>
+    <h2>Character Profile</h2>
+    <div class="section-rule"></div>
+    <div class="testi-grid">
+
+      <div class="testi-card testi-coach">
+        <span class="testi-role-badge">&#127941; Coach</span>
+        <p class="testi-quote">She's the player every coach wants in their dugout. First to arrive, last to leave, and she elevates everyone around her without making it about herself. The game slows down for her when it matters most.</p>
+        <div class="testi-author">
+          <div class="avatar av-gold">BR</div>
+          <div>
+            <div class="testi-name">Brian Rogers</div>
+            <div class="testi-title">Co-Head Coach, Bananas 2K15</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card testi-family">
+        <span class="testi-role-badge">&#10084;&#65039; Family</span>
+        <p class="testi-quote">She was told she couldn't play — so she proved them wrong. Every single time. She doesn't need a spotlight. She just needs a diamond and an opportunity. The rest takes care of itself.</p>
+        <div class="testi-author">
+          <div class="avatar av-blue">JC</div>
+          <div>
+            <div class="testi-name">Jeremiah Cargill</div>
+            <div class="testi-title">Dad &nbsp;&middot;&nbsp; Co-Director, Bananas 2K15</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card testi-teammate">
+        <span class="testi-role-badge">&#11088; Teammate</span>
+        <p class="testi-quote">Nooooobody — and I mean nobody — is tougher than her. She plays hurt, she plays tired, she plays in the rain. And she still finds a way to come through when it counts.</p>
+        <div class="testi-author">
+          <div class="avatar av-gray">JR</div>
+          <div>
+            <div class="testi-name">Johnny Rogers</div>
+            <div class="testi-title">Teammate &nbsp;&middot;&nbsp; #74 Bananas 2K15</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section" id="stats">
+    <div class="section-label">Performance</div>
+    <h2>Stat Dashboard</h2>
+    <div class="section-rule"></div>
+    <div style="font-family:var(--display);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:12px;">Season by Season</div>
+    <div class="stat-table-wrap">
+      <table class="stat-table">
+        <thead>
+          <tr>
+            <th>Season</th><th>Team</th>
+            <th class="r">AVG</th><th class="r">OBP</th><th class="r">SLG</th><th class="r">OPS</th>
+            <th class="r">H</th><th class="r">HR</th><th class="r">3B</th><th class="r">SB</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="s-season">Spring 2024</td><td class="s-team t-bnns">Bananas</td><td class="r s-avg">.548</td><td class="r">.560</td><td class="r">.699</td><td class="r s-ops">1.259</td><td class="r">40</td><td class="r">2</td><td class="r">—</td><td class="r">2</td></tr>
+          <tr><td class="s-season">Fall 2024</td><td class="s-team t-bnns">Bananas</td><td class="r s-avg">.314</td><td class="r">.529</td><td class="r">.400</td><td class="r s-ops">.929</td><td class="r">11</td><td class="r">1</td><td class="r">—</td><td class="r">27</td></tr>
+          <tr><td class="s-season">Spring 2025</td><td class="s-team t-htsh">Hotshots</td><td class="r s-avg">.426</td><td class="r">.492</td><td class="r">.806</td><td class="r s-ops">1.297</td><td class="r">46</td><td class="r">6</td><td class="r">—</td><td class="r">45</td></tr>
+          <tr><td class="s-season">Fall 2025</td><td class="s-team t-htsh">Hotshots 2K15</td><td class="r s-avg">.495</td><td class="r">.529</td><td class="r">.667</td><td class="r s-ops">1.196</td><td class="r">46</td><td class="r">1</td><td class="r">—</td><td class="r">26</td></tr>
+          <tr><td class="s-season">Spring 2026</td><td class="s-team t-htsh">Hotshots 2K15</td><td class="r s-avg">.389</td><td class="r">.522</td><td class="r">.667</td><td class="r s-ops">1.188</td><td class="r">14</td><td class="r">2</td><td class="r">—</td><td class="r">16</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="2"><strong>Career Totals</strong></td><td class="r s-ops">.449</td><td class="r">.520</td><td class="r">.704</td><td class="r s-ops">1.224</td><td class="r">97</td><td class="r">9</td><td class="r">11</td><td class="r">74</td></tr>
+        </tfoot>
+      </table>
+    </div>
+    <div style="font-family:var(--display);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:12px;">Spring 2026 Advanced Snapshot</div>
+    <div class="adv-snap">
+      <div class="adv-cell"><div class="adv-lbl">Contact %</div><div class="adv-num">80.56</div></div>
+      <div class="adv-cell"><div class="adv-lbl">BB / K</div><div class="adv-num">1.000</div></div>
+      <div class="adv-cell"><div class="adv-lbl">BABIP</div><div class="adv-num">.444</div></div>
+      <div class="adv-cell"><div class="adv-lbl">BA / RISP</div><div class="adv-num red">.421</div></div>
+      <div class="adv-cell"><div class="adv-lbl">GB %</div><div class="adv-num">58.62</div></div>
+      <div class="adv-cell"><div class="adv-lbl">Hard Hit</div><div class="adv-num">5</div></div>
+      <div class="adv-cell"><div class="adv-lbl">Team Record</div><div class="adv-num">18–6</div></div>
+      <div class="adv-cell"><div class="adv-lbl">SB Success</div><div class="adv-num red">94.87%</div></div>
+    </div>
+  </div>
+
+  <div class="section" id="contact">
+    <div class="section-label">Next Step</div>
+    <h2>Seeking Practice &amp; Tryout Opportunities</h2>
+    <div class="section-rule"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
+      <p>Kassidy is actively looking for upcoming practices and tryouts where she can get quality reps and showcase her abilities in person. She shows up ready to work, ready to listen, and ready to help any program win.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <a href="https://www.instagram.com/kasscargill" target="_blank" class="doc-item">
+          <div class="doc-icon"><i class="ti ti-brand-instagram"></i></div>
+          <div class="doc-info"><div class="doc-name">@kasscargill</div><div class="doc-desc">Follow on Instagram</div></div>
+          <i class="ti ti-arrow-right doc-dl"></i>
+        </a>
+        <a href="https://jeremiah9980.github.io/kass21/kass21-landing-v2.html" class="doc-item">
+          <div class="doc-icon"><i class="ti ti-user-star"></i></div>
+          <div class="doc-info"><div class="doc-name">Full Athlete Profile</div><div class="doc-desc">Film wall, full stats, and recruiting page</div></div>
+          <i class="ti ti-arrow-right doc-dl"></i>
+        </a>
+        <a href="https://jeremiah9980.github.io/johnny74/johnny74-landing-v2.html" class="doc-item" style="border-left:3px solid #E91E8C;border-radius:0 10px 10px 0;">
+          <div class="doc-icon" style="background:#FCE4F3;border-color:#F0A0D0;"><i class="ti ti-baseball" style="color:#A8005C;"></i></div>
+          <div class="doc-info"><div class="doc-name">#74 Johnny Rogers</div><div class="doc-desc">Teammate spotlight — Bananas 2K15</div></div>
+          <i class="ti ti-arrow-right doc-dl"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<section class="video-wall-section" id="film">
+  <div class="vw-inner">
+    <div class="vw-header">
+      <div>
+        <div class="vw-label">Film Room</div>
+        <div class="vw-title">At the Plate</div>
+        <p class="vw-desc">19 documented at-bats — 6 home runs, 7 triples, 6 doubles — straight from game film. No narration. Judge for yourself.</p>
+      </div>
+      <a href="https://drive.google.com/drive/folders/1IHkRyyhP4pcVnR3BW5AaooALhAVpb3YP?usp=drive_link" target="_blank" class="vw-folder-link">
+        <i class="ti ti-folder-open"></i> Full Folder
+      </a>
+    </div>
+    <div class="vw-tabs">
+      <button class="vw-tab active" onclick="filterV('all',this)">All <span style="opacity:.55;">19</span></button>
+      <button class="vw-tab" onclick="filterV('HR',this)">&#127968; HR <span style="opacity:.55;">6</span></button>
+      <button class="vw-tab" onclick="filterV('3B',this)">3B <span style="opacity:.55;">7</span></button>
+      <button class="vw-tab" onclick="filterV('2B',this)">2B <span style="opacity:.55;">6</span></button>
+    </div>
+    <div class="vw-grid" id="vgrid">
+      <div class="vc" data-type="HR"
+           onclick="openV('1w0LSyFLWVroamct7MjHSUx82cyx_3Ppv','Home Run','Mar 21, 2026','Inn 4 · Top')">
+        <div class="vc-thumb"><div class="vc-play">&#9654;</div></div>
+        <div class="vc-body">
+          <span class="vc-badge badge-hr">Home Run</span>
+          <div class="vc-date">Mar 21, 2026</div>
+          <div class="vc-ctx">Inn 4 · Top</div>
+        </div>
+      </div>
+      <div class="vc" data-type="HR"
+           onclick="openV('1rr05FoSDuwphhqKfUt-H_HrhHMcCZ1GI','Home Run','Oct 25, 2025','Inn 2 · Bottom')">
+        <div class="vc-thumb"><div class="vc-play">&#9654;</div></div>
+        <div class="vc-body">
+          <span class="vc-badge badge-hr">Home Run</span>
+          <div class="vc-date">Oct 25, 2025</div>
+          <div class="vc-ctx">Inn 2 · Bottom</div>
+        </div>
+      </div>
+      <div class="vc" data-type="HR"
+           onclick="openV('1v5_b27StswcGGtFzg21X38CEpk-qxTc_','Home Run','May 24, 2025','Inn 1 · Top')">
+        <div class="vc-thumb"><div class="vc-play">&#9654;</div></div>
+        <div class="vc-body">
+          <span class="vc-badge badge-hr">Home Run</span>
+          <div class="vc-date">May 24, 2025</div>
+          <div class="vc-ctx">Inn 1 · Top</div>
+        </div>
+      </div>
+      <div class="vc" data-type="HR"
+           onclick="openV('19xpmoSzF09-PpxIe4TWEMGkQ5C6Fm2yz','Home Run','May 17, 2025','Inn 1 · Bottom')">
+        <div class="vc-thumb"><div class="vc-play">&#9654;</div></div>
+        <div class="vc-body">
+          <span class="vc-badge badge-hr">Home Run</span>
+          <div class="vc-date">May 17, 2025</div>
+          <div class="vc-ctx">Inn 1 · Bottom</div>
+        </div>
+      </div>
+      <div class="vc" data-type="HR"
+           onclick="openV('1G_cloqQ5BnW-1u8eyYOWRMlIWi2yu2nE','Home Run','Apr 26, 2025','Inn 1 · Top')">
+        <div class="vc-thumb"><div class="vc-play">&#9654;</div></div>
+        <div class="vc-body">
+          <span class="vc-badge badge-hr">Home Run</span>
+          <div class="vc-date">Apr 26, 2025</div>
+          <div class="vc-ctx">Inn 1 · Top</div>
+        </div>
+      </div>
+      <div class="vc" data-type="HR"
+           onclick="openV('1GF_C65fV0LQ_pAKU9Xd3bL2Bpw1ZZdz1','Home Run','Apr 13, 2025','Inn 2 · Bottom')">
+        <div class="vc-thumb"><div class="vc-play">&#9654;</div></div>
+        <div class="vc-body">
+          <span class="vc-badge badge-hr">Home Run</span>
+          <div class="vc-date">Apr 13, 2025</div>
+          <div class="vc-ctx">Inn 2 · Bottom</div>
+        </div>
+      </div>
+      <div class="vc" data-type="3B"
+           onclick="openV('1D2bEo1aT7qiLaf9dQYcelhmbYMIpCG9g','Triple','Mar 21, 2026','Inn 1 · Top')">
+        <div class="vc-thumb"><div class="vc-play">&#9654;</div></div>
+        <div class="vc-body">
+          <span class="vc-badge badge-triple">Triple</span>
+          <div class="vc-date">Mar 21, 2026</div>
+          <div class="vc-ctx">Inn 1 · Top</div>
+        </div>
+      </div>
+      <div class="vc" data-type="3B"
+           onclick="openV('1UuW_nFOMcJfwlWYfHGQMDhKI1IGhfFUN','Triple','Mar 14, 2026','Inn 1 · Bottom')">
+        <div class="vc-thumb"><div class="vc-play">&#9654;</div></div>
+        <div class="vc-body">
+          <span class="vc-badge badge-triple">Triple</span>
+          <div class="vc-date">Mar 14, 2026</div>
+          <div class="vc-ctx">Inn 1 · Bottom</div>
+        </div>
+      </div>
+      <div class="vc" data-type="3B"
+           onclick="openV('1qVy-q_QkOu-n75QHtPqvhkmen5qGhlvq','Triple','Feb 21, 2026','Inn 1 · Bottom')">
+        <div class="vc-thumb"><div class="vc-play">&#9654;</div></div>
+        <div class="vc-body">
+          <span class="vc-badge badge-triple">Triple</span>
+          <div class="vc-date">Feb 21, 2026</div>
+          <div class="vc-ctx">Inn 1 · Bottom</div>
+        </div>
+      </div>
+      <div class="vc" data-type="3B"
+           onclick="openV('1xwcKLbscoadAPFMYmpa90B5E3r6xwmgl','Triple','Nov 17, 2025','Inn 1 · Top')">
+        <div class="vc-thumb"><div class="vc-play">&#9654;</div></div>
+        <div class="vc-body">
+          <span class="vc-badge badge-triple">Triple</span>
+          <div class="vc-date">Nov 17, 2025</div>
+          <div class="vc-ctx">Inn 1 · Top</div>
+        </div>
+      </div>
+      <div class="vc" data-type="3B"
+           onclick="openV('1KwAvZq79vnbAi_HFlhkTcFEehdjDB2RQ','Triple','Nov 16, 2025','Inn 2 · Top')">
+        <div class="vc-thumb"><div class="vc-play">&#9654;</div></div>
+        <div class="vc-body">
+          <span class="vc-badge badge-triple">Triple</span>
+          <div class="vc-date">Nov 16, 2025</div>
+          <div class="vc-ctx">Inn 2 · Top</div>
+        </div>
+      </div>
+      <div class="vc" data-type="3B"
+           onclick="openV('1TkLAPO_Gdo3-6baZNAn1bE6ZS485iMEO','Triple','Apr 13, 2025','Inn 2 · Top')">
+        <div class="vc-thumb"><div class="vc-play">&#9654;</div></div>
+        <div class="vc-body">
+          <span class="vc-badge badge-triple">Triple</span>
+          <div class="vc-date">Apr 13, 2025</div>
+          <div class="vc-ctx">Inn 2 · Top</div>
+        </div>
+      </div>
+      <div class="vc" data-type="3B"
+           onclick="openV('11oFfruVjUFasRy9hPXkFAb7tm758T0tq','Triple','Feb 23, 2025','Inn 1 · Top')">
+        <div class="vc-thumb"><div class="vc-play">&#9654;</div></div>
+        <div class="vc-body">
+          <span class="vc-badge badge-triple">Triple</span>
+          <div class="vc-date">Feb 23, 2025</div>
+          <div class="vc-ctx">Inn 1 · Top</div>
+        </div>
+      </div>
+      <div class="vc" data-type="2B"
+           onclick="openV('1NmCvCuxFYk9eWU8Sn47hWnx7XuuNUHJL','Double','Apr 18, 2026','Inn 1 · Bottom')">
+        <div class="vc-thumb"><div class="vc-play">&#9654;</div></div>
+        <div class="vc-body">
+          <span class="vc-badge badge-double">Double</span>
+          <div class="vc-date">Apr 18, 2026</div>
+          <div class="vc-ctx">Inn 1 · Bottom</div>
+        </div>
+      </div>
+      <div class="vc" data-type="2B"
+           onclick="openV('1K1OqftqwBfKzgA0xtTu0qV0ZPGkUuoep','Double','Dec 13, 2025','Inn 1 · Top')">
+        <div class="vc-thumb"><div class="vc-play">&#9654;</div></div>
+        <div class="vc-body">
+          <span class="vc-badge badge-double">Double</span>
+          <div class="vc-date">Dec 13, 2025</div>
+          <div class="vc-ctx">Inn 1 · Top</div>
+        </div>
+      </div>
+      <div class="vc" data-type="2B"
+           onclick="openV('1PxvUwypdPuUGQcDoXy-vLjE-sJZyENpr','Double','Nov 15, 2025','Inn 2 · Bottom')">
+        <div class="vc-thumb"><div class="vc-play">&#9654;</div></div>
+        <div class="vc-body">
+          <span class="vc-badge badge-double">Double</span>
+          <div class="vc-date">Nov 15, 2025</div>
+          <div class="vc-ctx">Inn 2 · Bottom</div>
+        </div>
+      </div>
+      <div class="vc" data-type="2B"
+           onclick="openV('1F8g_6PjtObSet4ATzoo62NNka0trIWiV','Double','Oct 18, 2025','Inn 1 · Top')">
+        <div class="vc-thumb"><div class="vc-play">&#9654;</div></div>
+        <div class="vc-body">
+          <span class="vc-badge badge-double">Double</span>
+          <div class="vc-date">Oct 18, 2025</div>
+          <div class="vc-ctx">Inn 1 · Top</div>
+        </div>
+      </div>
+      <div class="vc" data-type="2B"
+           onclick="openV('1781QrwW8ZoBTqnVyu6o7lO5mLhLHC3BT','Double','Jun 14, 2025','Inn 3 · Bottom')">
+        <div class="vc-thumb"><div class="vc-play">&#9654;</div></div>
+        <div class="vc-body">
+          <span class="vc-badge badge-double">Double</span>
+          <div class="vc-date">Jun 14, 2025</div>
+          <div class="vc-ctx">Inn 3 · Bottom</div>
+        </div>
+      </div>
+      <div class="vc" data-type="2B"
+           onclick="openV('1hvCHxhvn5OFcXDXoqho3Wzl_mSpty1cB','Double','Feb 23, 2025','Inn 1 · Top')">
+        <div class="vc-thumb"><div class="vc-play">&#9654;</div></div>
+        <div class="vc-body">
+          <span class="vc-badge badge-double">Double</span>
+          <div class="vc-date">Feb 23, 2025</div>
+          <div class="vc-ctx">Inn 1 · Top</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="vm-overlay" id="vm-overlay" onclick="closeVBg(event)">
+  <div class="vm-box">
+    <div class="vm-head">
+      <div><div class="vm-badge" id="vm-badge"></div><div class="vm-title" id="vm-title"></div><div class="vm-sub" id="vm-sub"></div></div>
+      <button class="vm-close" onclick="closeV()">&#10005;</button>
+    </div>
+    <div class="vm-player"><iframe id="vm-iframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand">&#x1F34C; Bananas 2K15</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a><a href="about.html">About</a><a href="board.html">Board</a>
+    <a href="coaching.html">Coaching</a><a href="roster.html">Roster</a><a href="bylaws.html">Bylaws</a>
+    <a href="policies.html">Policies</a><a href="docs.html">Documents</a><a href="finances.html">Finances</a>
+    <a href="fundraising.html">Support Us</a><a href="contact.html">Contact</a>
+  </div>
+  <p>Georgetown, Texas &bull; 12U Select Softball &bull; USSSA &bull; NSA &bull; NCS &bull; 2025</p>
+  <p>Co-Head Coaches: Brian Rogers &amp; Bob &nbsp;&bull;&nbsp; Co-Directors: Jesica &amp; Jeremiah Cargill</p>
+</footer>
+<script>
+function openV(id,type,date,ctx){document.getElementById('vm-iframe').src='https://drive.google.com/file/d/'+id+'/preview';document.getElementById('vm-badge').textContent=type;document.getElementById('vm-title').textContent=date;document.getElementById('vm-sub').textContent=ctx+' · #21 Kassidy Cargill';document.getElementById('vm-overlay').classList.add('open');document.body.style.overflow='hidden';}
+function closeV(){document.getElementById('vm-overlay').classList.remove('open');document.getElementById('vm-iframe').src='';document.body.style.overflow='';}
+function closeVBg(e){if(e.target===document.getElementById('vm-overlay'))closeV();}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeV();});
+function filterV(type,btn){document.querySelectorAll('.vw-tab').forEach(function(t){t.classList.remove('active');});btn.classList.add('active');document.querySelectorAll('.vc').forEach(function(c){c.classList.toggle('hidden',type!=='all'&&c.dataset.type!==type);});}
+</script>
+</body>
+</html>
