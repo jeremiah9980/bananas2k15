@@ -1,0 +1,109 @@
+body.bombers-page {
+  --team-primary: #3BA7FF;
+  --team-primary-dark: #03070D;
+  --team-blue-2: #0B4FA3;
+  --team-accent: #FFFFFF;
+  --team-silver: #C8D3E0;
+  background: #03070D;
+}
+
+.bombers-page nav {
+  background: #050A12;
+  border-bottom-color: var(--team-primary);
+}
+.bombers-page .nav-brand,
+.bombers-page .nav-links a:hover,
+.bombers-page .nav-links a.active { color: var(--team-primary); }
+.bombers-page .nav-brand img { border-color: var(--team-primary); }
+.bombers-page .nav-links a { color: rgba(255,255,255,.68); }
+
+.team-hero {
+  min-height: 72vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  padding: 84px 0 76px;
+}
+.bombers-hero {
+  background:
+    radial-gradient(circle at 80% 18%, rgba(59,167,255,.36), transparent 26%),
+    radial-gradient(circle at 15% 80%, rgba(59,167,255,.24), transparent 28%),
+    linear-gradient(135deg, #02060D 0%, #07111F 50%, #03070D 100%);
+}
+.team-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(rgba(59,167,255,.045) 1px, transparent 1px);
+  background-size: 52px 52px;
+  opacity: .55;
+}
+.team-hero::after {
+  content: 'BOMBERS';
+  position: absolute;
+  left: 50%;
+  bottom: -5vw;
+  transform: translateX(-50%);
+  font-family: var(--display);
+  font-size: clamp(96px, 20vw, 280px);
+  font-weight: 900;
+  letter-spacing: 9px;
+  color: rgba(255,255,255,.045);
+  line-height: .8;
+  white-space: nowrap;
+}
+.team-hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  padding: 0 24px;
+}
+.bombers-page .hero-kicker { color: var(--team-primary); }
+.bombers-page .team-hero h1 {
+  font-family: var(--display);
+  font-size: clamp(54px, 10vw, 118px);
+  color: var(--team-accent);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: .9;
+  text-shadow: 0 0 28px rgba(59,167,255,.55), 4px 4px 0 rgba(0,0,0,.35);
+}
+.bombers-page .hero-sub { color: var(--team-primary); }
+.bombers-page .hero-rule { background: var(--team-primary); }
+.bombers-page .hero-tagline { color: rgba(255,255,255,.78); }
+.hero-actions { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:28px; }
+.bombers-page .btn-primary {
+  background: var(--team-primary);
+  color: #06101E;
+  border-color: var(--team-primary);
+}
+.bombers-page .btn-outline {
+  display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--team-accent);font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;padding:11px 22px;border-radius:6px;border:2px solid rgba(59,167,255,.5);text-decoration:none;
+}
+.team-strip { text-align:center; padding:12px 20px; font-family:var(--display); font-weight:900; letter-spacing:2px; text-transform:uppercase; }
+.bombers-strip { background: var(--team-primary); color:#06101E; }
+.bombers-page .page { background:#F5F8FC; border-radius:18px 18px 0 0; }
+.bombers-page .section-label,
+.bombers-page .card h3 { color: var(--team-blue-2); }
+.bombers-page .section-rule,
+.bombers-page .team-card { background:#fff; border-top-color:var(--team-primary); }
+.team-icon { font-size:28px; margin-bottom:10px; }
+.team-split { display:grid; grid-template-columns:1fr 360px; gap:28px; align-items:start; }
+.team-panel { background:#07111F; color:#fff; border:1px solid rgba(59,167,255,.42); border-radius:12px; padding:22px; box-shadow:0 18px 40px rgba(0,0,0,.16); }
+.panel-label { font-family:var(--display); color:var(--team-primary); font-size:13px; font-weight:900; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px; }
+.team-panel ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.team-panel li { color:rgba(255,255,255,.84); font-size:14px; }
+.team-panel li::before { content:'→'; color:var(--team-primary); margin-right:8px; }
+.bombers-page .team-callout { background:#E8F4FF; border-left-color:var(--team-primary); }
+.bombers-page footer { background:#050A12; border-top:3px solid var(--team-primary); }
+.bombers-page .footer-brand { color:var(--team-primary); }
+
+@media (max-width: 760px) {
+  .team-split { grid-template-columns:1fr; }
+  .team-hero { min-height:60vh; padding:64px 0; }
+}
