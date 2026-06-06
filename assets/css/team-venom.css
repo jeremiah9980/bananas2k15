@@ -1,0 +1,110 @@
+body.venom-page {
+  --team-primary: #6D28D9;
+  --team-primary-dark: #170322;
+  --team-accent: #C6FF00;
+  --team-accent-2: #8B5CF6;
+  --team-white: #FFFFFF;
+  --team-muted: #C4B5FD;
+  background: #07050B;
+}
+
+.venom-page nav {
+  background: #08040D;
+  border-bottom-color: var(--team-accent);
+}
+.venom-page .nav-brand,
+.venom-page .nav-links a:hover,
+.venom-page .nav-links a.active { color: var(--team-accent); }
+.venom-page .nav-brand img { border-color: var(--team-accent); }
+.venom-page .nav-links a { color: rgba(255,255,255,.66); }
+
+.team-hero {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  padding: 84px 0 76px;
+}
+.venom-hero {
+  background:
+    radial-gradient(circle at 75% 20%, rgba(198,255,0,.18), transparent 28%),
+    radial-gradient(circle at 18% 65%, rgba(109,40,217,.48), transparent 32%),
+    linear-gradient(135deg, #050207 0%, #13051E 52%, #050505 100%);
+}
+.team-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(198,255,0,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139,92,246,.08) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: .45;
+}
+.team-hero::after {
+  content: 'VENOM';
+  position: absolute;
+  right: -4vw;
+  bottom: -6vw;
+  font-family: var(--display);
+  font-size: clamp(110px, 22vw, 300px);
+  font-weight: 900;
+  letter-spacing: 10px;
+  color: rgba(255,255,255,.035);
+  line-height: .8;
+}
+.team-hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 940px;
+  padding: 0 24px;
+}
+.venom-page .hero-kicker { color: var(--team-accent); }
+.venom-page .hero h1,
+.venom-page .team-hero h1 {
+  font-family: var(--display);
+  font-size: clamp(54px, 10vw, 118px);
+  color: var(--team-white);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: .9;
+  text-shadow: 0 0 28px rgba(109,40,217,.65);
+}
+.venom-page .hero-sub { color: var(--team-accent); }
+.venom-page .hero-rule { background: var(--team-accent); }
+.venom-page .hero-tagline { color: rgba(255,255,255,.76); }
+.hero-actions { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:28px; }
+.venom-page .btn-primary {
+  background: var(--team-accent);
+  color: #101010;
+  border-color: var(--team-accent);
+}
+.venom-page .btn-outline {
+  display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--team-white);font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;padding:11px 22px;border-radius:6px;border:2px solid rgba(198,255,0,.45);text-decoration:none;
+}
+.team-strip { text-align:center; padding:12px 20px; font-family:var(--display); font-weight:900; letter-spacing:2px; text-transform:uppercase; }
+.venom-strip { background: var(--team-accent); color:#12051F; }
+.venom-page .page { background:#F8F7FC; border-radius:18px 18px 0 0; margin-top:0; }
+.venom-page .section-label,
+.venom-page .card h3 { color: var(--team-primary); }
+.venom-page .section-rule,
+.venom-page .card-gold,
+.venom-page .team-card { border-top-color: var(--team-accent); }
+.team-icon { font-size:28px; margin-bottom:10px; }
+.team-split { display:grid; grid-template-columns:1fr 360px; gap:28px; align-items:start; }
+.team-panel { background:#100719; color:#fff; border:1px solid rgba(198,255,0,.34); border-radius:12px; padding:22px; box-shadow:0 18px 40px rgba(0,0,0,.16); }
+.panel-label { font-family:var(--display); color:var(--team-accent); font-size:13px; font-weight:900; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px; }
+.team-panel ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.team-panel li { color:rgba(255,255,255,.82); font-size:14px; }
+.team-panel li::before { content:'→'; color:var(--team-accent); margin-right:8px; }
+.venom-page .team-callout { background:#F0E9FF; border-left-color:var(--team-primary); }
+.venom-page footer { background:#08040D; border-top:3px solid var(--team-accent); }
+.venom-page .footer-brand { color:var(--team-accent); }
+
+@media (max-width: 760px) {
+  .team-split { grid-template-columns:1fr; }
+  .team-hero { min-height:60vh; padding:64px 0; }
+}
