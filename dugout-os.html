@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DugoutOS — Bananas 2K15</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <style>
+    /* DugoutOS page-specific styles */
+    .dos-hero-band {
+      background: var(--blue);
+      border-bottom: 3px solid var(--yellow);
+      padding: 3px 0;
+      text-align: center;
+      font-family: var(--display);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--yellow);
+    }
+
+    /* Feature grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+    .feature-card {
+      background: var(--white);
+      border: 1px solid var(--g4);
+      border-radius: 10px;
+      padding: 20px 20px 18px;
+      border-top: 3px solid transparent;
+    }
+    .feature-card.yellow { border-top-color: var(--yellow); }
+    .feature-card.blue   { border-top-color: var(--blue); }
+    .feature-card.green  { border-top-color: #1D9E75; }
+    .feature-card.purple { border-top-color: #7C3AED; }
+    .feature-icon {
+      font-size: 22px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .feature-title {
+      font-family: var(--display);
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--ink);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .feature-desc {
+      font-size: 13px;
+      color: var(--g1);
+      line-height: 1.65;
+    }
+    .feature-tag {
+      display: inline-block;
+      margin-top: 10px;
+      font-family: var(--display);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+
+    /* Phase roadmap */
+    .phase-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 2px;
+      background: var(--g4);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+    .phase-cell {
+      background: var(--white);
+      padding: 18px 16px;
+    }
+    .phase-label {
+      font-family: var(--display);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .phase-name {
+      font-family: var(--display);
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--ink);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .phase-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .phase-items li {
+      font-size: 12px;
+      color: var(--g1);
+      padding-left: 12px;
+      position: relative;
+    }
+    .phase-items li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--g3);
+      font-size: 10px;
+    }
+
+    /* Integration row */
+    .integration-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .integration-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--white);
+      border: 1px solid var(--g4);
+      border-radius: 8px;
+      padding: 12px 16px;
+    }
+    .integration-icon {
+      width: 38px; height: 38px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .integration-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+    .integration-desc {
+      font-size: 12px;
+      color: var(--g2);
+    }
+    .integration-status {
+      margin-left: auto;
+      font-family: var(--display);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      flex-shrink: 0;
+    }
+
+    /* Revenue model */
+    .rev-tier {
+      background: var(--white);
+      border: 1px solid var(--g4);
+      border-radius: 10px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .rev-tier-price {
+      font-family: var(--display);
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1;
+      flex-shrink: 0;
+      min-width: 80px;
+    }
+    .rev-tier-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .rev-tier-desc {
+      font-size: 12px;
+      color: var(--g2);
+      line-height: 1.55;
+    }
+
+    /* AI modes */
+    .ai-modes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+    }
+    .ai-mode {
+      background: var(--white);
+      border: 1px solid var(--g4);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 8px 8px 0;
+      padding: 12px 14px;
+    }
+    .ai-mode.alt { border-left-color: var(--yellow); }
+    .ai-mode-name {
+      font-family: var(--display);
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .ai-mode.alt .ai-mode-name { color: var(--yellow2); }
+    .ai-mode-desc {
+      font-size: 12px;
+      color: var(--g1);
+      line-height: 1.55;
+    }
+  </style>
+</head>
+<body>
+<script src="assets/js/nav.js"></script>
+
+<!-- Band at top of page -->
+<div class="dos-hero-band">
+  DugoutOS — Powered by NAI &nbsp;·&nbsp; Bananas 2K15 is the Proof of Concept
+</div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-kicker">Technology &amp; Platform</div>
+    <h1>DugoutOS</h1>
+    <div class="hero-sub">The Coaching Platform</div>
+    <div class="hero-rule"></div>
+    <p class="hero-tagline">An AI-powered softball team operating system built for select and travel programs. Bananas 2K15 runs on it. Other orgs will too.</p>
+  </div>
+</section>
+
+<div class="gold-strip">
+  <p>Built by Jeremiah Cargill &nbsp;&bull;&nbsp; Bananas 2K15 is Live Instance &nbsp;&bull;&nbsp; Expanding to Central Texas orgs in Year 2</p>
+</div>
+
+<div class="page">
+
+  <!-- WHAT IS IT -->
+  <div class="section">
+    <div class="section-label">The platform</div>
+    <h2>What DugoutOS Does</h2>
+    <div class="section-rule"></div>
+    <p>
+      DugoutOS is a single-platform coaching and operations tool that replaces the dozen different apps a softball coach typically juggles — practice planning in a notes app, stats in a spreadsheet, parent communication in three group chats, tournament schedules in email threads. Everything in one place, AI-assisted, built specifically for select and travel softball.
+    </p>
+    <p>
+      <strong>Bananas 2K15 uses it internally.</strong> Every practice plan Brian and Bob run, every tournament itinerary Jesica sends families, every GameChanger stat import after a game — all of it flows through DugoutOS. The org is the proof of concept. When it works here, it gets licensed to other orgs.
+    </p>
+
+    <div class="feature-grid mt-32">
+
+      <div class="feature-card yellow">
+        <span class="feature-icon">📋</span>
+        <div class="feature-title">Practice Planning</div>
+        <div class="feature-desc">AI-generated practice plans based on season phase, recent stats, and player development priorities. Drill library, station assignments, timing. Coaches approve, edit, and log.</div>
+        <span class="feature-tag" style="background:var(--yellow-m);color:var(--blue2);border:1px solid var(--yellow);">Live</span>
+      </div>
+
+      <div class="feature-card blue">
+        <span class="feature-icon">📊</span>
+        <div class="feature-title">Player Development Tracking</div>
+        <div class="feature-desc">Per-player development dashboards with coach notes, stat trends, and drill assignments. Parent view shows progress without exposing coaching strategy.</div>
+        <span class="feature-tag" style="background:var(--blue-l);color:var(--blue2);">In build</span>
+      </div>
+
+      <div class="feature-card green">
+        <span class="feature-icon">🏟️</span>
+        <div class="feature-title">Tournament Operations</div>
+        <div class="feature-desc">Tournament dashboard with bracket tracking, opponent scouting, hotel information, and exportable itineraries as PDF and calendar (.ics) files. Families get one link with everything.</div>
+        <span class="feature-tag" style="background:#E8F5EE;color:#1D7A4E;">In build</span>
+      </div>
+
+      <div class="feature-card purple">
+        <span class="feature-icon">🤖</span>
+        <div class="feature-title">AI Coaching Modes</div>
+        <div class="feature-desc">Six AI modes: head coach, assistant coach, team parent, player development, fundraising, and tournament weekend. Each gets a tailored context injection — the AI knows your roster, stats, and season.</div>
+        <span class="feature-tag" style="background:#EDE9FE;color:#6D28D9;">Live</span>
+      </div>
+
+      <div class="feature-card yellow">
+        <span class="feature-icon">🔗</span>
+        <div class="feature-title">GameChanger Integration</div>
+        <div class="feature-desc">CSV import of batting, pitching, and fielding stats. Player stat records update automatically after each import. AI uses real game data for practice recommendations.</div>
+        <span class="feature-tag" style="background:var(--yellow-m);color:var(--blue2);border:1px solid var(--yellow);">Phase 1 live</span>
+      </div>
+
+      <div class="feature-card blue">
+        <span class="feature-icon">📢</span>
+        <div class="feature-title">Parent Communications</div>
+        <div class="feature-desc">BAND post generator, practice reminders, tournament itineraries, and game day announcements. AI drafts, coaches approve. Families get one consistent communication channel.</div>
+        <span class="feature-tag" style="background:var(--blue-l);color:var(--blue2);">In build</span>
+      </div>
+
+      <div class="feature-card green">
+        <span class="feature-icon">💰</span>
+        <div class="feature-title">Fundraising Tools</div>
+        <div class="feature-desc">Campaign management, donor tracking, booster outreach drafts, and sponsor impact reports. Connects to the org's financial model and allocation targets.</div>
+        <span class="feature-tag" style="background:#E8F5EE;color:#1D7A4E;">Planned</span>
+      </div>
+
+      <div class="feature-card purple">
+        <span class="feature-icon">🏛️</span>
+        <div class="feature-title">Multi-Org Dashboard</div>
+        <div class="feature-desc">When NAI adds 10U and 14U programs, the org director view shows all teams, all coaches, and all financial activity in one place. One login, full picture.</div>
+        <span class="feature-tag" style="background:#EDE9FE;color:#6D28D9;">Year 2</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- AI MODES -->
+  <div class="section">
+    <div class="section-label">AI assistant</div>
+    <h2>Six Coaching Modes</h2>
+    <div class="section-rule"></div>
+    <p>The AI knows the difference between what a head coach needs at 6 AM before practice and what a team parent needs at 10 PM drafting the BAND post. Each mode gets a distinct context and output format.</p>
+
+    <div class="ai-modes mt-24">
+      <div class="ai-mode">
+        <div class="ai-mode-name">🎯 Head Coach</div>
+        <div class="ai-mode-desc">Full roster, recent stats, season phase. Outputs: practice plan, lineup, pitching rotation, development priorities.</div>
+      </div>
+      <div class="ai-mode alt">
+        <div class="ai-mode-name">📐 Assistant Coach</div>
+        <div class="ai-mode-desc">Station assignments, drill library, position group focus. Outputs: station plans, individual player notes.</div>
+      </div>
+      <div class="ai-mode">
+        <div class="ai-mode-name">📢 Team Parent</div>
+        <div class="ai-mode-desc">Schedule, announcements, RSVP status. Outputs: BAND posts, parent emails, game day logistics.</div>
+      </div>
+      <div class="ai-mode alt">
+        <div class="ai-mode-name">📈 Player Dev</div>
+        <div class="ai-mode-desc">Individual stats + coach notes. Outputs: development summaries, drill assignments, parent-facing progress notes.</div>
+      </div>
+      <div class="ai-mode">
+        <div class="ai-mode-name">💰 Fundraising</div>
+        <div class="ai-mode-desc">Campaign data, donor list, goal tracking. Outputs: campaign flyers, outreach emails, social posts.</div>
+      </div>
+      <div class="ai-mode alt">
+        <div class="ai-mode-name">🏟️ Tournament Weekend</div>
+        <div class="ai-mode-desc">Bracket, field map, hotel block. Outputs: itinerary PDF/text, weather summary, game schedule by field.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTEGRATIONS -->
+  <div class="section">
+    <div class="section-label">Connected tools</div>
+    <h2>Integrations</h2>
+    <div class="section-rule"></div>
+
+    <div class="integration-row">
+      <div class="integration-item">
+        <div class="integration-icon" style="background:#E8F5EE;"><span>📊</span></div>
+        <div>
+          <div class="integration-name">GameChanger</div>
+          <div class="integration-desc">CSV import → player stats auto-populate → AI uses real game data for practice recommendations</div>
+        </div>
+        <span class="integration-status" style="background:var(--yellow-m);color:var(--blue2);border:1px solid var(--yellow);">Phase 1 Live</span>
+      </div>
+      <div class="integration-item">
+        <div class="integration-icon" style="background:#E8F0FB;"><span>📢</span></div>
+        <div>
+          <div class="integration-name">BAND App</div>
+          <div class="integration-desc">Post generator outputs BAND-ready text with emoji formatting. Scheduling queue for game day and practice reminders.</div>
+        </div>
+        <span class="integration-status" style="background:var(--blue-l);color:var(--blue2);">In Build</span>
+      </div>
+      <div class="integration-item">
+        <div class="integration-icon" style="background:#FEF6E4;"><span>🏆</span></div>
+        <div>
+          <div class="integration-name">USSSA / NCS / NSA</div>
+          <div class="integration-desc">Tournament entry workflow, roster export in portal-compatible CSV format. NCS monitor tracks competitor roster changes.</div>
+        </div>
+        <span class="integration-status" style="background:var(--blue-l);color:var(--blue2);">In Build</span>
+      </div>
+      <div class="integration-item">
+        <div class="integration-icon" style="background:#F3F4F6;"><span>📅</span></div>
+        <div>
+          <div class="integration-name">Google / Apple / Outlook Calendar</div>
+          <div class="integration-desc">.ics feed generation per team. Families subscribe once — practices, games, and tournaments appear automatically in their calendar.</div>
+        </div>
+        <span class="integration-status" style="background:var(--blue-l);color:var(--blue2);">Planned</span>
+      </div>
+      <div class="integration-item">
+        <div class="integration-icon" style="background:#EDE9FE;"><span>🤖</span></div>
+        <div>
+          <div class="integration-name">Claude AI (Anthropic)</div>
+          <div class="integration-desc">All six AI modes run on Claude Sonnet via the Anthropic API. Streaming responses, context-aware, org data injected per request.</div>
+        </div>
+        <span class="integration-status" style="background:var(--yellow-m);color:var(--blue2);border:1px solid var(--yellow);">Live</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BUILD PHASES -->
+  <div class="section">
+    <div class="section-label">Development roadmap</div>
+    <h2>Build Phases</h2>
+    <div class="section-rule"></div>
+    <p>DugoutOS builds in parallel with the org — each season adds capability. The platform serves Bananas first, then scales outward.</p>
+
+    <div class="phase-strip mt-24">
+      <div class="phase-cell">
+        <div class="phase-label" style="color:#1D9E75;">Phase 1 — Now</div>
+        <div class="phase-name">Stabilize</div>
+        <ul class="phase-items">
+          <li>Bug fixes + auth</li>
+          <li>Supabase schema live</li>
+          <li>GameChanger CSV import</li>
+          <li>API key behind Express</li>
+          <li>All AI calls server-side</li>
+        </ul>
+      </div>
+      <div class="phase-cell">
+        <div class="phase-label" style="color:var(--blue2);">Phase 2 — Season 1</div>
+        <div class="phase-name">Core Features</div>
+        <ul class="phase-items">
+          <li>Full roster CRUD</li>
+          <li>Tournament dashboard</li>
+          <li>BAND post scheduler</li>
+          <li>Player dev dashboard</li>
+          <li>Itinerary PDF export</li>
+        </ul>
+      </div>
+      <div class="phase-cell">
+        <div class="phase-label" style="color:var(--amber);">Phase 3 — Year 2</div>
+        <div class="phase-name">Automation</div>
+        <ul class="phase-items">
+          <li>Background sync jobs</li>
+          <li>USSSA / NCS export</li>
+          <li>Auto practice recs</li>
+          <li>Role-based access</li>
+          <li>License to 3 orgs</li>
+        </ul>
+      </div>
+      <div class="phase-cell">
+        <div class="phase-label" style="color:#7C3AED;">Phase 4 — Year 2–3</div>
+        <div class="phase-name">AI Optimization</div>
+        <ul class="phase-items">
+          <li>AI lineup builder</li>
+          <li>Auto player dev notes</li>
+          <li>AI fundraiser planner</li>
+          <li>End-of-season evals</li>
+          <li>Matchup analysis</li>
+        </ul>
+      </div>
+      <div class="phase-cell">
+        <div class="phase-label" style="color:var(--coral, #C04830);">Phase 5 — Year 3</div>
+        <div class="phase-name">Org Platform</div>
+        <ul class="phase-items">
+          <li>Multi-team dashboard</li>
+          <li>Org director role</li>
+          <li>Sponsor portal</li>
+          <li>Recruiting clips</li>
+          <li>National SaaS launch</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVENUE MODEL -->
+  <div class="section">
+    <div class="section-label">How it makes money</div>
+    <h2>Revenue Model</h2>
+    <div class="section-rule"></div>
+    <p>DugoutOS is a SaaS product licensed to other orgs. Bananas 2K15 uses it free as the proof-of-concept org. Revenue flows to NAI and funds the nonprofit mission.</p>
+
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:24px;">
+
+      <div class="rev-tier">
+        <div class="rev-tier-price" style="color:#1D9E75;">$0</div>
+        <div>
+          <div class="rev-tier-name">Bananas 2K15 (Internal)</div>
+          <div class="rev-tier-desc">Free forever. This is the live proof of concept. Every feature we build here gets validated before it's offered to paying orgs.</div>
+        </div>
+        <span class="badge badge-gold" style="flex-shrink:0;align-self:flex-start;">Live</span>
+      </div>
+
+      <div class="rev-tier">
+        <div class="rev-tier-price" style="color:var(--blue2);">$50<span style="font-size:14px;font-weight:400;color:var(--g2);">/mo</span></div>
+        <div>
+          <div class="rev-tier-name">Single-Team License — Central Texas Orgs (Year 2)</div>
+          <div class="rev-tier-desc">Practice planning, GameChanger import, BAND integration, tournament dashboard. 2–3 Georgetown / Round Rock orgs as first licensees. $600/yr per org.</div>
+        </div>
+        <span class="badge badge-gray" style="flex-shrink:0;align-self:flex-start;">Year 2</span>
+      </div>
+
+      <div class="rev-tier">
+        <div class="rev-tier-price" style="color:var(--amber);">$120<span style="font-size:14px;font-weight:400;color:var(--g2);">/mo</span></div>
+        <div>
+          <div class="rev-tier-name">Multi-Team Org License (Year 2–3)</div>
+          <div class="rev-tier-desc">Full org dashboard, multiple teams, director role, cross-team scheduling. Orgs running 3+ age groups. $1,440/yr per org.</div>
+        </div>
+        <span class="badge badge-gray" style="flex-shrink:0;align-self:flex-start;">Year 2–3</span>
+      </div>
+
+      <div class="rev-tier">
+        <div class="rev-tier-price" style="color:#7C3AED;">$249<span style="font-size:14px;font-weight:400;color:var(--g2);">/mo</span></div>
+        <div>
+          <div class="rev-tier-name">Full Platform — National SaaS (Year 3)</div>
+          <div class="rev-tier-desc">All features, AI optimization, sponsor portal, recruiting clips, national support. $2,988/yr per org. 30 orgs = $89,640/yr ARR.</div>
+        </div>
+        <span class="badge badge-gray" style="flex-shrink:0;align-self:flex-start;">Year 3</span>
+      </div>
+
+    </div>
+
+    <div class="callout mt-24">
+      <p><strong>Why this matters for NAI:</strong> DugoutOS revenue flows to the parent nonprofit. That means softball families in Georgetown benefit directly from orgs in Austin, Houston, and Dallas paying for the platform. The technology the org built to run itself becomes the funding engine that makes family dues unnecessary.</p>
+    </div>
+  </div>
+
+  <!-- NCS MONITOR -->
+  <div class="section">
+    <div class="section-label">Intelligence tool</div>
+    <h2>NCS Roster Monitor</h2>
+    <div class="section-rule"></div>
+    <p>A separate automated tool that scrapes playNCS.com for 12U Central Texas roster changes and alerts when competitor team rosters shift — new signees, departures, transfers. Built on Python + GitHub Actions.</p>
+
+    <div class="card-grid card-grid-3 mt-16">
+      <div class="card">
+        <h3>What it tracks</h3>
+        <p style="font-size:13px;">12U Central Texas team roster changes across all NCS-registered programs in the region.</p>
+      </div>
+      <div class="card">
+        <h3>How it alerts</h3>
+        <p style="font-size:13px;">Automated GitHub Actions workflow runs on schedule. Diffs are logged and flagged when a player's status changes.</p>
+      </div>
+      <div class="card">
+        <h3>Why it matters</h3>
+        <p style="font-size:13px;">Roster departures from competitor teams are your tryout pipeline. Know when a girl is looking before she posts publicly.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORG CONNECTION -->
+  <div class="section">
+    <div class="callout" style="border-left-color:var(--blue);background:var(--blue-l);">
+      <p><strong>DugoutOS is not a side project.</strong> It is one of four pillars in the NAI ecosystem. The org runs on it, which proves the product works. The product gets licensed, which funds the org. Coaches coach better because the platform handles everything else. Families get more for less because the platform generates revenue that offsets their costs. Every part of this is intentional.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-brand">🍌 Bananas 2K15</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="board.html">Board</a>
+    <a href="coaching.html">Coaching</a>
+    <a href="finances.html">Finances</a>
+    <a href="policies.html">Policies</a>
+    <a href="docs.html">Documents</a>
+    <a href="fundraising.html">Support Us</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <p>Georgetown, Texas &bull; 12U Select Softball &bull; 2025</p>
+  <p style="margin-top:4px;">DugoutOS built by Jeremiah Cargill &bull; Platform questions: jeremiahcargill@gmail.com</p>
+</footer>
+</body>
+</html>
