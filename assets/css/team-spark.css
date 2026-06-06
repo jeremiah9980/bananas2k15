@@ -1,0 +1,153 @@
+body.spark-page {
+  --team-navy: #071B3A;
+  --team-blue: #00AEEF;
+  --team-aqua: #32E6D2;
+  --team-coral: #FF4F7B;
+  --team-yellow: #FFE45C;
+  --team-lime: #B7FF3C;
+  --team-white: #FFFFFF;
+  background: #F7FFFB;
+}
+
+.spark-page nav {
+  background: #FFFFFF;
+  border-bottom-color: var(--team-coral);
+}
+.spark-page .nav-brand { color: var(--team-navy); }
+.spark-page .nav-brand img { border-color: var(--team-coral); }
+.spark-page .nav-links a { color: #506079; }
+.spark-page .nav-links a:hover,
+.spark-page .nav-links a.active {
+  color: var(--team-navy);
+  background: rgba(50,230,210,.18);
+}
+
+.team-hero {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  padding: 84px 0 76px;
+}
+.spark-hero {
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255,228,92,.95), transparent 20%),
+    radial-gradient(circle at 82% 20%, rgba(50,230,210,.76), transparent 25%),
+    radial-gradient(circle at 20% 84%, rgba(255,79,123,.62), transparent 24%),
+    linear-gradient(135deg, #071B3A 0%, #103B70 48%, #00AEEF 100%);
+}
+.team-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.10) 0px, rgba(255,255,255,.10) 6px, transparent 6px, transparent 32px),
+    linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px);
+  background-size: auto, 54px 54px;
+  opacity: .45;
+}
+.team-hero::after {
+  content: 'SPARK';
+  position: absolute;
+  right: -2vw;
+  bottom: -5vw;
+  font-family: var(--display);
+  font-size: clamp(100px, 22vw, 290px);
+  font-weight: 900;
+  letter-spacing: 10px;
+  color: rgba(255,255,255,.10);
+  line-height: .8;
+}
+.team-hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  padding: 0 24px;
+}
+.spark-page .hero-kicker { color: var(--team-yellow); }
+.spark-page .team-hero h1 {
+  font-family: var(--display);
+  font-size: clamp(54px, 10vw, 116px);
+  color: var(--team-white);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: .9;
+  text-shadow: 4px 4px 0 rgba(255,79,123,.72), 8px 8px 0 rgba(0,174,239,.45);
+}
+.spark-page .hero-sub {
+  color: var(--team-yellow);
+  font-family: var(--display);
+  font-size: clamp(14px, 2.2vw, 22px);
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.spark-page .hero-rule { background: var(--team-coral); }
+.spark-page .hero-tagline { color: rgba(255,255,255,.86); }
+.hero-actions { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:28px; }
+.spark-page .btn-primary {
+  background: var(--team-yellow);
+  color: var(--team-navy);
+  border-color: var(--team-yellow);
+  box-shadow: 0 8px 0 rgba(255,79,123,.5);
+}
+.spark-page .btn-outline {
+  display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);color:var(--team-white);font-family:var(--display);font-weight:900;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;padding:11px 22px;border-radius:6px;border:2px solid rgba(255,255,255,.55);text-decoration:none;
+}
+.team-strip { text-align:center; padding:12px 20px; font-family:var(--display); font-weight:900; letter-spacing:2px; text-transform:uppercase; }
+.spark-strip { background: var(--team-yellow); color: var(--team-navy); border-bottom: 4px solid var(--team-coral); }
+.spark-page .page {
+  background:#FFFFFF;
+  border-radius:18px 18px 0 0;
+  box-shadow: 0 -14px 40px rgba(7,27,58,.10);
+}
+.spark-page .section-label { color: var(--team-coral); }
+.spark-page .section h2 { color: var(--team-navy); }
+.spark-page .section-rule { background: var(--team-coral); }
+.spark-page .team-card {
+  border: 1px solid rgba(7,27,58,.12);
+  border-top: 5px solid var(--team-coral);
+  box-shadow: 0 10px 24px rgba(7,27,58,.06);
+}
+.spark-page .team-card:nth-child(2) { border-top-color: var(--team-aqua); }
+.spark-page .team-card:nth-child(3) { border-top-color: var(--team-yellow); }
+.spark-page .card h3 { color: var(--team-navy); }
+.team-icon { font-size:30px; margin-bottom:10px; }
+.team-split { display:grid; grid-template-columns:1fr 360px; gap:28px; align-items:start; }
+.team-panel {
+  background: linear-gradient(135deg, var(--team-navy), #0C3D78);
+  color:#fff;
+  border: 3px solid var(--team-yellow);
+  border-radius:16px;
+  padding:22px;
+  box-shadow: 10px 10px 0 rgba(255,79,123,.4);
+}
+.panel-label { font-family:var(--display); color:var(--team-yellow); font-size:13px; font-weight:900; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px; }
+.team-panel ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.team-panel li { color:rgba(255,255,255,.88); font-size:14px; }
+.team-panel li::before { content:'★'; color:var(--team-coral); margin-right:8px; }
+.spark-page .team-card-alt {
+  border-left: 5px solid var(--team-aqua);
+  border-radius: 0 12px 12px 0;
+}
+.spark-page .team-card-alt:nth-child(2) { border-left-color: var(--team-coral); }
+.spark-page .team-callout {
+  background: linear-gradient(90deg, rgba(255,228,92,.34), rgba(50,230,210,.18));
+  border-left-color: var(--team-coral);
+}
+.spark-page footer {
+  background: var(--team-navy);
+  border-top: 4px solid var(--team-coral);
+}
+.spark-page .footer-brand { color: var(--team-yellow); }
+.spark-page footer p { color: rgba(255,255,255,.72); }
+
+@media (max-width: 760px) {
+  .team-split { grid-template-columns:1fr; }
+  .team-hero { min-height:60vh; padding:64px 0; }
+  .spark-page .team-hero h1 { text-shadow: 3px 3px 0 rgba(255,79,123,.72); }
+}
