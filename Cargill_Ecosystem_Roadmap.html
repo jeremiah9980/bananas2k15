@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Cargill Ecosystem — Master Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=Figtree:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --yellow:  #F5C400;
+  --yellow2: #C49A00;
+  --navy:    #0B1829;
+  --navy2:   #0F2035;
+  --blue:    #1A56B0;
+  --blue2:   #1347A0;
+  --white:   #FFFFFF;
+  --cream:   #FDF9F0;
+  --warm:    #F7F3E8;
+  --border:  #E8E2D4;
+  --g1:      #3D3D3D;
+  --g2:      #6B6B6B;
+  --g3:      #9E9E9E;
+  --g4:      #D4D0C8;
+  --green:   #1A6B44;
+  --green-l: #E6F4EE;
+  --teal:    #0E6B6B;
+  --teal-l:  #E4F4F2;
+  --amber:   #B86800;
+  --amber-l: #FDF0DC;
+  --red:     #A82020;
+  --coral:   #C04830;
+  --coral-l: #FDECEA;
+  --purple:  #5C30A8;
+  --purple-l:#F0EAFD;
+
+  --bebas: 'Bebas Neue', 'Arial Black', sans-serif;
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono:  'IBM Plex Mono', 'Courier New', monospace;
+  --body:  'Figtree', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--cream);
+  font-family: var(--body);
+  color: var(--g1);
+  line-height: 1.65;
+  font-size: 15px;
+}
+
+/* ── MASTHEAD ── */
+.masthead {
+  background: var(--navy);
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  position: relative;
+  overflow: hidden;
+}
+.masthead-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(245,196,0,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,196,0,.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.masthead-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 64px 48px;
+  max-width: 1200px;
+}
+.masthead-year {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--yellow);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.masthead-h1 {
+  font-family: var(--bebas);
+  font-size: clamp(64px, 10vw, 130px);
+  color: var(--white);
+  line-height: 0.92;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+.masthead-h1 span { color: var(--yellow); display: block; }
+.masthead-sub {
+  font-family: var(--serif);
+  font-size: clamp(16px, 2vw, 22px);
+  color: rgba(255,255,255,.55);
+  font-style: italic;
+  margin-top: 20px;
+  max-width: 560px;
+  line-height: 1.7;
+}
+.masthead-rule {
+  width: 80px;
+  height: 3px;
+  background: var(--yellow);
+  margin: 28px 0;
+}
+.masthead-meta {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.meta-item {}
+.meta-num {
+  font-family: var(--bebas);
+  font-size: 42px;
+  color: var(--yellow);
+  line-height: 1;
+  letter-spacing: 1px;
+}
+.meta-lbl {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: rgba(255,255,255,.35);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+.masthead-bottom {
+  position: relative;
+  z-index: 1;
+  padding: 0 64px 40px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.horizon-pill {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.h-now    { background: rgba(245,196,0,.15); color: var(--yellow); border: 1px solid rgba(245,196,0,.3); }
+.h-near   { background: rgba(26,86,176,.2);  color: #7BAEFF;       border: 1px solid rgba(26,86,176,.3); }
+.h-mid    { background: rgba(26,107,68,.2);  color: #5FD4A0;       border: 1px solid rgba(26,107,68,.3); }
+.h-long   { background: rgba(92,48,168,.2);  color: #C4A0FF;       border: 1px solid rgba(92,48,168,.3); }
+
+/* ── SECTION ── */
+.section-wrap { max-width: 1200px; margin: 0 auto; padding: 80px 64px; }
+.section-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--g3);
+  margin-bottom: 10px;
+}
+.section-title {
+  font-family: var(--bebas);
+  font-size: clamp(36px, 5vw, 60px);
+  color: var(--navy);
+  letter-spacing: 1px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.section-rule { width: 48px; height: 3px; background: var(--yellow); margin: 20px 0 32px; }
+
+/* ── ENTITY CARDS ── */
+.entity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+.entity-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+.entity-top {
+  height: 6px;
+}
+.entity-body { padding: 22px 24px; }
+.entity-badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+.entity-name {
+  font-family: var(--bebas);
+  font-size: 26px;
+  letter-spacing: 0.5px;
+  color: var(--navy);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.entity-tagline {
+  font-family: var(--serif);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--g2);
+  margin-bottom: 14px;
+  line-height: 1.6;
+}
+.entity-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.entity-bullets li {
+  font-size: 12px;
+  color: var(--g2);
+  padding-left: 14px;
+  position: relative;
+  line-height: 1.5;
+}
+.entity-bullets li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--g4);
+  font-size: 11px;
+}
+.entity-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.status-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot-live    { background: var(--green); box-shadow: 0 0 0 2px var(--green-l); }
+.dot-active  { background: var(--yellow); box-shadow: 0 0 0 2px rgba(245,196,0,.2); }
+.dot-build   { background: var(--blue); box-shadow: 0 0 0 2px var(--teal-l); }
+.dot-planned { background: var(--g3); }
+
+/* ── TIMELINE ── */
+.timeline { position: relative; padding-left: 32px; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px; top: 8px; bottom: 8px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--yellow), var(--blue), var(--green), var(--purple));
+  border-radius: 1px;
+}
+.tl-phase { margin-bottom: 48px; position: relative; }
+.tl-dot {
+  position: absolute;
+  left: -28px;
+  top: 6px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  border: 3px solid var(--cream);
+  box-shadow: 0 0 0 2px currentColor;
+  flex-shrink: 0;
+}
+.tl-header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.tl-phase-num {
+  font-family: var(--bebas);
+  font-size: 54px;
+  line-height: 1;
+  letter-spacing: 1px;
+  opacity: .15;
+  flex-shrink: 0;
+}
+.tl-phase-info {}
+.tl-phase-name {
+  font-family: var(--bebas);
+  font-size: 28px;
+  color: var(--navy);
+  letter-spacing: 0.5px;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+.tl-window {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--g3);
+}
+.tl-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tl-item {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 13px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.tl-item-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.tl-item-body { flex: 1; }
+.tl-item-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 2px;
+  line-height: 1.4;
+}
+.tl-item-desc {
+  font-size: 12px;
+  color: var(--g2);
+  line-height: 1.55;
+}
+.tl-item-tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 20px;
+  flex-shrink: 0;
+  align-self: flex-start;
+  white-space: nowrap;
+}
+
+/* ── PILLAR GRID ── */
+.pillar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.pillar {
+  background: var(--white);
+  padding: 28px 24px;
+}
+.pillar-num {
+  font-family: var(--bebas);
+  font-size: 48px;
+  color: var(--yellow);
+  line-height: 1;
+  margin-bottom: 10px;
+  opacity: .6;
+}
+.pillar-title {
+  font-family: var(--bebas);
+  font-size: 20px;
+  color: var(--navy);
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+.pillar-desc { font-size: 12px; color: var(--g2); line-height: 1.65; }
+
+/* ── REVENUE TABLE ── */
+.rev-table { width: 100%; border-collapse: collapse; }
+.rev-table th {
+  background: var(--navy);
+  color: var(--yellow);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 11px 16px;
+  text-align: left;
+  border: 1px solid rgba(255,255,255,.06);
+}
+.rev-table td {
+  padding: 11px 16px;
+  border: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--g1);
+  vertical-align: top;
+}
+.rev-table tr:nth-child(odd) td  { background: var(--warm); }
+.rev-table tr:nth-child(even) td { background: var(--white); }
+.rev-table .total-row td {
+  background: var(--navy) !important;
+  color: var(--yellow);
+  font-weight: 600;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+.rev-amt { font-family: var(--mono); font-weight: 500; }
+.rev-green  { color: var(--green); }
+.rev-amber  { color: var(--amber); }
+.rev-blue   { color: var(--blue); }
+
+/* ── NORTH STAR SECTION ── */
+.north-star {
+  background: var(--navy);
+  position: relative;
+  overflow: hidden;
+}
+.ns-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(245,196,0,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,196,0,.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.north-star .section-eyebrow { color: rgba(255,255,255,.3); }
+.north-star .section-title   { color: var(--white); }
+.north-star .section-rule    { background: var(--yellow); }
+
+.ns-quote {
+  font-family: var(--serif);
+  font-size: clamp(18px, 2.5vw, 28px);
+  color: var(--white);
+  line-height: 1.5;
+  font-style: italic;
+  max-width: 720px;
+  padding-left: 24px;
+  border-left: 4px solid var(--yellow);
+  margin-bottom: 48px;
+}
+
+.ns-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+.ns-card {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 10px;
+  padding: 22px 20px;
+}
+.ns-card-icon { font-size: 24px; margin-bottom: 12px; display: block; }
+.ns-card-title {
+  font-family: var(--bebas);
+  font-size: 20px;
+  color: var(--yellow);
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+.ns-card-desc { font-size: 12px; color: rgba(255,255,255,.5); line-height: 1.65; }
+
+/* ── DIVIDER ── */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0 64px;
+}
+.yellow-bar {
+  height: 4px;
+  background: linear-gradient(90deg, var(--yellow) 0%, rgba(245,196,0,.1) 100%);
+}
+
+/* ── FOOTER ── */
+.doc-footer {
+  background: var(--navy);
+  padding: 40px 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  border-top: 4px solid var(--yellow);
+}
+.doc-footer-brand {
+  font-family: var(--bebas);
+  font-size: 28px;
+  color: var(--yellow);
+  letter-spacing: 1px;
+}
+.doc-footer p {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: rgba(255,255,255,.25);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1.8;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.masthead-inner > * {
+  animation: fadeUp .7s ease both;
+}
+.masthead-year  { animation-delay: .1s; }
+.masthead-h1    { animation-delay: .2s; }
+.masthead-sub   { animation-delay: .35s; }
+.masthead-rule  { animation-delay: .45s; }
+.masthead-meta  { animation-delay: .55s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .masthead-inner, .masthead-bottom, .section-wrap, .doc-footer { padding-left: 28px; padding-right: 28px; }
+  .divider { margin: 0 28px; }
+  .timeline { padding-left: 24px; }
+  .tl-dot   { left: -22px; }
+}
+
+@media print {
+  .masthead { min-height: auto; page-break-after: always; }
+  .tl-phase { page-break-inside: avoid; }
+  .entity-card { page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ MASTHEAD ══ -->
+<section class="masthead">
+  <div class="masthead-grid" aria-hidden="true"></div>
+  <div class="masthead-inner">
+    <div class="masthead-year">Jeremiah &amp; Jesica Cargill · Strategic Roadmap · 2025–2028</div>
+    <h1 class="masthead-h1">The<span>Ecosystem.</span></h1>
+    <p class="masthead-sub">A three-year map for building an integrated portfolio of organizations — a nonprofit umbrella, a competitive softball program, a coaching platform, and a technology practice — all operating from the same values and infrastructure.</p>
+    <div class="masthead-rule"></div>
+    <div class="masthead-meta">
+      <div class="meta-item"><div class="meta-num">4</div><div class="meta-lbl">Entities</div></div>
+      <div class="meta-item"><div class="meta-num">3</div><div class="meta-lbl">Year horizon</div></div>
+      <div class="meta-item"><div class="meta-num">6</div><div class="meta-lbl">Revenue streams</div></div>
+      <div class="meta-item"><div class="meta-num">$0</div><div class="meta-lbl">Debt to start</div></div>
+    </div>
+  </div>
+  <div class="masthead-bottom">
+    <span class="horizon-pill h-now">Now — Month 6: Legal &amp; Launch</span>
+    <span class="horizon-pill h-near">Month 6–18: First season &amp; proof</span>
+    <span class="horizon-pill h-mid">Year 2: Scale &amp; expand</span>
+    <span class="horizon-pill h-long">Year 3: Self-sustaining ecosystem</span>
+  </div>
+</section>
+
+<div class="yellow-bar"></div>
+
+<!-- ══ THE ECOSYSTEM ══ -->
+<section>
+  <div class="section-wrap">
+    <div class="section-eyebrow">The four entities</div>
+    <h2 class="section-title">What You're Building</h2>
+    <div class="section-rule"></div>
+
+    <div class="entity-grid">
+
+      <!-- NAI / Nonprofit umbrella -->
+      <div class="entity-card">
+        <div class="entity-top" style="background:linear-gradient(90deg,#1A6B44,#0E6B6B);"></div>
+        <div class="entity-body">
+          <span class="entity-badge" style="background:var(--green-l);color:var(--green);border:1px solid #9FE1CB;">501(c)(3) Nonprofit</span>
+          <div class="entity-name">NextGen Athlete<br>Initiative</div>
+          <div class="entity-tagline">"The umbrella that funds everything else."</div>
+          <ul class="entity-bullets">
+            <li>Parent nonprofit entity — governs all programs</li>
+            <li>Files the 501(c)(3), holds the bank account, receives grants</li>
+            <li>Bananas 2K15 is a program of NAI, not a separate org</li>
+            <li>Unlock: Happy Mutual + corporate matching + donor tax deductions</li>
+            <li>Board: Jesica, Jeremiah, Brian, Cara, open seat</li>
+            <li>Long-term: funds 8U through 14U softball + tech programs</li>
+          </ul>
+          <div class="entity-status">
+            <div class="status-dot dot-build"></div>
+            <span style="color:var(--blue);">In formation — file in Month 1</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bananas 2K15 -->
+      <div class="entity-card">
+        <div class="entity-top" style="background:linear-gradient(90deg,#F5C400,#C49A00);"></div>
+        <div class="entity-body">
+          <span class="entity-badge" style="background:var(--amber-l);color:var(--amber);border:1px solid #F0D090;">Select Softball Program</span>
+          <div class="entity-name">Bananas 2K15</div>
+          <div class="entity-tagline">"Where Georgetown athletes develop."</div>
+          <ul class="entity-bullets">
+            <li>12U competitive team — Georgetown, TX — USSSA / NSA / NCS</li>
+            <li>Co-Head Coaches Brian Rogers &amp; Bob — family-first model</li>
+            <li>Org covers hotel fees, entry fees, and uniforms</li>
+            <li>Dues offset by fundraising — families pay less every season</li>
+            <li>Athlete profile pages for every player</li>
+            <li>Year 2 expansion: 10U added; Year 3: 14U (Chris Balcom target)</li>
+          </ul>
+          <div class="entity-status">
+            <div class="status-dot dot-active"></div>
+            <span style="color:var(--amber);">Site live — launching Season 1</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- DugoutOS -->
+      <div class="entity-card">
+        <div class="entity-top" style="background:linear-gradient(90deg,#1A56B0,#0E6B6B);"></div>
+        <div class="entity-body">
+          <span class="entity-badge" style="background:var(--teal-l);color:var(--teal);border:1px solid #9FE1CB;">SaaS Platform</span>
+          <div class="entity-name">DugoutOS</div>
+          <div class="entity-tagline">"The internal tool that becomes a product."</div>
+          <ul class="entity-bullets">
+            <li>AI-powered softball coaching platform</li>
+            <li>Practice planning, tournament scheduling, GameChanger integration</li>
+            <li>Player development tracking, fundraising tools</li>
+            <li>Bananas 2K15 is the proof-of-concept org</li>
+            <li>Year 2: license to other Georgetown / Central Texas orgs</li>
+            <li>Year 3: paid SaaS product — coaches nationwide</li>
+          </ul>
+          <div class="entity-status">
+            <div class="status-dot dot-active"></div>
+            <span style="color:var(--teal);">In active development</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Next-Gen IT -->
+      <div class="entity-card">
+        <div class="entity-top" style="background:linear-gradient(90deg,#5C30A8,#1A56B0);"></div>
+        <div class="entity-body">
+          <span class="entity-badge" style="background:var(--purple-l);color:var(--purple);border:1px solid #C4A0FF;">IT Consulting</span>
+          <div class="entity-name">Next-Gen IT</div>
+          <div class="entity-tagline">"Small business IT that funds the mission."</div>
+          <ul class="entity-bullets">
+            <li>Domain health audits for real estate teams — Georgetown / Central TX</li>
+            <li>Abode Labs (Don Ness + Blake Teipel) — primary target partnership</li>
+            <li>Teleo Title — Jesica's org — natural co-brand sponsor</li>
+            <li>Revenue funds Cargill household → which seeds NAI</li>
+            <li>GitHub Pages portal already built and operational</li>
+            <li>Year 2: recurring managed services contracts</li>
+          </ul>
+          <div class="entity-status">
+            <div class="status-dot dot-active"></div>
+            <span style="color:var(--purple);">Portal live — outreach active</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ MASTER TIMELINE ══ -->
+<section>
+  <div class="section-wrap">
+    <div class="section-eyebrow">Sequenced execution</div>
+    <h2 class="section-title">The Roadmap</h2>
+    <div class="section-rule"></div>
+
+    <div class="timeline">
+
+      <!-- PHASE 1 -->
+      <div class="tl-phase">
+        <div class="tl-dot" style="color:var(--yellow);background:var(--yellow);"></div>
+        <div class="tl-header">
+          <div class="tl-phase-num" style="color:var(--yellow);">01</div>
+          <div class="tl-phase-info">
+            <div class="tl-phase-name" style="color:var(--yellow2);">Foundation</div>
+            <div class="tl-window">Now → Month 2 · Legal &amp; Infrastructure</div>
+          </div>
+        </div>
+        <div class="tl-items">
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--amber-l);color:var(--amber);">⚖️</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">File NAI as Texas nonprofit — Articles of Incorporation</div>
+              <div class="tl-item-desc">Form 202 with Texas SOS. $25. Bananas 2K15 becomes a program of NAI from day one. Do not form Bananas separately.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--coral-l);color:var(--coral);">Day 1</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--amber-l);color:var(--amber);">🪪</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">Obtain EIN from IRS — free, instant online</div>
+              <div class="tl-item-desc">Required before bank account, sponsorships, or any money movement. Takes 15 minutes at irs.gov.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--coral-l);color:var(--coral);">Week 1</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--amber-l);color:var(--amber);">🏦</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">Open nonprofit checking account — Frost Bank (Jesica)</div>
+              <div class="tl-item-desc">Zero fees. No personal funds ever co-mingled. Account required before founding deposits can be collected.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--coral-l);color:var(--coral);">Week 2</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--amber-l);color:var(--amber);">📋</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">Inaugural board meeting — adopt bylaws, conflict of interest policy, financial controls</div>
+              <div class="tl-item-desc">All four board members present. Minutes recorded. Jesica, Jeremiah, Brian, Cara each sign commitment letter.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--coral-l);color:var(--coral);">Week 2–3</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--green-l);color:var(--green);">📄</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">File IRS Form 1023-EZ for 501(c)(3) status</div>
+              <div class="tl-item-desc">$275 filing fee. 2–4 week processing. Determination letter unlocks grants, tax-deductible donations, and Happy Mutual eligibility.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--green-l);color:var(--green);">Week 3–4</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--amber-l);color:var(--amber);">💬</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">Contact Chris Balcom — brand question + ecosystem vision pitch</div>
+              <div class="tl-item-desc">Message drafted. Ask about Venom brand attachment. Plant 14U + NAI vision seed. Phone call to follow if receptive.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--amber-l);color:var(--amber);">Week 2</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 2 -->
+      <div class="tl-phase">
+        <div class="tl-dot" style="color:var(--blue);background:var(--blue);"></div>
+        <div class="tl-header">
+          <div class="tl-phase-num" style="color:var(--blue);">02</div>
+          <div class="tl-phase-info">
+            <div class="tl-phase-name" style="color:var(--blue2);">Bootstrap</div>
+            <div class="tl-window">Month 1–3 · Funding &amp; Recruiting</div>
+          </div>
+        </div>
+        <div class="tl-items">
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--amber-l);color:var(--amber);">🌱</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">Phase 1 seed — Cargill household + Bob &amp; Cara + Brian contributions</div>
+              <div class="tl-item-desc">Donations to NAI, not loans. Sets the tone that leadership has real skin in the game. Target $1,500–$3,000.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--blue-l, #E8F0FB);color:var(--blue);">$1.5–3K</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--amber-l);color:var(--amber);">👨‍👩‍👧</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">Personal outreach to 10–12 founding families — Jesica leads</div>
+              <div class="tl-item-desc">$300–$400 roster deposit each. Applied to dues. Share bananas2k15 website. No mass blast — personal text only. Target $3,000–$4,800.</div>
+            </div>
+            <span class="tl-item-tag" style="background:#E8F0FB;color:var(--blue);">$3–5K</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--green-l);color:var(--green);">🤝</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">Close 1 Gold sponsor first ($1,500) — Jeremiah leads</div>
+              <div class="tl-item-desc">One call. Best existing business relationship. Lead with 501(c)(3) — donations are tax-deductible. Cara leads Bronze/Silver outreach after Gold is closed.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--green-l);color:var(--green);">$1.5K+</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--green-l);color:var(--green);">📊</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">Apply to Happy Mutual grant program</div>
+              <div class="tl-item-desc">$9M annual Central Texas giving. Need 501(c)(3) determination letter first. Get warm intro before submitting application. Youth sports + financial accessibility = strong narrative fit.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--green-l);color:var(--green);">Potential $5–25K</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--green-l);color:var(--green);">📊</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">Apply to 3–5 additional Central Texas grants</div>
+              <div class="tl-item-desc">City of Georgetown, Austin Community Foundation, HEB Excellence, Dell Foundation, Texas Youth Sports Foundation. Stagger applications — each grant takes 60–90 days from app to receipt.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--green-l);color:var(--green);">Stagger</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:#E8F0FB;color:var(--blue);">🍌</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">Launch booster campaign — $1,000 goal</div>
+              <div class="tl-item-desc">Jeremiah sends personal texts to alumni and community. $50 avg × 20 donors. Goes live after founding families are locked in — so the announcement says "spots are filling."</div>
+            </div>
+            <span class="tl-item-tag" style="background:#E8F0FB;color:var(--blue);">$600–1K</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 3 -->
+      <div class="tl-phase">
+        <div class="tl-dot" style="color:var(--green);background:var(--green);"></div>
+        <div class="tl-header">
+          <div class="tl-phase-num" style="color:var(--green);">03</div>
+          <div class="tl-phase-info">
+            <div class="tl-phase-name" style="color:var(--green);">Season 1 Launch</div>
+            <div class="tl-window">Month 3–6 · Field &amp; Operate</div>
+          </div>
+        </div>
+        <div class="tl-items">
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--green-l);color:var(--green);">🥎</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">Background checks, coach affiliation agreements, USSSA/NSA/NCS registration</div>
+              <div class="tl-item-desc">Required before first sanctioned tournament. Brian and Bob both sign formal affiliation agreements. Org picks up all registration costs.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--green-l);color:var(--green);">Month 3</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--green-l);color:var(--green);">📋</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">Tryouts — Brian and Bob run, Co-Directors handle logistics</div>
+              <div class="tl-item-desc">Field reserved 3 weeks out. Waivers collected. Roster decisions within 48 hours. Notifications to all families within 72 hours — accepted and not accepted.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--green-l);color:var(--green);">Month 3–4</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--amber-l);color:var(--amber);">👕</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">Order uniforms — Gold sponsor logo confirmed before printing</div>
+              <div class="tl-item-desc">Full roster + staff. 3–5 week production time. Confirm Gold sponsor artwork before placing order. Org pays.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--amber-l);color:var(--amber);">$1.8–2.6K</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--green-l);color:var(--green);">🏟️</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">Family orientation, first practice, first tournament</div>
+              <div class="tl-item-desc">Orientation covers org structure, hotel policy, family-first model, code of conduct — all families sign. Entry fee and hotel (if away) paid by org.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--green-l);color:var(--green);">Month 5</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:#E8F0FB;color:var(--blue);">📱</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">Launch social media — Instagram + Facebook — 501(c)(3) announcement as post #3</div>
+              <div class="tl-item-desc">Org intro, coach intro, 501(c)(3) announcement (donations now tax-deductible), first sponsor spotlight. This is how grant reviewers and future sponsors find you.</div>
+            </div>
+            <span class="tl-item-tag" style="background:#E8F0FB;color:var(--blue);">Month 4–5</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--purple-l);color:var(--purple);">💻</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">Build athlete profile pages for every player on the roster</div>
+              <div class="tl-item-desc">Stats, video wall, recruiting page on GitHub Pages. Modeled on kass21 and johnny74. Families who join Bananas get this automatically — it's a differentiator no competing team offers.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--purple-l);color:var(--purple);">Season 1</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 4 -->
+      <div class="tl-phase">
+        <div class="tl-dot" style="color:var(--teal);background:var(--teal);"></div>
+        <div class="tl-header">
+          <div class="tl-phase-num" style="color:var(--teal);">04</div>
+          <div class="tl-phase-info">
+            <div class="tl-phase-name" style="color:var(--teal);">Scale</div>
+            <div class="tl-window">Year 2 · Expand + Prove the Model</div>
+          </div>
+        </div>
+        <div class="tl-items">
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--teal-l);color:var(--teal);">🏅</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">Add 10U program under NAI — Bananas 2K15 becomes multi-age</div>
+              <div class="tl-item-desc">The 12U players' younger siblings age in naturally. Recruit a head coach for 10U. Same org infrastructure, zero new overhead for Co-Directors.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--teal-l);color:var(--teal);">Year 2 Q1</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--amber-l);color:var(--amber);">🏆</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">Host first local tournament — entry fee revenue for org</div>
+              <div class="tl-item-desc">8 teams × $350 = $2,800 gross. NCS/USSSA tournament director program. Builds Bananas reputation in Georgetown softball community. Home-field reps for your players.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--amber-l);color:var(--amber);">Year 2</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--purple-l);color:var(--purple);">🖥️</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">License DugoutOS to 2–3 other Central Texas orgs</div>
+              <div class="tl-item-desc">Bananas 2K15 is the proof of concept. Approach Georgetown and Round Rock orgs first. Even at $50/month that's $1,800/year per org in recurring revenue.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--purple-l);color:var(--purple);">Year 2</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--green-l);color:var(--green);">💰</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">Quarterly skills clinics — $50–75/athlete, 20 athletes/session</div>
+              <div class="tl-item-desc">Brian and Bob coach. Open to the community. $1,000–$1,500 gross per Saturday morning. Also functions as a tryout pipeline — every clinic participant is a future Bananas prospect.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--green-l);color:var(--green);">Year 2</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--amber-l);color:var(--amber);">🤝</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">Formalize Teleo Title / Next-Gen IT co-brand sponsorship</div>
+              <div class="tl-item-desc">Teleo Title sponsors Bananas 2K15. Jesica's employer gets community visibility. Next-Gen IT gets a real client reference for Abode Labs outreach. Three orgs win simultaneously.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--amber-l);color:var(--amber);">Year 2</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--green-l);color:var(--green);">🏢</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">Corporate employee matching program outreach</div>
+              <div class="tl-item-desc">Families at Dell, Apple, Google, etc. can have their donations matched dollar-for-dollar. Zero effort revenue multiplier — just tell families it exists and give them the process.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--green-l);color:var(--green);">Year 2</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 5 -->
+      <div class="tl-phase">
+        <div class="tl-dot" style="color:var(--purple);background:var(--purple);"></div>
+        <div class="tl-header">
+          <div class="tl-phase-num" style="color:var(--purple);">05</div>
+          <div class="tl-phase-info">
+            <div class="tl-phase-name" style="color:var(--purple);">Ecosystem</div>
+            <div class="tl-window">Year 3 · Self-Sustaining &amp; Integrated</div>
+          </div>
+        </div>
+        <div class="tl-items">
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--purple-l);color:var(--purple);">🎯</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">Add 14U program — Chris Balcom or equivalent as head coach</div>
+              <div class="tl-item-desc">Full 8U–12U–14U pipeline. Families who start at 10U have a home until they age into high school. Retention = lowest cost acquisition.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--purple-l);color:var(--purple);">Year 3</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--purple-l);color:var(--purple);">💻</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">DugoutOS public SaaS launch — coaches nationwide</div>
+              <div class="tl-item-desc">From Bananas internal tool → licensed to Central Texas orgs → national product. Recurring subscription revenue. NAI receives a share.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--purple-l);color:var(--purple);">Year 3</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--green-l);color:var(--green);">🏦</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">NAI fully self-funding — grants, sponsors, SaaS, and clinic revenue cover all program costs</div>
+              <div class="tl-item-desc">Goal: family dues are 100% offset by outside revenue. Playing on a Bananas team costs families nothing except personal gear and meals. The nonprofit model working as intended.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--green-l);color:var(--green);">Year 3 Goal</span>
+          </div>
+          <div class="tl-item">
+            <div class="tl-item-icon" style="background:var(--purple-l);color:var(--purple);">🌐</div>
+            <div class="tl-item-body">
+              <div class="tl-item-title">Next-Gen IT at scale — Abode Labs partnership + managed services</div>
+              <div class="tl-item-desc">Real estate tech audits + managed IT contracts for Central Texas teams. Recurring monthly revenue. Cargill Consulting handles enterprise side; Next-Gen IT handles SMB.</div>
+            </div>
+            <span class="tl-item-tag" style="background:var(--purple-l);color:var(--purple);">Year 3</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ DUGOUT OS DEEP DIVE ══ -->
+<section>
+  <div class="section-wrap">
+    <div class="section-eyebrow">The platform powering the org</div>
+    <h2 class="section-title">DugoutOS — How It Works</h2>
+    <div class="section-rule"></div>
+    <p style="font-size:14px;color:var(--g2);max-width:720px;margin-bottom:40px;">DugoutOS is not a side project. It is one of four pillars in the ecosystem. Bananas 2K15 runs on it, proving the product works in a real org. The product gets licensed, funding the nonprofit. Coaches coach better. Families pay less. Every piece is connected.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
+
+      <!-- Left: what it does -->
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--g3);margin-bottom:16px;">What it does</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="background:var(--white);border:1px solid var(--border);border-left:3px solid var(--yellow);border-radius:0 8px 8px 0;padding:12px 14px;">
+            <div style="font-family:var(--bebas, Arial);font-size:14px;color:var(--navy);margin-bottom:2px;">Practice Planning</div>
+            <div style="font-size:12px;color:var(--g2);">AI-generated plans from roster + stats + season phase. Drill library. Station assignments. Coaches approve or edit.</div>
+          </div>
+          <div style="background:var(--white);border:1px solid var(--border);border-left:3px solid var(--yellow);border-radius:0 8px 8px 0;padding:12px 14px;">
+            <div style="font-family:var(--bebas, Arial);font-size:14px;color:var(--navy);margin-bottom:2px;">Player Development Tracking</div>
+            <div style="font-size:12px;color:var(--g2);">Per-player dashboards. Coach notes. GameChanger stat import. AI development summaries. Parent-facing progress view.</div>
+          </div>
+          <div style="background:var(--white);border:1px solid var(--border);border-left:3px solid var(--yellow);border-radius:0 8px 8px 0;padding:12px 14px;">
+            <div style="font-family:var(--bebas, Arial);font-size:14px;color:var(--navy);margin-bottom:2px;">Tournament Operations</div>
+            <div style="font-size:12px;color:var(--g2);">Bracket tracking, hotel info, exportable itinerary PDF and .ics calendar. Families get one link with everything.</div>
+          </div>
+          <div style="background:var(--white);border:1px solid var(--border);border-left:3px solid var(--yellow);border-radius:0 8px 8px 0;padding:12px 14px;">
+            <div style="font-family:var(--bebas, Arial);font-size:14px;color:var(--navy);margin-bottom:2px;">Parent Communications</div>
+            <div style="font-size:12px;color:var(--g2);">BAND post generator, practice reminders, game day announcements. AI drafts. Coaches approve. One channel.</div>
+          </div>
+          <div style="background:var(--white);border:1px solid var(--border);border-left:3px solid var(--yellow);border-radius:0 8px 8px 0;padding:12px 14px;">
+            <div style="font-family:var(--bebas, Arial);font-size:14px;color:var(--navy);margin-bottom:2px;">NCS Roster Intelligence</div>
+            <div style="font-size:12px;color:var(--g2);">Python + GitHub Actions scraper monitors competitor 12U Central Texas rosters. Alerts when a player's status changes — your tryout pipeline in real time.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: build order + revenue -->
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--g3);margin-bottom:16px;">Build phases</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:28px;">
+          <div style="display:flex;gap:10px;align-items:baseline;">
+            <span style="font-family:var(--mono);font-size:10px;color:var(--teal);letter-spacing:1px;text-transform:uppercase;white-space:nowrap;min-width:80px;">Now</span>
+            <span style="font-size:12px;color:var(--g2);">Stabilize — bug fixes, Supabase auth, API key behind Express, GameChanger CSV</span>
+          </div>
+          <div style="display:flex;gap:10px;align-items:baseline;">
+            <span style="font-family:var(--mono);font-size:10px;color:var(--blue2);letter-spacing:1px;text-transform:uppercase;white-space:nowrap;min-width:80px;">Season 1</span>
+            <span style="font-size:12px;color:var(--g2);">Full roster CRUD, tournament dashboard, BAND scheduler, player dev dashboard, PDF exports</span>
+          </div>
+          <div style="display:flex;gap:10px;align-items:baseline;">
+            <span style="font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:1px;text-transform:uppercase;white-space:nowrap;min-width:80px;">Year 2</span>
+            <span style="font-size:12px;color:var(--g2);">Background sync, USSSA/NCS export, RBAC, license to 3 Central Texas orgs</span>
+          </div>
+          <div style="display:flex;gap:10px;align-items:baseline;">
+            <span style="font-family:var(--mono);font-size:10px;color:var(--purple, #7C3AED);letter-spacing:1px;text-transform:uppercase;white-space:nowrap;min-width:80px;">Year 3</span>
+            <span style="font-size:12px;color:var(--g2);">Multi-org dashboard, sponsor portal, recruiting clips, national SaaS launch</span>
+          </div>
+        </div>
+
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--g3);margin-bottom:16px;">Revenue to NAI</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;background:var(--warm);border-radius:6px;padding:9px 12px;">
+            <span style="font-size:12px;color:var(--g1);">$50/mo single-team (Year 2 × 6 orgs)</span>
+            <span style="font-family:var(--mono);font-size:12px;color:var(--green);font-weight:500;">$3,600/yr</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;background:var(--warm);border-radius:6px;padding:9px 12px;">
+            <span style="font-size:12px;color:var(--g1);">$120/mo multi-team (Year 3 × 5 orgs)</span>
+            <span style="font-family:var(--mono);font-size:12px;color:var(--green);font-weight:500;">$7,200/yr</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;background:var(--warm);border-radius:6px;padding:9px 12px;">
+            <span style="font-size:12px;color:var(--g1);">$249/mo national (Year 3 × 30 orgs)</span>
+            <span style="font-family:var(--mono);font-size:12px;color:var(--green);font-weight:500;">$89,640/yr</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;background:var(--navy);border-radius:6px;padding:10px 12px;">
+            <span style="font-size:12px;color:rgba(255,255,255,.6);">Year 3 target ARR → flows to NAI</span>
+            <span style="font-family:var(--mono);font-size:14px;color:var(--yellow);font-weight:500;">$100K+</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ REVENUE MODEL ══ -->
+<section>
+  <div class="section-wrap">
+    <div class="section-eyebrow">Money in / money out</div>
+    <h2 class="section-title">Revenue Architecture</h2>
+    <div class="section-rule"></div>
+    <p style="font-size:14px;color:var(--g2);margin-bottom:28px;max-width:640px;">Six distinct revenue streams across the ecosystem — no single dependency. Each stream feeds NAI, which funds the programs, which generates the next grant cycle.</p>
+
+    <div style="overflow-x:auto;">
+      <table class="rev-table">
+        <thead>
+          <tr>
+            <th style="width:24%;">Revenue Stream</th>
+            <th style="width:14%;">Entity</th>
+            <th style="width:14%;">Year 1 Target</th>
+            <th style="width:14%;">Year 2 Target</th>
+            <th style="width:14%;">Year 3 Target</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Player dues</strong></td>
+            <td>NAI / Bananas</td>
+            <td class="rev-amt rev-amber">$9,600</td>
+            <td class="rev-amt rev-amber">$14,400</td>
+            <td class="rev-amt rev-amber">$0*</td>
+            <td>12 players × $800 net after offset. *Goal: fully offset by Year 3.</td>
+          </tr>
+          <tr>
+            <td><strong>Grants</strong></td>
+            <td>NAI (501c3)</td>
+            <td class="rev-amt rev-green">$5,000</td>
+            <td class="rev-amt rev-green">$15,000</td>
+            <td class="rev-amt rev-green">$30,000</td>
+            <td>Happy Mutual + City of Georgetown + 3–5 others. Grows as track record builds.</td>
+          </tr>
+          <tr>
+            <td><strong>Sponsorships</strong></td>
+            <td>NAI / Bananas</td>
+            <td class="rev-amt rev-green">$3,500</td>
+            <td class="rev-amt rev-green">$6,000</td>
+            <td class="rev-amt rev-green">$10,000</td>
+            <td>Gold × 1, Silver × 2, Bronze × 3. Tax-deductible for business sponsors.</td>
+          </tr>
+          <tr>
+            <td><strong>Boosters + events</strong></td>
+            <td>NAI</td>
+            <td class="rev-amt rev-amber">$2,000</td>
+            <td class="rev-amt rev-amber">$4,000</td>
+            <td class="rev-amt rev-amber">$6,000</td>
+            <td>Booster campaign + cookout + clinic events + banquet.</td>
+          </tr>
+          <tr>
+            <td><strong>DugoutOS SaaS</strong></td>
+            <td>DugoutOS</td>
+            <td class="rev-amt" style="color:var(--g3);">$0</td>
+            <td class="rev-amt rev-blue">$3,600</td>
+            <td class="rev-amt rev-blue">$18,000</td>
+            <td>$50/mo × 6 orgs Year 2 → 30 orgs Year 3. Recurring revenue.</td>
+          </tr>
+          <tr>
+            <td><strong>Next-Gen IT / consulting</strong></td>
+            <td>Cargill Consulting / Next-Gen IT</td>
+            <td class="rev-amt rev-blue">$12,000</td>
+            <td class="rev-amt rev-blue">$24,000</td>
+            <td class="rev-amt rev-blue">$48,000</td>
+            <td>Domain audits → managed IT contracts. Funds Cargill household which seeds NAI.</td>
+          </tr>
+          <tr class="total-row">
+            <td>ECOSYSTEM TOTAL</td>
+            <td>—</td>
+            <td>$32,100</td>
+            <td>$67,000</td>
+            <td>$112,000</td>
+            <td>Across all entities. NAI programs fully self-funded by Year 3.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ PILLARS ══ -->
+<section>
+  <div class="section-wrap">
+    <div class="section-eyebrow">How it holds together</div>
+    <h2 class="section-title">Five Pillars</h2>
+    <div class="section-rule"></div>
+
+    <div class="pillar-grid">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <div class="pillar-title">Separate Every Function</div>
+        <div class="pillar-desc">Co-Directors run org. Coaches coach. Board governs. Each entity has a lane. Nobody's phone has everything running through it. This is what prevents burnout and builds trust.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <div class="pillar-title">Family First — Always</div>
+        <div class="pillar-desc">Written into bylaws. Applies to coaches, staff, and org decisions. A coach who shows up for their daughter's game is modeling the exact values we put on the field every practice.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <div class="pillar-title">Full Financial Transparency</div>
+        <div class="pillar-desc">Every dollar published. Quarterly reports to board and donors. Allocation model board-voted annually. The org earns trust by showing the math — not asking families to take it on faith.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">04</div>
+        <div class="pillar-title">Build the Runway First</div>
+        <div class="pillar-desc">No debt. No loans. Phase 1 deposits fund Phase 2. Phase 2 closes Phase 3. Grants extend the runway. The sequence exists so the org never operates from desperation.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">05</div>
+        <div class="pillar-title">The Tech Funds the Mission</div>
+        <div class="pillar-desc">DugoutOS generates SaaS revenue that flows to NAI. Next-Gen IT funds the Cargill household which seeds NAI. The org runs on the platform, which proves the product, which gets licensed. It's a flywheel — every piece accelerates every other piece.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NORTH STAR ══ -->
+<section class="north-star">
+  <div class="ns-grid" aria-hidden="true"></div>
+  <div class="section-wrap">
+    <div class="section-eyebrow">The reason</div>
+    <h2 class="section-title">North Star</h2>
+    <div class="section-rule"></div>
+
+    <div class="ns-quote">
+      "A family in Georgetown should be able to put their daughter in a world-class softball program and never have to choose between competing and paying rent. The org handles the costs. The coaches develop the athletes. The families just show up."
+    </div>
+
+    <div class="ns-cards">
+      <div class="ns-card">
+        <span class="ns-card-icon">🥎</span>
+        <div class="ns-card-title">Year 3: Dues = $0</div>
+        <div class="ns-card-desc">Grants and sponsorships fully offset player costs. Families pay nothing except personal gear and meals.</div>
+      </div>
+      <div class="ns-card">
+        <span class="ns-card-icon">🏟️</span>
+        <div class="ns-card-title">8U → 14U Pipeline</div>
+        <div class="ns-card-desc">A Georgetown girl can enter the Bananas program at 8 and play until high school without switching orgs. One culture, one standard.</div>
+      </div>
+      <div class="ns-card">
+        <span class="ns-card-icon">💻</span>
+        <div class="ns-card-title">DugoutOS Nationwide</div>
+        <div class="ns-card-desc">What we build for Bananas gets licensed to orgs across the country. The proof-of-concept becomes the product. <span style="color:var(--yellow);font-family:var(--mono);font-size:11px;">jeremiah9980/softball-coach-assistant</span></div>
+      </div>
+      <div class="ns-card">
+        <span class="ns-card-icon">📈</span>
+        <div class="ns-card-title">$100K+ Ecosystem</div>
+        <div class="ns-card-desc">Six revenue streams. Four entities. One integrated portfolio operating from the same values and infrastructure.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="doc-footer">
+  <div>
+    <div class="doc-footer-brand">The Cargill Ecosystem</div>
+    <p>Jeremiah &amp; Jesica Cargill &nbsp;·&nbsp; Georgetown, Texas &nbsp;·&nbsp; 2025–2028</p>
+    <p>Confidential — Strategic Planning Document</p>
+  </div>
+  <div style="text-align:right;">
+    <p>Entities: NAI &nbsp;·&nbsp; Bananas 2K15 &nbsp;·&nbsp; DugoutOS &nbsp;·&nbsp; Next-Gen IT</p>
+    <p>jeremiah9980.github.io/bananas2k15</p>
+  </div>
+</footer>
+
+</body>
+</html>
