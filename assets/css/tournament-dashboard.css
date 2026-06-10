@@ -1,0 +1,539 @@
+/* NCS Tournament Control Room — Dark Dashboard */
+
+/* ── Page overrides ───────────────────────────────────────────────────── */
+body.cr-page {
+  background: #0b0b16 !important;
+  color: #c8c8e8 !important;
+}
+body.cr-page nav {
+  background: #0f0f1e !important;
+  border-bottom-color: #e05252 !important;
+  box-shadow: 0 1px 0 rgba(0,0,0,.4) !important;
+}
+body.cr-page .nav-brand,
+body.cr-page .nav-links a { color: #c8c8e8 !important; }
+body.cr-page .nav-links a:hover,
+body.cr-page .nav-links a.active { color: #e05252 !important; text-decoration: none; }
+body.cr-page .nav-brand img { filter: brightness(1.1); }
+
+/* ── Root ─────────────────────────────────────────────────────────────── */
+.cr-root {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 24px 80px;
+}
+
+/* ── Header ───────────────────────────────────────────────────────────── */
+.cr-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #1a1a2c;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.cr-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+.cr-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 2.5px;
+  color: #fff;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.cr-subtitle {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3.5px;
+  color: #50508a;
+  text-transform: uppercase;
+}
+.cr-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ── Badges / Timer ───────────────────────────────────────────────────── */
+.cr-badge {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #c8c8e8;
+  background: #161628;
+  border: 1px solid #26264a;
+  border-radius: 6px;
+  padding: 7px 13px;
+  white-space: nowrap;
+}
+.cr-timer {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #50508a;
+  min-width: 60px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* ── Buttons ──────────────────────────────────────────────────────────── */
+.cr-btn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 8px 15px;
+  border-radius: 6px;
+  border: 1px solid #26264a;
+  background: #161628;
+  color: #c8c8e8;
+  cursor: pointer;
+  transition: background .15s, border-color .15s, color .15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.cr-btn:hover {
+  background: #202038;
+  border-color: #3a3a6a;
+  color: #fff;
+  text-decoration: none;
+}
+.cr-btn-primary {
+  background: #1c1040;
+  border-color: #4a2a90;
+  color: #b090ff;
+}
+.cr-btn-primary:hover {
+  background: #261852;
+  border-color: #6040b0;
+  color: #ceb0ff;
+}
+.cr-btn-secondary { color: #6868a0; }
+.cr-btn-add {
+  background: #0e2018;
+  border-color: #205040;
+  color: #50c080;
+}
+.cr-btn-add:hover {
+  background: #142a1e;
+  border-color: #30906a;
+  color: #70e0a0;
+}
+.cr-btn-danger {
+  background: #1e0c0c;
+  border-color: #602020;
+  color: #d06060;
+}
+.cr-btn-danger:hover {
+  background: #280e0e;
+  border-color: #903030;
+}
+
+/* ── Settings Panel ───────────────────────────────────────────────────── */
+.cr-settings {
+  background: #0f0f1e;
+  border: 1px solid #1a1a2c;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+.cr-settings-inner { padding: 24px; }
+.cr-settings-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  color: #50508a;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.cr-settings-section {
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #14142a;
+}
+.cr-settings-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.cr-settings-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #36365e;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.cr-form-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.cr-form-row:last-child { margin-bottom: 0; }
+
+/* ── Inputs ───────────────────────────────────────────────────────────── */
+.cr-input {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  background: #0b0b16;
+  color: #c8c8e8;
+  border: 1px solid #22223e;
+  border-radius: 6px;
+  padding: 8px 12px;
+  flex: 1;
+  min-width: 130px;
+  outline: none;
+  transition: border-color .15s;
+}
+.cr-input:focus { border-color: #4040a0; }
+.cr-input::placeholder { color: #32325a; }
+.cr-select { cursor: pointer; }
+.cr-select option { background: #0b0b16; color: #c8c8e8; }
+
+/* ── Grid ─────────────────────────────────────────────────────────────── */
+.cr-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 960px) { .cr-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 580px) { .cr-grid { grid-template-columns: 1fr; } }
+
+/* ── Game Card ────────────────────────────────────────────────────────── */
+.cr-card {
+  background: #0f0f1e;
+  border: 1px solid #1a1a2c;
+  border-radius: 10px;
+  padding: 17px 17px 13px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.cr-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+.cr-card.status-live    { border-color: #2a1818; }
+.cr-card.status-live::before    { background: #e05252; }
+.cr-card.status-upcoming { border-color: #1c1c10; }
+.cr-card.status-upcoming::before { background: #b0b020; }
+.cr-card.status-final   { border-color: #16162a; }
+.cr-card.status-final::before   { background: #36365a; }
+.cr-card:hover { border-color: #2a2a4a !important; }
+
+.cr-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 13px;
+}
+.cr-status-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.cr-status-label.live     { color: #e05252; }
+.cr-status-label.upcoming { color: #b0b020; }
+.cr-status-label.final    { color: #44446a; }
+
+.cr-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.cr-status-dot.live {
+  background: #e05252;
+  box-shadow: 0 0 7px #e05252;
+  animation: dot-pulse 2s ease-in-out infinite;
+}
+.cr-status-dot.upcoming { background: #b0b020; }
+.cr-status-dot.final    { background: #36365a; }
+
+.cr-card-actions-top { display: flex; gap: 4px; }
+.cr-icon-btn {
+  background: none;
+  border: none;
+  color: #36365a;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 15px;
+  border-radius: 4px;
+  transition: color .15s, background .15s;
+  display: inline-flex;
+  align-items: center;
+}
+.cr-icon-btn:hover { color: #c8c8e8; background: #1a1a2c; }
+
+/* Teams & Score */
+.cr-teams {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+.cr-team-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.cr-team-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  color: #d8d8f8;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cr-team-score {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 30px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+  min-width: 32px;
+  text-align: right;
+}
+.cr-score-rule {
+  height: 1px;
+  background: #1a1a2c;
+  margin: 3px 0 12px;
+}
+
+/* Stats rows */
+.cr-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 13px;
+}
+.cr-stat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cr-stat-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #36365a;
+  text-transform: uppercase;
+}
+.cr-stat-value {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #68689a;
+  text-align: right;
+}
+.cr-stat-value.hi { color: #b8b8e0; }
+
+/* Card footer buttons */
+.cr-card-footer {
+  display: flex;
+  gap: 8px;
+  margin-top: 2px;
+}
+.cr-card-btn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 7px 10px;
+  border-radius: 6px;
+  border: 1px solid #22223e;
+  background: #13132a;
+  color: #68689a;
+  cursor: pointer;
+  transition: all .15s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  flex: 1;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.cr-card-btn:hover {
+  border-color: #3a3a7a;
+  color: #c0c0ff;
+  background: #181830;
+  text-decoration: none;
+}
+.cr-card-btn.gc-btn {
+  border-color: #14281c;
+  color: #3a9060;
+}
+.cr-card-btn.gc-btn:hover {
+  border-color: #20604a;
+  color: #60d090;
+  background: #0a1610;
+}
+.cr-card-btn:disabled,
+.cr-card-btn[href="#"]:not(:hover) {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+/* ── Empty State ──────────────────────────────────────────────────────── */
+.cr-empty {
+  text-align: center;
+  padding: 80px 24px;
+  color: #36365a;
+}
+.cr-empty i { font-size: 52px; display: block; margin-bottom: 16px; }
+.cr-empty-heading {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  color: #44446a;
+}
+.cr-empty-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  color: #28284a;
+  margin-bottom: 20px;
+}
+
+/* ── Score Modal ──────────────────────────────────────────────────────── */
+.cr-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .78);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  padding: 24px;
+}
+.cr-modal {
+  background: #0f0f1e;
+  border: 1px solid #26264a;
+  border-radius: 12px;
+  padding: 28px;
+  width: 100%;
+  max-width: 440px;
+}
+.cr-modal-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  color: #50508a;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+  line-height: 1.4;
+}
+.cr-score-editor {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.cr-score-side { flex: 1; text-align: center; }
+.cr-score-side-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #50508a;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cr-score-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.cr-adj-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  border: 1px solid #26264a;
+  background: #161628;
+  color: #c8c8e8;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  line-height: 1;
+}
+.cr-adj-btn:hover { background: #202038; border-color: #3a3a6a; }
+.cr-score-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 46px;
+  font-weight: 900;
+  color: #fff;
+  min-width: 52px;
+  text-align: center;
+  display: block;
+  line-height: 1;
+}
+.cr-score-vs {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #36365a;
+  text-transform: uppercase;
+}
+.cr-modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* ── Animations ───────────────────────────────────────────────────────── */
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .35; }
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.cr-btn.spinning i { animation: spin .8s linear infinite; }

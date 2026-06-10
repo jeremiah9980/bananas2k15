@@ -17,6 +17,7 @@ const NAV_HTML = `
       <a href="/bananas2k15/docs.html">Documents</a>
       <a href="/bananas2k15/fundraising.html">Support Us</a>
       <a href="/bananas2k15/dugout-os.html">DugoutOS</a>
+      <a href="/bananas2k15/ncs-dashboard.html">NCS Dashboard</a>
       <a href="/bananas2k15/contact.html">Contact</a>
     </div>
   </div>
