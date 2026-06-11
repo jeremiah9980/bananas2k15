@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NCS Tournament Control Room — Bananas 2K15</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/tournament-dashboard.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+</head>
+<body class="cr-page">
+<script src="assets/js/nav.js"></script>
+
+<div class="cr-root">
+
+  <!-- ── HEADER ──────────────────────────────────────────────────────── -->
+  <header class="cr-header">
+    <div class="cr-brand">
+      <span class="cr-title">NCS TOURNAMENT</span>
+      <span class="cr-subtitle">CONTROL ROOM</span>
+    </div>
+    <div class="cr-controls">
+      <div class="cr-badge" id="crCounter">GAMES 0/0</div>
+      <div class="cr-timer" id="crTimer">next --s</div>
+      <button class="cr-btn" id="crRefreshBtn" onclick="refreshAll()">
+        <i class="ti ti-refresh"></i> REFRESH
+      </button>
+      <button class="cr-btn" onclick="toggleSettings()">
+        <i class="ti ti-settings"></i> SETTINGS
+      </button>
+    </div>
+  </header>
+
+  <!-- ── SETTINGS PANEL ──────────────────────────────────────────────── -->
+  <div class="cr-settings" id="crSettings" style="display:none">
+    <div class="cr-settings-inner">
+      <div class="cr-settings-title">TOURNAMENT SETTINGS</div>
+
+      <!-- Add Game -->
+      <div class="cr-settings-section">
+        <div class="cr-settings-label">ADD GAME</div>
+        <div class="cr-form-row">
+          <input class="cr-input" id="newAway"  placeholder="Away Team Name" type="text">
+          <input class="cr-input" id="newHome"  placeholder="Home Team Name" type="text">
+        </div>
+        <div class="cr-form-row">
+          <input class="cr-input" id="newGcUrl" placeholder="GameChanger Share URL (optional)" type="url">
+          <input class="cr-input" id="newField" placeholder="Field (e.g. Field 1)" type="text">
+        </div>
+        <div class="cr-form-row">
+          <select class="cr-input cr-select" id="newRound">
+            <option value="Pool Play">Pool Play</option>
+            <option value="Bracket Play">Bracket Play</option>
+            <option value="Quarterfinal">Quarterfinal</option>
+            <option value="Semifinal">Semifinal</option>
+            <option value="Championship">Championship</option>
+          </select>
+          <input class="cr-input" id="newPool"  placeholder="Pool (e.g. Pool A)" type="text">
+        </div>
+        <div class="cr-form-row">
+          <input class="cr-input" id="newTime"  placeholder="Scheduled time" type="datetime-local">
+          <button class="cr-btn cr-btn-add" onclick="addGame()">
+            <i class="ti ti-plus"></i> ADD GAME
+          </button>
+        </div>
+      </div>
+
+      <!-- Auto-Refresh -->
+      <div class="cr-settings-section">
+        <div class="cr-settings-label">AUTO-REFRESH INTERVAL</div>
+        <div class="cr-form-row">
+          <select class="cr-input cr-select" id="intervalSel"
+                  onchange="setInterval_(this.value)">
+            <option value="30">Every 30 s</option>
+            <option value="60" selected>Every 60 s</option>
+            <option value="120">Every 2 min</option>
+            <option value="300">Every 5 min</option>
+            <option value="0">Off</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Danger Zone -->
+      <div class="cr-settings-section">
+        <div class="cr-settings-label">SAMPLE DATA &amp; RESET</div>
+        <div class="cr-form-row">
+          <button class="cr-btn cr-btn-secondary" onclick="loadSample()">
+            <i class="ti ti-database-import"></i> LOAD NCS SAMPLE DATA
+          </button>
+          <button class="cr-btn cr-btn-danger" onclick="clearAll()">
+            <i class="ti ti-trash"></i> CLEAR ALL GAMES
+          </button>
+        </div>
+      </div>
+
+      <!-- Instructions -->
+      <div class="cr-settings-section">
+        <div class="cr-settings-label">GAMECHANGER LIVE FEEDS</div>
+        <p style="font-family:'Barlow Condensed',sans-serif;font-size:12px;color:#44446a;line-height:1.6;max-width:600px;">
+          Paste the <strong style="color:#6868a0">GameChanger share URL</strong> for each game
+          (e.g. <code style="color:#5050a0">https://gc.com/g/xxxxx</code>).
+          The GAMECHANGER button on each card will open the live feed in a new tab.
+          Scores update automatically when you click REFRESH or use the pencil icon
+          on any card to enter scores directly.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── GAMES GRID ───────────────────────────────────────────────────── -->
+  <div class="cr-grid" id="crGrid"></div>
+
+  <!-- ── EMPTY STATE ──────────────────────────────────────────────────── -->
+  <div class="cr-empty" id="crEmpty" style="display:none">
+    <i class="ti ti-ball-baseball"></i>
+    <div class="cr-empty-heading">No Games Configured</div>
+    <div class="cr-empty-sub">Open SETTINGS above to add tournament games, or load sample NCS data.</div>
+    <button class="cr-btn cr-btn-primary" onclick="loadSample()">
+      <i class="ti ti-database-import"></i> LOAD SAMPLE DATA
+    </button>
+  </div>
+
+</div><!-- /cr-root -->
+
+<!-- ── SCORE MODAL ────────────────────────────────────────────────────── -->
+<div class="cr-overlay" id="crModal" style="display:none" onclick="closeModal(event)">
+  <div class="cr-modal">
+
+    <div class="cr-modal-title" id="modalTitle">UPDATE SCORE</div>
+
+    <!-- Score editor -->
+    <div class="cr-score-editor">
+      <div class="cr-score-side">
+        <div class="cr-score-side-name" id="modalAwyName">Away</div>
+        <div class="cr-score-controls">
+          <button class="cr-adj-btn" onclick="adj('away',-1)">−</button>
+          <span  class="cr-score-num"  id="modalAwyNum">0</span>
+          <button class="cr-adj-btn" onclick="adj('away', 1)">+</button>
+        </div>
+      </div>
+      <div class="cr-score-vs">vs</div>
+      <div class="cr-score-side">
+        <div class="cr-score-side-name" id="modalHmName">Home</div>
+        <div class="cr-score-controls">
+          <button class="cr-adj-btn" onclick="adj('home',-1)">−</button>
+          <span  class="cr-score-num"  id="modalHmNum">0</span>
+          <button class="cr-adj-btn" onclick="adj('home', 1)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Inning / Status -->
+    <div class="cr-form-row">
+      <select class="cr-input cr-select" id="modalHalf">
+        <option value="top">Top</option>
+        <option value="mid">Mid</option>
+        <option value="bottom">Bottom</option>
+        <option value="end">End</option>
+      </select>
+      <select class="cr-input cr-select" id="modalInning">
+        <option value="1">1st Inning</option>
+        <option value="2">2nd Inning</option>
+        <option value="3">3rd Inning</option>
+        <option value="4">4th Inning</option>
+        <option value="5">5th Inning</option>
+        <option value="6">6th Inning</option>
+        <option value="7">7th Inning</option>
+        <option value="F">Final</option>
+      </select>
+      <select class="cr-input cr-select" id="modalStatus">
+        <option value="upcoming">Upcoming</option>
+        <option value="live">Live</option>
+        <option value="final">Final</option>
+      </select>
+    </div>
+
+    <div class="cr-modal-actions">
+      <button class="cr-btn cr-btn-primary" onclick="saveScore()">
+        <i class="ti ti-check"></i> SAVE
+      </button>
+      <button class="cr-btn cr-btn-secondary" onclick="closeModal()">
+        CANCEL
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/tournament-dashboard.js"></script>
+</body>
+</html>
