@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find My – Live Monitor</title>
+<style>
+  :root {
+    --bg:   #0d1117;
+    --card: #161b22;
+    --bdr:  #30363d;
+    --acc:  #58a6ff;
+    --grn:  #3fb950;
+    --red:  #f85149;
+    --yel:  #d29922;
+    --txt:  #e6edf3;
+    --sub:  #8b949e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--txt); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+
+  header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--bdr);
+    background: var(--card);
+  }
+  header h1 { font-size: 1.1rem; font-weight: 600; }
+  #status-badge {
+    margin-left: auto;
+    font-size: .75rem;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--grn);
+    color: #000;
+    font-weight: 600;
+  }
+  #status-badge.stale { background: var(--yel); color: #000; }
+  #status-badge.offline { background: var(--red); color: #fff; }
+
+  #updated { color: var(--sub); font-size: .75rem; padding: 10px 24px; }
+
+  #grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 16px;
+    padding: 16px 24px 40px;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--bdr);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color .2s;
+  }
+  .card:hover { border-color: var(--acc); }
+
+  .card-header {
+    display: flex; align-items: center; gap:10px;
+    padding: 14px 16px 12px;
+    border-bottom: 1px solid var(--bdr);
+  }
+  .device-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #1e3a5f, #0d2137);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+  .device-name { font-weight: 600; font-size: .95rem; }
+  .device-model { color: var(--sub); font-size: .75rem; margin-top: 2px; }
+
+  .lost-badge {
+    margin-left: auto;
+    background: var(--red);
+    color: #fff;
+    font-size: .65rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 20px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
+  .card-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+
+  .map-preview {
+    width: 100%; height: 160px;
+    border-radius: 8px;
+    border: 1px solid var(--bdr);
+    background: #1a2030;
+    overflow: hidden;
+    position: relative;
+  }
+  .map-preview iframe {
+    width: 100%; height: 100%;
+    border: none;
+    pointer-events: none;
+  }
+  .map-overlay {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,.45);
+    font-size: .8rem; color: var(--sub);
+  }
+
+  .info-row { display: flex; gap: 6px; font-size: .8rem; }
+  .info-label { color: var(--sub); min-width: 76px; }
+  .info-val   { color: var(--txt); word-break: break-all; }
+  .info-val a { color: var(--acc); text-decoration: none; }
+  .info-val a:hover { text-decoration: underline; }
+
+  .battery-bar {
+    height: 8px; border-radius: 4px;
+    background: var(--bdr); overflow: hidden; flex: 1;
+  }
+  .battery-fill {
+    height: 100%; border-radius: 4px;
+    background: var(--grn);
+    transition: width .5s ease;
+  }
+  .battery-fill.low  { background: var(--red); }
+  .battery-fill.med  { background: var(--yel); }
+
+  .moved-flash { animation: flash 2s ease-out; }
+  @keyframes flash {
+    0%   { box-shadow: 0 0 0 3px var(--acc); }
+    100% { box-shadow: none; }
+  }
+
+  #no-data {
+    grid-column: 1/-1;
+    text-align: center; padding: 60px 24px;
+    color: var(--sub);
+  }
+  #no-data h2 { font-size: 1rem; margin-bottom: 8px; color: var(--txt); }
+  #no-data code { background: var(--card); border: 1px solid var(--bdr); padding: 2px 6px; border-radius: 4px; font-size: .85rem; }
+
+  #filter-bar {
+    padding: 10px 24px 0;
+    display: flex; gap: 10px; align-items: center;
+  }
+  #filter-bar input {
+    background: var(--card);
+    border: 1px solid var(--bdr);
+    border-radius: 6px;
+    color: var(--txt);
+    padding: 6px 12px;
+    font-size: .85rem;
+    outline: none;
+    width: 240px;
+  }
+  #filter-bar input:focus { border-color: var(--acc); }
+  #device-count { color: var(--sub); font-size: .8rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <span style="font-size:1.4rem">📍</span>
+  <h1>Find My — Live Monitor</h1>
+  <span id="status-badge" class="offline">Waiting for data…</span>
+</header>
+
+<div id="updated">Last refreshed: —</div>
+
+<div id="filter-bar">
+  <input type="text" id="search" placeholder="Filter by device name…" oninput="renderCards()">
+  <span id="device-count"></span>
+</div>
+
+<div id="grid"></div>
+
+<script>
+const DATA_URL     = "./findmy_live.json";
+const REFRESH_MS   = 15_000;   // poll every 15 s
+let allDevices     = [];
+let prevCoordHash  = {};
+
+/* ── helpers ─────────────────────────────────────────────────────── */
+
+function deviceIcon(model) {
+  const m = (model || "").toLowerCase();
+  if (m.includes("iphone"))  return "📱";
+  if (m.includes("ipad"))    return "⬜";
+  if (m.includes("mac"))     return "💻";
+  if (m.includes("watch"))   return "⌚";
+  if (m.includes("airpod"))  return "🎧";
+  if (m.includes("ipod"))    return "🎵";
+  return "📡";
+}
+
+function coordHash(d) {
+  return `${d.lat.toFixed(5)},${d.lon.toFixed(5)}`;
+}
+
+function batteryClass(pct) {
+  if (pct === null || pct === undefined) return "";
+  if (pct <= 20)  return "low";
+  if (pct <= 40)  return "med";
+  return "";
+}
+
+/* ── render ──────────────────────────────────────────────────────── */
+
+function renderCards() {
+  const q     = document.getElementById("search").value.toLowerCase();
+  const grid  = document.getElementById("grid");
+  const shown = allDevices.filter(d => !q || d.name.toLowerCase().includes(q));
+
+  document.getElementById("device-count").textContent =
+    `${shown.length} device${shown.length !== 1 ? "s" : ""}`;
+
+  if (shown.length === 0) {
+    grid.innerHTML = `
+      <div id="no-data">
+        <h2>${allDevices.length ? "No devices match filter" : "No Find My data yet"}</h2>
+        ${allDevices.length ? "" : `<p>Start the monitor on your Mac:</p>
+        <br><code>python3 findmy_monitor.py --export</code>`}
+      </div>`;
+    return;
+  }
+
+  // Build a map of existing cards so we can update in-place
+  const existing = {};
+  grid.querySelectorAll(".card").forEach(el => {
+    existing[el.dataset.name] = el;
+  });
+
+  // Remove cards that are no longer in shown list
+  Object.keys(existing).forEach(name => {
+    if (!shown.find(d => d.name === name)) existing[name].remove();
+  });
+
+  shown.forEach(d => {
+    const hash    = coordHash(d);
+    const moved   = prevCoordHash[d.name] && prevCoordHash[d.name] !== hash;
+    const batPct  = d.battery;
+    const batW    = batPct !== null && batPct !== undefined ? batPct : 0;
+    const batCls  = batteryClass(batPct);
+    const ts      = d.timestamp ? new Date(d.timestamp).toLocaleString() : "Unknown";
+    const acc     = d.accuracy ? `±${Math.round(d.accuracy)}m` : "";
+
+    const html = `
+      <div class="card-header">
+        <div class="device-icon">${deviceIcon(d.model)}</div>
+        <div>
+          <div class="device-name">${escHtml(d.name)}</div>
+          <div class="device-model">${escHtml(d.model || "Unknown model")}</div>
+        </div>
+        ${d.lost_mode ? '<span class="lost-badge">Lost Mode</span>' : ""}
+      </div>
+      <div class="card-body">
+        <div class="map-preview">
+          <div class="map-overlay">
+            <a href="${d.maps_link}" target="_blank" rel="noopener"
+               style="color:var(--acc);text-decoration:none;font-weight:600">
+              🗺 Open in Maps
+            </a>
+          </div>
+        </div>
+        <div class="info-row"><span class="info-label">Coordinates</span>
+          <span class="info-val">${d.lat.toFixed(6)}, ${d.lon.toFixed(6)}</span></div>
+        ${acc ? `<div class="info-row"><span class="info-label">Accuracy</span>
+          <span class="info-val">${acc}</span></div>` : ""}
+        <div class="info-row"><span class="info-label">Last seen</span>
+          <span class="info-val">${ts}</span></div>
+        ${batPct !== null && batPct !== undefined ? `
+        <div class="info-row">
+          <span class="info-label">Battery</span>
+          <span class="info-val" style="display:flex;align-items:center;gap:8px;width:100%">
+            <span>${batPct}%</span>
+            <div class="battery-bar"><div class="battery-fill ${batCls}" style="width:${batW}%"></div></div>
+          </span>
+        </div>` : ""}
+        <div class="info-row"><span class="info-label">Apple Maps</span>
+          <span class="info-val"><a href="${d.maps_link}" target="_blank" rel="noopener">Open ↗</a></span></div>
+      </div>`;
+
+    if (existing[d.name]) {
+      existing[d.name].innerHTML = html;
+      if (moved) existing[d.name].classList.add("moved-flash");
+    } else {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.dataset.name = d.name;
+      card.innerHTML = html;
+      if (moved) card.classList.add("moved-flash");
+      grid.appendChild(card);
+    }
+
+    prevCoordHash[d.name] = hash;
+  });
+}
+
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+/* ── data fetch ──────────────────────────────────────────────────── */
+
+async function fetchData() {
+  const badge = document.getElementById("status-badge");
+  try {
+    const res  = await fetch(DATA_URL + "?t=" + Date.now());
+    if (!res.ok) throw new Error(res.status);
+    const data = await res.json();
+
+    allDevices = data.devices || [];
+    document.getElementById("updated").textContent =
+      "Last refreshed: " + new Date(data.updated).toLocaleString();
+
+    const ageSec = (Date.now() - new Date(data.updated).getTime()) / 1000;
+    if (ageSec < 60) {
+      badge.textContent = "Live";
+      badge.className   = "";
+    } else if (ageSec < 300) {
+      badge.textContent = "Stale (" + Math.round(ageSec) + "s ago)";
+      badge.className   = "stale";
+    } else {
+      badge.textContent = "Offline";
+      badge.className   = "offline";
+    }
+    renderCards();
+  } catch {
+    badge.textContent = "No data file";
+    badge.className   = "offline";
+    renderCards();
+  }
+}
+
+fetchData();
+setInterval(fetchData, REFRESH_MS);
+</script>
+</body>
+</html>
