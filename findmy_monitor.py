@@ -7,6 +7,7 @@ Usage:
   python3 findmy_monitor.py                  # monitor ALL devices
   python3 findmy_monitor.py Jciphone212121   # monitor one specific device
   python3 findmy_monitor.py --export         # write live JSON for the dashboard
+  python3 findmy_monitor.py --debug          # show every candidate file found
 """
 
 import os
@@ -17,6 +18,7 @@ import plistlib
 import hashlib
 import datetime
 import subprocess
+import sqlite3
 from pathlib import Path
 
 # ── Config ────────────────────────────────────────────────────────────────────
@@ -24,15 +26,32 @@ POLL_INTERVAL_SECONDS = 20
 LOG_FILE              = os.path.expanduser("~/findmy_monitor_log.txt")
 JSON_EXPORT_FILE      = os.path.join(os.path.dirname(__file__), "findmy_live.json")
 
-# macOS Find My data paths (searched in order)
+HOME = Path.home()
+
+# macOS Find My data paths — covers legacy cache, sandboxed container, and
+# the fmfd daemon used on macOS 12+ (Monterey and later).
 FINDMY_DATA_FILES = [
+    # Legacy (macOS 11 and earlier)
     "~/Library/Caches/com.apple.findmy.fmipcore/Devices.data",
     "~/Library/Caches/com.apple.findmy.fmipcore/Items.data",
+    # Sandboxed app container (macOS 12+)
+    "~/Library/Containers/com.apple.findmy/Data/Library/Caches/com.apple.findmy.fmipcore/Devices.data",
+    "~/Library/Containers/com.apple.findmy/Data/Library/Caches/com.apple.findmy.fmipcore/Items.data",
+    # fmfd daemon container
+    "~/Library/Containers/com.apple.icloud.fmfd/Data/Library/Caches/com.apple.icloud.fmfd/Devices.data",
 ]
 FINDMY_CACHE_DIRS = [
+    # Legacy
     "~/Library/Caches/com.apple.findmy.fmipcore",
     "~/Library/Caches/com.apple.icloud.fmfd",
     "~/Library/Application Support/FindMy",
+    # Sandboxed containers (macOS 12+)
+    "~/Library/Containers/com.apple.findmy/Data/Library/Caches",
+    "~/Library/Containers/com.apple.findmy/Data/Library/Application Support",
+    "~/Library/Containers/com.apple.icloud.fmfd/Data/Library/Caches",
+    "~/Library/Containers/com.apple.icloud.fmfd/Data/Library/Application Support",
+    # CloudKit local store
+    "~/Library/CloudKit",
 ]
 
 
@@ -144,21 +163,103 @@ def extract_location(device: dict) -> dict | None:
     }
 
 
-def scan_all_devices() -> list[dict]:
+def read_sqlite_devices(db_path: Path) -> list[dict]:
+    """Try to pull device rows from a Core Data SQLite store."""
+    results = []
+    try:
+        con = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True, timeout=3)
+        cur = con.cursor()
+        # Discover tables that might hold device/location data
+        cur.execute("SELECT name FROM sqlite_master WHERE type='table'")
+        tables = [r[0] for r in cur.fetchall()]
+        for tbl in tables:
+            if not any(k in tbl.upper() for k in ("DEVICE", "ITEM", "LOCATION", "OBJECT")):
+                continue
+            try:
+                cur.execute(f"SELECT * FROM {tbl} LIMIT 200")
+                cols = [c[0].lower() for c in cur.description]
+                for row in cur.fetchall():
+                    d = dict(zip(cols, row))
+                    # Try to decode blob columns that may be plist/json
+                    for k, v in list(d.items()):
+                        if isinstance(v, bytes):
+                            parsed = None
+                            try:
+                                parsed = plistlib.loads(v)
+                            except Exception:
+                                pass
+                            if parsed is None:
+                                try:
+                                    parsed = json.loads(v)
+                                except Exception:
+                                    pass
+                            if parsed:
+                                d[k] = parsed
+                    results.append(d)
+            except Exception:
+                continue
+        con.close()
+    except Exception:
+        pass
+    return results
+
+
+def spotlight_findmy_files() -> list[Path]:
+    """Use mdfind (Spotlight) to locate Find My related files."""
+    candidates = []
+    queries = [
+        'kMDItemFSName == "Devices.data"',
+        'kMDItemFSName == "*.findmy"',
+        'kMDItemFSName contains "fmipcore"',
+    ]
+    for q in queries:
+        try:
+            out = subprocess.check_output(
+                ["mdfind", q], timeout=5, stderr=subprocess.DEVNULL
+            ).decode().strip()
+            for line in out.splitlines():
+                p = Path(line.strip())
+                if p.is_file() and p.stat().st_size > 0:
+                    candidates.append(p)
+        except Exception:
+            pass
+    return candidates
+
+
+def scan_all_devices(debug: bool = False) -> list[dict]:
     """Read every device from all Find My cache locations."""
     seen_names: dict[str, dict] = {}
 
-    def ingest(data):
-        for d in flatten_to_device_list(data):
+    def ingest_data(data, source: str = ""):
+        devs = flatten_to_device_list(data)
+        for d in devs:
             loc = extract_location(d)
             if loc:
+                if debug:
+                    print(f"  [debug] found device '{loc['name']}' in {source}")
                 seen_names[loc["name"]] = loc
 
-    for path in FINDMY_DATA_FILES:
-        data = read_file(path)
+    def try_file(p: Path):
+        if debug:
+            print(f"  [debug] trying {p}")
+        data = read_file(str(p))
         if data:
-            ingest(data)
+            ingest_data(data, str(p))
+            return
+        # Try as SQLite
+        rows = read_sqlite_devices(p)
+        if rows:
+            for r in rows:
+                ingest_data(r, f"{p} (sqlite)")
 
+    # 1) Explicit known files
+    for path in FINDMY_DATA_FILES:
+        p = Path(path).expanduser()
+        if p.exists() and p.stat().st_size > 0:
+            try_file(p)
+
+    # 2) Walk all cache dirs (plist / json / data / sqlite)
+    VALID_SUFFIXES = {".plist", ".json", ".data", ".db", ".sqlite", ".sqlite3", ""}
     for cache_dir in FINDMY_CACHE_DIRS:
         base = Path(cache_dir).expanduser()
         if not base.exists():
@@ -166,11 +267,14 @@ def scan_all_devices() -> list[dict]:
         for candidate in base.rglob("*"):
             if not candidate.is_file() or candidate.stat().st_size == 0:
                 continue
-            if candidate.suffix.lower() not in (".plist", ".json", ".data", ""):
+            if candidate.suffix.lower() not in VALID_SUFFIXES:
                 continue
-            data = read_file(str(candidate))
-            if data:
-                ingest(data)
+            try_file(candidate)
+
+    # 3) Spotlight fallback — useful if Apple moves the cache in a future macOS
+    if not seen_names:
+        for p in spotlight_findmy_files():
+            try_file(p)
 
     return list(seen_names.values())
 
@@ -190,6 +294,22 @@ def export_json(devices: list[dict]):
 
 
 # ── Monitor loop ──────────────────────────────────────────────────────────────
+
+def debug_scan():
+    """Print every candidate file the script finds, then exit."""
+    print("=" * 62)
+    print("  Find My Monitor — DEBUG SCAN")
+    print("=" * 62)
+    print("\nSearching known paths and Spotlight for Find My data...\n")
+    devices = scan_all_devices(debug=True)
+    print(f"\nResult: {len(devices)} device(s) with location data found.")
+    for d in devices:
+        print(f"  • {d['name']} — {d['lat']:.6f}, {d['lon']:.6f}")
+    if not devices:
+        print("\nTip: Make sure Find My is open and has loaded devices at least once.")
+        print("     You may also need to grant Full Disk Access to Terminal in")
+        print("     System Settings → Privacy & Security → Full Disk Access.")
+
 
 def monitor(target_name: str | None, export: bool):
     print("=" * 62)
@@ -254,10 +374,15 @@ def monitor(target_name: str | None, export: bool):
 # ── Entry point ───────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    args         = [a for a in sys.argv[1:] if a != "--export"]
-    do_export    = "--export" in sys.argv
-    target       = args[0] if args else None
+    flags      = {"--export", "--debug"}
+    do_export  = "--export" in sys.argv
+    do_debug   = "--debug"  in sys.argv
+    args       = [a for a in sys.argv[1:] if a not in flags]
+    target     = args[0] if args else None
     try:
-        monitor(target, do_export)
+        if do_debug:
+            debug_scan()
+        else:
+            monitor(target, do_export)
     except KeyboardInterrupt:
         print("\nMonitor stopped.")
