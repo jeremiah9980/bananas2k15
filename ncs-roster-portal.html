@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NCS 12U Central Texas Roster Portal — Bananas 2K15</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <style>
+    /* ── Portal controls ── */
+    .rp-controls {
+      display: grid;
+      grid-template-columns: 2fr 2fr 1fr;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .rp-field label {
+      display: block;
+      font-family: var(--display);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 6px;
+    }
+    .rp-input {
+      width: 100%;
+      font-family: var(--body);
+      font-size: 14px;
+      color: var(--ink);
+      background: var(--white);
+      border: 1px solid var(--g4);
+      border-radius: 8px;
+      padding: 10px 12px;
+      transition: border-color .12s, box-shadow .12s;
+    }
+    .rp-input:focus {
+      outline: none;
+      border-color: var(--yellow);
+      box-shadow: 0 0 0 3px rgba(245,196,0,.18);
+    }
+
+    /* ── Summary stats ── */
+    .rp-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .rp-stat {
+      background: var(--white);
+      border: 1px solid var(--g4);
+      border-top: 3px solid var(--blue);
+      border-radius: 8px;
+      padding: 10px 16px;
+      min-width: 96px;
+    }
+    .rp-stat .num {
+      font-family: var(--display);
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--blue);
+      line-height: 1;
+    }
+    .rp-stat .lbl {
+      font-family: var(--display);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--g3);
+      margin-top: 4px;
+    }
+
+    /* ── Team meta line ── */
+    .rp-team-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+      margin-bottom: 14px;
+      font-size: 14px;
+      color: var(--g1);
+    }
+    .rp-team-meta .name {
+      font-family: var(--display);
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--ink);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+    .rp-team-meta .loc { display: inline-flex; align-items: center; gap: 5px; color: var(--g2); }
+
+    /* ── Roster table ── */
+    .rp-table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--g4); }
+    .rp-table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 620px; }
+    .rp-table th {
+      background: var(--blue);
+      color: var(--yellow);
+      font-family: var(--display);
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 11px 14px;
+      text-align: left;
+      font-size: 12px;
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+    }
+    .rp-table th .ti { font-size: 13px; opacity: .55; }
+    .rp-table th.sorted .ti { opacity: 1; }
+    .rp-table td {
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--g4);
+      color: var(--g1);
+      white-space: nowrap;
+    }
+    .rp-table tr:nth-child(even) td { background: var(--g5); }
+    .rp-table tr:hover td { background: var(--blue-l); }
+    .rp-num {
+      font-family: var(--display);
+      font-weight: 900;
+      color: var(--blue2);
+      background: var(--yellow-m);
+      border: 1px solid var(--yellow);
+      border-radius: 6px;
+      padding: 1px 9px;
+      font-size: 13px;
+    }
+    .rp-name { font-weight: 600; color: var(--ink); }
+    .rp-pos {
+      display: inline-block;
+      font-family: var(--display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--blue2);
+      background: var(--blue-l);
+      border-radius: 20px;
+      padding: 2px 9px;
+    }
+
+    /* ── States / banners ── */
+    .rp-banner {
+      border-left: 4px solid var(--yellow);
+      background: var(--yellow-l);
+      border-radius: 0 8px 8px 0;
+      padding: 12px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: var(--ink2);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .rp-banner .ti { color: var(--yellow2); font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .rp-empty {
+      text-align: center;
+      padding: 56px 20px;
+      color: var(--g3);
+      border: 2px dashed var(--g4);
+      border-radius: 12px;
+      background: var(--white);
+    }
+    .rp-empty .ti { font-size: 40px; color: var(--g4); margin-bottom: 10px; display: block; }
+    .rp-empty-h {
+      font-family: var(--display);
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--g2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 720px) {
+      .rp-controls { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<script src="assets/js/nav.js"></script>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-kicker">NCS Monitor · Talent Scouting</div>
+    <h1>12U Roster Portal</h1>
+    <div class="hero-sub">Central Texas</div>
+    <div class="hero-rule"></div>
+    <p class="hero-tagline">
+      Pull rosters for every 12U team across Central Texas in one place — select a
+      team to scout players and identify talent in the surrounding area.
+    </p>
+  </div>
+</section>
+
+<div class="page">
+  <section class="section">
+    <div class="section-label">NCS 12U · Central Texas · 2026</div>
+    <h2>Team Rosters</h2>
+    <div class="section-rule"></div>
+
+    <div class="rp-banner" id="rpBanner">
+      <i class="ti ti-info-circle"></i>
+      <span>
+        Teams are synced from the live <strong>NCS Monitor</strong> roster feed
+        (#bananas-coaches). Player rows shown here are <strong>sample data</strong>
+        for demonstration until the live NCS roster pull is connected.
+      </span>
+    </div>
+
+    <!-- Controls -->
+    <div class="rp-controls">
+      <div class="rp-field">
+        <label for="teamSel">Select Team</label>
+        <select class="rp-input" id="teamSel"></select>
+      </div>
+      <div class="rp-field">
+        <label for="search">Search Players</label>
+        <input class="rp-input" id="search" type="text" placeholder="Name, position, jersey #…" autocomplete="off">
+      </div>
+      <div class="rp-field">
+        <label for="posSel">Position</label>
+        <select class="rp-input" id="posSel">
+          <option value="">All positions</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Team meta + stats -->
+    <div class="rp-team-meta" id="teamMeta"></div>
+    <div class="rp-stats" id="rpStats"></div>
+
+    <!-- Table -->
+    <div class="rp-table-wrap" id="tableWrap">
+      <table class="rp-table" id="rosterTable">
+        <thead>
+          <tr>
+            <th data-sort="num">#  <i class="ti ti-arrows-sort"></i></th>
+            <th data-sort="name">Player <i class="ti ti-arrows-sort"></i></th>
+            <th data-sort="pos">Pos <i class="ti ti-arrows-sort"></i></th>
+            <th data-sort="bats">Bats <i class="ti ti-arrows-sort"></i></th>
+            <th data-sort="throws">Throws <i class="ti ti-arrows-sort"></i></th>
+            <th data-sort="grad">Grad <i class="ti ti-arrows-sort"></i></th>
+          </tr>
+        </thead>
+        <tbody id="rosterBody"></tbody>
+      </table>
+    </div>
+
+    <div class="rp-empty" id="rpEmpty" style="display:none">
+      <i class="ti ti-users-group"></i>
+      <div class="rp-empty-h">No players match</div>
+      <div>Try a different team, position, or search term.</div>
+    </div>
+  </section>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-brand">Bananas 2K15</div>
+  <div class="footer-links">
+    <a href="/bananas2k15/index.html">Home</a>
+    <a href="/bananas2k15/ncs-dashboard.html">NCS Dashboard</a>
+    <a href="/bananas2k15/coaching.html">Coaching</a>
+    <a href="/bananas2k15/contact.html">Contact</a>
+  </div>
+  <p>Select Softball · Central Texas · NCS 12U Talent Scouting</p>
+</footer>
+
+<script src="assets/js/ncs-rosters.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  const data   = window.NCS_DATA || { teams: [] };
+  const teams  = data.teams;
+
+  const teamSel  = document.getElementById('teamSel');
+  const posSel   = document.getElementById('posSel');
+  const search   = document.getElementById('search');
+  const body     = document.getElementById('rosterBody');
+  const tableWrap= document.getElementById('tableWrap');
+  const empty    = document.getElementById('rpEmpty');
+  const meta     = document.getElementById('teamMeta');
+  const stats    = document.getElementById('rpStats');
+  const banner   = document.getElementById('rpBanner');
+
+  let sortKey = 'num';
+  let sortDir = 1;
+
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ── Populate team dropdown ──
+  teams.forEach((t, i) => {
+    const o = document.createElement('option');
+    o.value = i;
+    o.textContent = `${t.name} — ${t.city}, ${t.state}`;
+    teamSel.appendChild(o);
+  });
+
+  // ── Position filter (union across all teams) ──
+  const allPos = [...new Set(teams.flatMap(t => t.roster.map(p => p.pos)))].sort();
+  allPos.forEach(p => {
+    const o = document.createElement('option');
+    o.value = p; o.textContent = p;
+    posSel.appendChild(o);
+  });
+
+  function currentTeam() { return teams[teamSel.value] || teams[0]; }
+
+  function filteredRoster() {
+    const team = currentTeam();
+    const q = search.value.trim().toLowerCase();
+    const pos = posSel.value;
+    let rows = team.roster.slice();
+
+    if (pos) rows = rows.filter(p => p.pos === pos);
+    if (q) rows = rows.filter(p =>
+      p.name.toLowerCase().includes(q) ||
+      p.pos.toLowerCase().includes(q) ||
+      String(p.num).includes(q) ||
+      String(p.grad).includes(q)
+    );
+
+    rows.sort((a, b) => {
+      let av = a[sortKey], bv = b[sortKey];
+      if (sortKey === 'num' || sortKey === 'grad') { av = Number(av); bv = Number(bv); }
+      else { av = String(av).toLowerCase(); bv = String(bv).toLowerCase(); }
+      if (av < bv) return -1 * sortDir;
+      if (av > bv) return  1 * sortDir;
+      return 0;
+    });
+    return rows;
+  }
+
+  function renderMeta() {
+    const t = currentTeam();
+    meta.innerHTML =
+      `<span class="name">${esc(t.name)}</span>` +
+      `<span class="loc"><i class="ti ti-map-pin"></i>${esc(t.city)}, ${esc(t.state)}</span>` +
+      `<span class="loc"><i class="ti ti-building"></i>${esc(t.org)}</span>` +
+      `<span class="badge badge-blue">${esc(t.age)}</span>` +
+      (t.sample ? `<span class="badge badge-gray">Sample roster</span>` : `<span class="badge badge-gold">Live</span>`);
+
+    banner.style.display = t.sample ? 'flex' : 'none';
+  }
+
+  function renderStats(rows) {
+    const t = currentTeam();
+    const pitchers = t.roster.filter(p => p.pos === 'P').length;
+    const catchers = t.roster.filter(p => p.pos === 'C').length;
+    const cards = [
+      { num: t.roster.length, lbl: 'Players' },
+      { num: rows.length,     lbl: 'Showing' },
+      { num: pitchers,        lbl: 'Pitchers' },
+      { num: catchers,        lbl: 'Catchers' }
+    ];
+    stats.innerHTML = cards.map(c =>
+      `<div class="rp-stat"><div class="num">${c.num}</div><div class="lbl">${c.lbl}</div></div>`
+    ).join('');
+  }
+
+  function renderTable() {
+    const rows = filteredRoster();
+    renderMeta();
+    renderStats(rows);
+
+    if (rows.length === 0) {
+      tableWrap.style.display = 'none';
+      empty.style.display = 'block';
+      return;
+    }
+    tableWrap.style.display = 'block';
+    empty.style.display = 'none';
+
+    body.innerHTML = rows.map(p => `
+      <tr>
+        <td><span class="rp-num">${esc(p.num)}</span></td>
+        <td class="rp-name">${esc(p.name)}</td>
+        <td><span class="rp-pos">${esc(p.pos)}</span></td>
+        <td>${esc(p.bats)}</td>
+        <td>${esc(p.throws)}</td>
+        <td>${esc(p.grad)}</td>
+      </tr>`).join('');
+
+    document.querySelectorAll('#rosterTable th').forEach(th => {
+      th.classList.toggle('sorted', th.dataset.sort === sortKey);
+    });
+  }
+
+  // ── Events ──
+  teamSel.addEventListener('change', renderTable);
+  posSel.addEventListener('change', renderTable);
+  search.addEventListener('input', renderTable);
+
+  document.querySelectorAll('#rosterTable th').forEach(th => {
+    th.addEventListener('click', () => {
+      const key = th.dataset.sort;
+      if (key === sortKey) sortDir *= -1;
+      else { sortKey = key; sortDir = 1; }
+      renderTable();
+    });
+  });
+
+  // ── Boot ──
+  if (teams.length) renderTable();
+})();
+</script>
+</body>
+</html>
