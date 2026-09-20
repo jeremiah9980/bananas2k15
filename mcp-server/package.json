@@ -1,0 +1,21 @@
+{
+  "name": "rallyiq-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for the RallyIQ / Next-Gen-Rally-OS platform — 47 tools",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "better-sqlite3": "^9.4.3",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.8",
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3"
+  }
+}
